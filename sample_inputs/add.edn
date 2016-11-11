@@ -1,0 +1,93 @@
+(edif Combinational
+  (edifversion 2 0 0)
+  (edifLevel 0)
+  (keywordmap (keywordlevel 0))
+(status
+ (written
+  (timeStamp 2016 11 10 18 25 25)
+  (program "Vivado" (version "2015.2"))
+  (comment "Built on 'Fri Jun 26 16:35:25 MDT 2015'")
+  (comment "Built by 'xbuild'")
+ )
+)
+  (Library hdi_primitives
+    (edifLevel 0)
+    (technology (numberDefinition ))
+   (cell OBUF (celltype GENERIC)
+     (view netlist (viewtype NETLIST)
+       (interface 
+        (port O (direction OUTPUT))
+        (port I (direction INPUT))
+       )
+     )
+   )
+   (cell INV (celltype GENERIC)
+     (view netlist (viewtype NETLIST)
+       (interface
+         (port I (direction INPUT))
+         (port O (direction OUTPUT))
+       )
+     )
+   )
+  )
+  (Library work
+    (edifLevel 0)
+    (technology (numberDefinition ))
+   (cell RTL_ADD (celltype GENERIC)
+     (view RTL_ADD (viewtype NETLIST)
+       (interface 
+        (port I0 (direction INPUT))
+        (port I1 (direction INPUT))
+        (port O (direction OUTPUT))
+       )
+
+           (property XLNX_LINE_COL (integer 1245440))
+     )
+   )
+   (cell Combinational (celltype GENERIC)
+     (view Combinational (viewtype NETLIST)
+       (interface 
+        (port iA (direction INPUT))
+        (port iB (direction INPUT))
+        (port oD (direction OUTPUT))
+       )
+       (contents
+         (instance oD_OBUF_inst (viewref netlist (cellref OBUF (libraryref hdi_primitives)))
+           (property OPT_INSERTED (boolean (true)))
+         )
+         (instance oD_i (viewref RTL_ADD (cellref RTL_ADD (libraryref work)))
+           (property XLNX_LINE_COL (integer 1245440))
+         )
+         (net iA (joined
+          (portref I0 (instanceref oD_i))
+          (portref iA)
+          )
+         )
+         (net iB (joined
+          (portref I1 (instanceref oD_i))
+          (portref iB)
+          )
+         )
+         (net oD (joined
+          (portref O (instanceref oD_OBUF_inst))
+          (portref oD)
+          )
+         )
+         (net oD_OBUF (joined
+          (portref I (instanceref oD_OBUF_inst))
+          (portref O (instanceref oD_i))
+          )
+         )
+       )
+
+           (property XLNX_LINE_COL (integer 462080))
+     )
+   )
+  )
+(comment "Reference To The Cell Of Highest Level")
+
+  (design Combinational
+    (cellref Combinational (libraryref work))
+    (property part (string "xc7a35tcpg236-1"))
+  )
+)
