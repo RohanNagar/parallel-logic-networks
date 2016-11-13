@@ -33,13 +33,6 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     __syncthreads();
   } 
 
-  // test code
-   for(uint32_t i = 0; i < num_row; i++){    
-    matrix[i * num_col +  tid] =  sMatrix[i * num_col + tid];
-    __syncthreads();
-  } 
-  return;
-
   // evaluate circuit (0 -> num_row - 1)
   for(uint32_t i = 1; i < num_row; i++){
     gateEntry = sMatrix[i * num_col + tid];    
@@ -94,6 +87,13 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     sMatrix[i * num_col + tid] |= setOUT(gateOut);
     __syncthreads(); 
   } 
+
+  // test code
+   for(uint32_t i = 0; i < num_row; i++){    
+    matrix[i * num_col +  tid] =  sMatrix[i * num_col + tid];
+    __syncthreads();
+  } 
+  return;
 
   // enter output values 
   if(tid < num_out){
