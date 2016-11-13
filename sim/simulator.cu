@@ -26,6 +26,8 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     __syncthreads();
   }
 
+  return;
+
   // enter input values (0) 
   if(tid < num_inp){
     sMatrix[tid] &= (~OUT_MASK);
@@ -153,6 +155,9 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   Simulate<<<1, matrix->getNumCol(), mat_size>>>(d_matrix, matrix->getNumRow(), matrix->getNumCol(),
                                                  d_input, inp_size, d_output, out_size);
   cout << "Completed simulation \n";
+  
+  cudaMemcpy(matrix->getRawMatrix(), d_matrix, mat_size, cudaMemcpyHostToDevice); 
+  return;
  
   // Copy results back to host
   cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
