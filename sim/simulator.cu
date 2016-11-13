@@ -26,14 +26,19 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     __syncthreads();
   }
 
-  return;
-
   // enter input values (0) 
   if(tid < num_inp){
     sMatrix[tid] &= (~OUT_MASK);
     sMatrix[tid] |= setOUT(input[tid]); // TODO will need to fix based on location of input..
     __syncthreads();
   } 
+
+  // test code
+   for(uint32_t i = 0; i < num_row; i++){    
+    matrix[i * num_col +  tid] =  sMatrix[i * num_col + tid];
+    __syncthreads();
+  } 
+  return;
 
   // evaluate circuit (0 -> num_row - 1)
   for(uint32_t i = 1; i < num_row; i++){
