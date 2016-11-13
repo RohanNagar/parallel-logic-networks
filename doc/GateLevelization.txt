@@ -1,8 +1,10 @@
 To create gate level. (could use cuda to parallize... lol) (ALAP)
--Keep track of the Top Module! we need to know the PORT_Is and PORT_Os of it
--Use a BFS from the output. (top level is 0, bottom level is max height)
- -BFS down, making each place 1+ 
--Use global counter to keep track of gate widths and assign it to gate and increment.
+-Keep track of the Top Module! we need to know the PORT_Is and PORT_Os of it. ALSO NULL/INFINITE for starting value..
+-Use a ALAP BFS from the output. (top level is 0, bottom level is max height, as late as possible BFS)
+  - Possible Solution for this is use a sorted queue based on gate level of pointers to the gate.
+    (this is important because. ill explain later... but doing this will keep you from unnecessarily touching each gate more than once)
+    (if you touch something that is smaller than you, reevaluate, and add it to the queue and update the childern's value...
+-Use global counter to keep track of gate widths and assign it to gate and increment when touched.
 
 To create gate matrix.
 -
