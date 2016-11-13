@@ -9,7 +9,7 @@ using namespace std;
   MATRIX INPUT to CUDA
   Each gate entry is 64 bits
   Output|  Gate| I1 row| I1 col| I0 row| I0 col
-      63| 62-56|  55-42|  41-28|  27-14|   13-0
+   63-62| 61-56|  55-42|  41-28|  27-14|   13-0
   Circuit gate width and height must be less than 16,384 because 14 bits per row and col
   Hardcoded, but can be modified for larger examples  
   Can be seen as a self contained unit for thread block
@@ -17,32 +17,52 @@ using namespace std;
 
 #define DEBUG      1 // Debug checks
 
-#define GATE_BMASK  0x007F
+// Number of bits for gate entry values
+#define OUT_NUMB     2 // 0, 1, X, Z
+#define GATE_NUMB    6  
+#define I0R_NUMB    14
+#define I0C_NUMB    14
+#define I1R_NUMB    14
+#define I1C_NUMB    14
+
+// Bit mask for gate entry values
+#define OUT_BMASK   0x0003
+#define GATE_BMASK  0x002F
 #define INP_BMASK   0x3FFF
 
-#define GATE_SHFT  56
-#define I0R_SHFT   14
-#define I0C_SHFT    0
-#define I1R_SHFT   42
-#define I1C_SHFT   28
+// Location of gate entry values
+#define OUT_SHFT    62
+#define GATE_SHFT   56
+#define I0R_SHFT    14
+#define I0C_SHFT     0
+#define I1R_SHFT    42
+#define I1C_SHFT    28
 
-#define GATE_MASK  GATE_BMASK << GATE_SHFT
-#define I0R_MASK   INP_BMASK << I0R_SHFT
-#define I0C_MASK   INP_BMASK << I0C_SHFT
-#define I1R_MASK   INP_BMASK << I1R_SHFT
-#define I1C_MASK   INP_BMASK << I1C_SHFT
+// Mask for gate entry values
+#define OUT_MASK    OUT_BMASK << OUT_SHFT
+#define GATE_MASK   GATE_BMASK << GATE_SHFT
+#define I0R_MASK    INP_BMASK << I0R_SHFT
+#define I0C_MASK    INP_BMASK << I0C_SHFT
+#define I1R_MASK    INP_BMASK << I1R_SHFT
+#define I1C_MASK    INP_BMASK << I1C_SHFT
 
-#define setGATE(x) (((uint64_t)x & GATE_BMASK) << GATE_SHFT)
-#define setI0R(x)  (((uint64_t)x & INP_BMASK) << I0R_SHFT)
-#define setI0C(x)  (((uint64_t)x & INP_BMASK) << I0C_SHFT)
-#define setI1R(x)  (((uint64_t)x & INP_BMASK) << I1R_SHFT)
-#define setI1C(x)  (((uint64_t)x & INP_BMASK) << I1C_SHFT)
-#define getGATE(x) (((uint64_t)x >> GATE_SHFT) & GATE_BMASK)
-#define getI0R(x)  (((uint64_t)x >> I0R_SHFT) & INP_BMASK)
-#define getI0C(x)  (((uint64_t)x >> I0C_SHFT) & INP_BMASK)
-#define getI1R(x)  (((uint64_t)x >> I1R_SHFT) & INP_BMASK)
-#define getI1C(x)  (((uint64_t)x >> I1C_SHFT) & INP_BMASK)
+// Function macros to set gate entry values
+#define setOUT(x)   (((uint64_t)x & OUT_BMASK) << OUT_SHFT)
+#define setGATE(x)  (((uint64_t)x & GATE_BMASK) << GATE_SHFT)
+#define setI0R(x)   (((uint64_t)x & INP_BMASK) << I0R_SHFT)
+#define setI0C(x)   (((uint64_t)x & INP_BMASK) << I0C_SHFT)
+#define setI1R(x)   (((uint64_t)x & INP_BMASK) << I1R_SHFT)
+#define setI1C(x)   (((uint64_t)x & INP_BMASK) << I1C_SHFT)
 
+// Function macros to get gate entry values
+#define getOUT(x)   (((uint64_t)x >> OUT_SHFT) & OUT_BMASK)
+#define getGATE(x)  (((uint64_t)x >> GATE_SHFT) & GATE_BMASK)
+#define getI0R(x)   (((uint64_t)x >> I0R_SHFT) & INP_BMASK)
+#define getI0C(x)   (((uint64_t)x >> I0C_SHFT) & INP_BMASK)
+#define getI1R(x)   (((uint64_t)x >> I1R_SHFT) & INP_BMASK)
+#define getI1C(x)   (((uint64_t)x >> I1C_SHFT) & INP_BMASK)
+
+// Gate type enum and names
 enum GateType
 {
   PORT_I,
@@ -59,7 +79,7 @@ enum GateType
 
 string const GateNames[NUM_GATES] = {" PI", " PO", "BUF", "INV", "AND", " OR", \
                                      "XOR", "NND", "NOR"};
-
+// Class to create gate matrix
 class gateMatrix{
 private:
   uint64_t** matrix;

@@ -4,3 +4,6 @@ test: gateMatrix.cpp gateMatrix.h main.cpp
 
 testClean: test
 	rm test
+
+cuda: simulator.cu gateMatrix.h gateMatrix.cpp
+	g++ sumulator

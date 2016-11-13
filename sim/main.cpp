@@ -50,5 +50,5 @@ int main(void){
   }
 
   testMat.printMatrix();
-  testMat.outputMatrix();
+  testMat.outputMatrixHeader();
 }
