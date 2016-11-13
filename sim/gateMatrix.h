@@ -62,9 +62,19 @@ using namespace std;
 #define getI1R(x)   (((uint64_t)x >> I1R_SHFT) & INP_BMASK)
 #define getI1C(x)   (((uint64_t)x >> I1C_SHFT) & INP_BMASK)
 
-// Gate type enum and names
-enum GateType
+// Logic values
+typedef enum LogicValue
 {
+  O,
+  I,
+  X,
+  Z,  
+}LogicValue;
+
+// Gate type enum and names
+typedef enum GateType
+{
+  NO_GATE,
   PORT_I,
   PORT_O,
   OBUF,
@@ -75,29 +85,33 @@ enum GateType
   RTL_NAND,
   RTL_NOR,
   NUM_GATES,
-};
+}GateType;
 
-string const GateNames[NUM_GATES] = {" PI", " PO", "BUF", "INV", "AND", " OR", \
+string const GateNames[NUM_GATES] = {"___", " PI", " PO", "BUF", "INV", "AND", " OR", \
                                      "XOR", "NND", "NOR"};
 // Class to create gate matrix
 class gateMatrix{
 private:
-  uint64_t** matrix;
+  uint64_t* matrix;
   uint32_t num_row;
   uint32_t num_col;
+  uint32_t num_inp;
+  uint32_t num_out;
 
 public: 
 // Constructor
   // creates matrix for CUDA for simulation 
-  gateMatrix(uint32_t num_row, uint32_t num_col);
+  gateMatrix(uint32_t num_row, uint32_t num_col, uint32_t num_inp, uint32_t num_out);
   ~gateMatrix();
 
 // Set and Get Functions
 
   // return raw matrix format
-  uint64_t** getRawMatrix(void);
+  uint64_t* getRawMatrix(void);
   uint32_t getNumRow(void);
   uint32_t getNumCol(void); 
+  uint32_t getNumInp(void);
+  uint32_t getNumOut(void);
   
   // add a gate entry to the matrix (either seperate values or entry itself)
   void addGate(uint16_t O_row, uint16_t O_col, GateType gate, 

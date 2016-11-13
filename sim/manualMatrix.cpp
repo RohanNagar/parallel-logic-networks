@@ -14,7 +14,7 @@ int getI(string &input){
 }
 
 int main(void){
-  int Nr, Nc, Gt, Or, Oc, I0r, I0c, I1r, I1c;
+  int Nr, Nc, Ni, No, Gt, Or, Oc, I0r, I0c, I1r, I1c;
   string input;
   bool done = false;
 
@@ -23,7 +23,12 @@ int main(void){
   getline(cin, input); Nr = getI(input);
   cout << "Enter gate width per level: ";
   getline(cin, input); Nc = getI(input);
-  gateMatrix manualMat = gateMatrix(Nr, Nc);
+  cout << "Enter number of gate inputs: ";
+  getline(cin, input); Ni = getI(input);
+  cout << "Enter number of gate outputs: ";
+  getline(cin, input); No = getI(input);
+ 
+  gateMatrix manualMat = gateMatrix(Nr, Nc, Ni, No);
   
   while(!done){
     cout << "Enter gate type: ";
