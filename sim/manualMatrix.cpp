@@ -23,7 +23,7 @@ int main(void){
   getline(cin, input); Nr = getI(input);
   cout << "Enter gate width per level: ";
   getline(cin, input); Nc = getI(input);
-  gateMatrix testMat = gateMatrix(Nr, Nc);
+  gateMatrix manualMat = gateMatrix(Nr, Nc);
   
   while(!done){
     cout << "Enter gate type: ";
@@ -41,7 +41,7 @@ int main(void){
     cout << "Enter input1 gate position: ";
     getline(cin, input); I1c = getI(input);
 
-    testMat.addGate(Or, Oc, (GateType)Gt, I0r, I0c, I1r, I1c);
+    manualMat.addGate(Or, Oc, (GateType)Gt, I0r, I0c, I1r, I1c);
 
     cout << "Done?";
     getline(cin, input);
@@ -49,6 +49,6 @@ int main(void){
       done = true;    
   }
 
-  testMat.printMatrix();
-  testMat.outputMatrixHeader();
+  manualMat.printMatrix();
+  manualMat.outputMatrixHeader();
 }
