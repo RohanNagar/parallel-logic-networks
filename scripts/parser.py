@@ -160,6 +160,7 @@ def main(infile_name, outfile_name):
             # and start creating the new one
             if words[0] == 'cell':
                 if current_cell is not None:
+                    add_net_to_cell(current_net, current_cell, all_cells)
                     all_cells.append(current_cell)
                     outfile.write(str(current_cell) + '\n\n')
 
