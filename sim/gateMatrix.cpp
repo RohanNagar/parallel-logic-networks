@@ -53,7 +53,7 @@ using namespace std;
 
 #if DEBUG
   void gateMatrix::clearGate(uint16_t O_row, uint16_t O_col){
-    if(num_row < O_row, num_col < O_col){
+    if(num_row < O_row || num_col < O_col){
        cout << "Gate entry out of bounds\n"; 
     } else{
       matrix[O_row][O_col] = 0;

@@ -5,10 +5,14 @@
 #include <fstream>
 #include <vector>
 
-#include "CudaMat.h" // using header to create the matrix 
+#include "CudaMat.h" // using header to create the matrix
+#include "gateMatrix.h" 
 using namespace std;
 
 void SimulateOnCuda(uint64_t** matrix);
+#if DEBUG
+gateMatrix* createMatrixForCuda(void);
+#endif 
 
 int main(void){  //int argc, char** argv){
   // currently using the header file instead of input file 
@@ -21,9 +25,11 @@ int main(void){  //int argc, char** argv){
   // Take graph matrix, and put it into cuda.... 
   // using for loop instead to create matrix from "addMatrix.h" (hard coded)
 #if DEBUG
-  uint64_t** matrix = createMatrixForCuda();
+  gateMatrix* matrix = createMatrixForCuda();
 
 //  SimulateOnCuda(CUDA_MATRIX, ADD_MATRIX_ROW, ADD_MATRIX_COL);
+  
+  matrix->printMatrix();
 
   delete matrix;
 #endif
@@ -49,15 +55,14 @@ void SimulateOnCuda(uint64_t** matrix, uint32_t num_row, uint32_t num_col,
 } */
 
 #if DEBUG
-uint64_t** createMatrixForCuda(void){
-  uint64_t** matrix = new uint64_t*[CUDA_MATRIX_ROW];
+gateMatrix* createMatrixForCuda(void){
+
+  gateMatrix* matrix = new gateMatrix(CUDA_MATRIX_ROW, CUDA_MATRIX_COL);
+
   for(int i = 0; i < CUDA_MATRIX_ROW; i++){
-    matrix[i] = new uint64_t[CUDA_MATRIX_COL];
     for(int j = 0; j < CUDA_MATRIX_COL; j++){
-      matrix[i] = CUDA_MATRIX[i][j];
-      cout << "" << CUDA_MATRIX[i][j] << " ";
+      matrix->addGate(CUDA_MATRIX[i][j], i, j);
     }
-    cout << "\n";
   } 
   return matrix;
 }

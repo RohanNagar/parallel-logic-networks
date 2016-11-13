@@ -6,7 +6,7 @@ testClean: test
 	rm test
 
 cuda: simulator.cu gateMatrix.cpp
-	nvcc -arch=compute_35 -code=sm_35 simulator.cu gateMatrix.cpp -o simulator
+	nvcc -arch=compute_35 -code=sm_35 simulator.cu -x cu gateMatrix.cpp -o simulator
 
 cleanCuda: simulator
 	rm simulator
