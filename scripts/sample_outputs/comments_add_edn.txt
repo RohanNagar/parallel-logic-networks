@@ -1,0 +1,16 @@
+OBUF -i I -o O
+
+INV -i I -o O
+
+RTL_ADD -i I0 I1 -o O
+
+Combinational -i iA iB -o oD
+	Instances:                 // ex: <object_name> <object_type>   
+		oD_OBUF_inst OBUF        // looks good
+		oD_i RTL_ADD             
+	Nets:                      // ex: Ouput <- Inputs, Inputs, Inputs
+		iA <- oD_i I0            // don't need the last portref (add "<" to help ben now to connect right values to iA)
+		iB <- oD_i I1            // ^ same, don't need the last portref
+		oD_OBUF_inst O <- oD     // ^ same, and also, if possible, when you see an ouput port (ex: port oD), swap direction
+                oD_i O <- oD_OBUF_inst I // missing
+    
