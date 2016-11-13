@@ -161,7 +161,8 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
                                                  d_input, inp_size, d_output, out_size);
   cout << "Completed simulation \n";
   
-  cudaMemcpy(matrix->getRawMatrix(), d_matrix, mat_size, cudaMemcpyHostToDevice); 
+  // test code 
+  cudaMemcpy(matrix->getRawMatrix(), d_matrix, mat_size, cudaMemcpyDeviceToHost); 
   return;
  
   // Copy results back to host
