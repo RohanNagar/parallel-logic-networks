@@ -80,7 +80,7 @@ using namespace std;
       for(int j = 0; j < num_col; j++){
         outFile << "" << matrix[i][j] << ", ";
       }
-      outFile << " \\\n"; 
+      outFile << " \n"; 
     } 
     outFile << "};";
     outFile.close();
