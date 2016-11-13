@@ -12,19 +12,19 @@ namespace pln {
 /**
  * We represent the graph using an adjacency list. The adjacency list looks like:
  * 
- *  Vertex        List of Adjacent vertexs (Vector)
+ *  Vertex      List of Adjacent vertexs (Vector)
  *  0           1, 2, 3
  *  1           4, 3
  *  2           3
  *  3           4
  *  4           <empty>
  *
- * To represent the whole structure above, it is easy to use the ordered map from stl.
+ * To represent the whole structure above, it is easy to use a containing vector from the stl.
  */
 class graph {
 
 private:
-    std::map<vertex_t, std::vector<vertex_t>> m_graph;
+    std::vector<std::vector<vertex_t>> m_graph;
 
 public:
     graph();
