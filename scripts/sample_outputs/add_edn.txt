@@ -11,5 +11,4 @@ Combinational -i iA iB -o oD
 	Nets:
 		iA <- oD_i I0
 		iB <- oD_i I1
-		oD <- oD_OBUF_inst O
-		oD_OBUF <- oD_OBUF_inst I, oD_i O
+		oD_OBUF_inst O <- oD
