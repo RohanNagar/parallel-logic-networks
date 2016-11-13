@@ -35,13 +35,38 @@ class Net():
         self.output = self.inputs[0]
         del self.inputs[0]
 
-    def check_output(self, cells):
+    def check_output(self, current_cell, all_cells):
         if self.output is not None:
             return True
 
-        # TODO: determine if there is an input that should be an output
+        index = None
+        for idx, inp in enumerate(self.inputs):
+            name, port = inp.split(' ')
+            typ = None
 
-        return False
+            instances = current_cell.get_instances()
+            for instance in instances:
+                if instance.split(' ')[0] == name:
+                    typ = instance.split(' ')[1]
+
+            if typ is None:
+                print('No type found')
+                return False
+
+            for cell in all_cells:
+                if cell.get_name() == typ and cell.contains_output(port):
+                    self.output = inp
+                    index = idx
+                    break
+
+            if index is not None:
+                break
+
+        if index is None:
+            return False
+
+        del self.inputs[index]
+        return True
 
     def __str__(self):
         result = self.output + ' <-'
@@ -61,6 +86,9 @@ class Cell():
         self.instances = list()
         self.nets = list()
 
+    def get_name(self):
+        return self.name
+
     def add_input(self, name):
         self.inputs.append(name)
 
@@ -69,6 +97,9 @@ class Cell():
 
     def add_instance(self, name):
         self.instances.append(name)
+
+    def get_instances(self):
+        return self.instances
 
     def add_net(self, name):
         self.nets.append(name)
@@ -128,7 +159,10 @@ def main(infile_name, outfile_name):
 
             if words[0] == 'net':
                 if current_net is not None:
-                    current_cell.add_net(current_net)
+                    if current_net.check_output(current_cell, all_cells):
+                        current_cell.add_net(current_net)
+                    else:
+                        print('Could not find an output for the current net')
 
                 current_net = Net(words[1])
 
@@ -142,7 +176,7 @@ def main(infile_name, outfile_name):
 
         # Write the last cell
         if current_net is not None:
-            if current_net.check_output(all_cells):
+            if current_net.check_output(current_cell, all_cells):
                 current_cell.add_net(current_net)
             else:
                 print('Could not find an output for the current net')
