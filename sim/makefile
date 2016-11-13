@@ -1,8 +1,8 @@
 
-test: gateMatrix.cpp gateMatrix.h manualMatrix.cpp
-	g++ gateMatrix.cpp gateMatrix.h manualMatrix.cpp -o manualMatrix
+manual: gateMatrix.cpp manualMatrix.cpp
+	g++ gateMatrix.cpp manualMatrix.cpp -o manualMatrix
 
-testClean: manualMatrix
+manualClean: manualMatrix
 	rm manualMatrix
 
 cuda: simulator.cu gateMatrix.cpp

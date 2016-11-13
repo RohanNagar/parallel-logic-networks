@@ -27,14 +27,14 @@ int main(void){  //int argc, char** argv){
 #if DEBUG
   gateMatrix* matrix = createMatrixForCuda();
 
-//  SimulateOnCuda(CUDA_MATRIX, ADD_MATRIX_ROW, ADD_MATRIX_COL);
+  SimulateOnCuda(CUDA_MATRIX, ADD_MATRIX_ROW, ADD_MATRIX_COL);
   
   matrix->printMatrix();
 
   delete matrix;
 #endif
 }
-/*
+
 void SimulateOnCuda(uint64_t** matrix, uint32_t num_row, uint32_t num_col, 
                     uint64_t* input, uint64_t* output){
   // Initialize pointers for cuda memory
@@ -52,7 +52,7 @@ void SimulateOnCuda(uint64_t** matrix, uint32_t num_row, uint32_t num_col,
   // Copy results back to host
   cudaMemcpy 
 
-} */
+} 
 
 #if DEBUG
 gateMatrix* createMatrixForCuda(void){

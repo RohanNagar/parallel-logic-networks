@@ -87,9 +87,17 @@ private:
   uint32_t num_col;
 
 public: 
+// Constructor
   // creates matrix for CUDA for simulation 
   gateMatrix(uint32_t num_row, uint32_t num_col);
   ~gateMatrix();
+
+// Set and Get Functions
+
+  // return raw matrix format
+  uint64_t** getRawMatrix(void);
+  uint32_t getNumRow(void);
+  uint32_t getNumCol(void); 
   
   // add a gate entry to the matrix (either seperate values or entry itself)
   void addGate(uint16_t O_row, uint16_t O_col, GateType gate, 

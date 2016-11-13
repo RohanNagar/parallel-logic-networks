@@ -13,11 +13,13 @@ using namespace std;
   MATRIX INPUT to CUDA
   Each gate entry is 64 bits
   Output|  Gate| I1 row| I1 col| I0 row| I0 col
-      63| 62-56|  55-42|  41-28|  27-14|   13-0
+   63-62| 61-56|  55-42|  41-28|  27-14|   13-0
   Circuit gate width and height must be less than 16,384 because 14 bits per row and col
   Hardcoded, but can be modified for larger examples  
   Can be seen as a self contained unit for thread block
 */
+
+// Construtor 
 
   gateMatrix::gateMatrix(uint32_t num_row, uint32_t num_col){
     matrix = new uint64_t*[num_row];
@@ -31,6 +33,21 @@ using namespace std;
     for(int i = 0; i < num_row; i++)
       delete matrix[i];
     delete matrix;
+  }
+
+
+// Set and Get Functions
+
+  uint64_t** gateMatrix::getRawMatrix(void){
+    return matrix;
+  }
+  
+  uint32_t gateMatrix::getNumRow(void){
+    return num_row;
+  }
+
+  uint32_t gateMatrix::getNumCol(void){
+    return num_col;
   }
 
   void gateMatrix::addGate(uint16_t O_row, uint16_t O_col, GateType gate, 
