@@ -9,6 +9,29 @@
 #include "gateMatrix.h" 
 using namespace std;
 
+
+// when simulating with multiple inputs, try to not leave here..
+// so setup a shared memory gate representation and work here... .
+__global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col, 
+                         LogicValue* input, uint32_t num_inp,   
+                         LogicValue* output, uint32_t num_out){ // use LogicValue** and num_tests
+  extern __shared__ int sMatrix[];
+  // int myId = threadIdx.x +blockDim.x * blockIdx.x;
+  int tid = threadIdx.x; // TODO num_col == block? 
+
+  // move gate network into shared memory
+  for(int i = 0; i < num_row; i++){    
+    sMatrix[i * num_col +  tid] =  matrix[i * num_col + tid];
+    __syncthreads();
+  }
+
+  // enter input values 
+  sMatrix[tid] = sMatrix[tid] |  
+  
+   
+
+
+}
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* ouput);
 #if DEBUG
 gateMatrix* createMatrixForCuda(void);
@@ -46,20 +69,23 @@ int main(void){  //int argc, char** argv){
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   // Initialize pointers for cuda memory
   uint64_t *d_matrix, *d_input, *d_output;
-  uint32_t size = matrix->getNumRow() * matrix->getNumCol() * sizeof(uint64_t);
-   
+  uint32_t mat_size = matrix->getNumRow() * matrix->getNumCol() * sizeof(uint64_t);
+  uint32_t inp_size = matrix->getNumInp() * sizeof(LogicValue);
+  uint32_t out_size = matrix->getNumOut() * sizeof(LogicValue);
+
   // Allocate space for device copies
-  cudaMalloc((void**)&d_matrix, size);
-  cudaMalloc((void**)&d_input, matrix.getNumInp*sizeof(LogicValue));
-  cudaMalloc((void**)&d_output, matrix.getNumOut*sizeof(LogicValue));
+  cudaMalloc((void**)&d_matrix, mat_size);
+  cudaMalloc((void**)&d_input, inp_size);
+  cudaMalloc((void**)&d_output, out_size); 
 
   // Copy inputs to device
- cudaMemcpy(d_matrix, matrix->getRawMatrix(), size);
+  cudaMemcpy(d_matrix, matrix->getRawMatrix(), mat_size, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_input, input, inp_size, cudaMemcpyHostToDevice);
   
   // Launch kernel on CPU
-  
+   
   // Copy results back to host
-//  cudaMemcpy 
+  cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
 
 } 
 
