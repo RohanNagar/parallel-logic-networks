@@ -140,17 +140,21 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   cudaMalloc((void**)&d_matrix, mat_size);
   cudaMalloc((void**)&d_input, inp_size);
   cudaMalloc((void**)&d_output, out_size); 
+  cout << "Allocating Space\n";
 
   // Copy inputs to device
   cudaMemcpy(d_matrix, matrix->getRawMatrix(), mat_size, cudaMemcpyHostToDevice);
   cudaMemcpy(d_input, input, inp_size, cudaMemcpyHostToDevice);
-  
+  cout << "Copying Inputs \n";  
+
   // Launch kernel on CPU
   Simulate<<<1, matrix->getNumCol(), mat_size>>>(d_matrix, matrix->getNumRow(), matrix->getNumCol(),
                                                  d_input, inp_size, d_output, out_size);
+  cout << "Completed simulation \n";
  
   // Copy results back to host
   cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
+  cout << "Copying outputs\n";
 } 
 
 #if DEBUG
