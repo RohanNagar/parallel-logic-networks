@@ -12,3 +12,4 @@ Combinational -i iA iB -o oD
 		iA - oD_i I0, iA
 		iB - oD_i I1, iB
 		oD - oD_OBUF_inst O, oD
+		oD_OBUF - oD_OBUF_inst I, oD_i O
