@@ -18,6 +18,7 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
   extern __shared__ int sMatrix[];
   // int myId = threadIdx.x +blockDim.x * blockIdx.x;
   int tid = threadIdx.x; // TODO num_col == block? 
+  int gateEntry, gateInp0, gateInp1, gateOut;
 
   // move gate network into shared memory
   for(int i = 0; i < num_row; i++){    
@@ -25,13 +26,72 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     __syncthreads();
   }
 
-  // enter input values 
-  sMatrix[tid] = sMatrix[tid] |  
-  
-   
+  // enter input values (0) 
+  if(tid < num_inp){
+    sMatrix[tid] |= setOUT(input[tid]); // TODO will need to fix based on location of input...
+  } 
 
+  // evaluate circuit (0 -> num_row - 1)
+  for(int i = 1; i < num_row; i++){
+    gateEntry = sMatrix[i * num_col + tid];    
+    gateInp0  = getOUT(sMatrix[getI0R(gateEntry) * num_col + getI0C(gateEntry)]); 
+    gateInp1  = getOUT(sMatrix[getI1R(gateEntry) * num_col + getI1C(gateEntry)]);
 
+    // TODO find a way to simplify?
+    switch(getGATE(gateEntry)){
+      case NO_GATE:
+        break;
+      case PORT_I:
+        break;
+      case PORT_O:
+      case OBUF:
+        gateOut = gateInp0;
+        gateOut = gateInp0; 
+        break;
+      case RTL_INV: // TODO for all gates
+        switch(gateInp0){
+          case O:
+            gateOut = I;
+            break;
+          case I: 
+            gateOut = O;
+            break;
+          case X:
+            gateOut = X;
+            break;
+          case Z:
+            gateOut = Z;
+            break;
+        }
+        break;
+      case RTL_AND:
+        gateOut = gateInp0 * gateInp1;
+        break;
+      case RTL_OR:
+        gateOut = gateInp0 + gateInp1;
+        break;
+      case RTL_XOR:
+        gateOut = gateInp0 ^ gateInp1;
+        break;
+      case RTL_NAND:
+        gateOut = !(gateInp0 * gateInp1);
+        break;
+      case RTL_NOR:
+        gateOut = !(gateInp0 + gateInp1);
+        break;
+      default:
+        break;
+    }
+    sMatrix[i * num_col + tid] |= setOUT(gateOut);
+    __syncthreads(); 
+  } 
+
+  // enter output values 
+  if(tid < num_out){
+    output[tid] = (LogicValue)setOUT(sMatrix[num_row * num_col + tid]);
+  }
 }
+
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* ouput);
 #if DEBUG
 gateMatrix* createMatrixForCuda(void);
@@ -61,6 +121,8 @@ int main(void){  //int argc, char** argv){
   SimulateOnCuda(matrix, input, output);
   
   matrix->printMatrix();
+  cout << "Inputs: " << input[0] << " " << input[1];
+  cout << "\nOutputs: " << output[0];
 
   delete matrix;
 #endif
@@ -68,7 +130,8 @@ int main(void){  //int argc, char** argv){
 
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   // Initialize pointers for cuda memory
-  uint64_t *d_matrix, *d_input, *d_output;
+  uint64_t *d_matrix;
+  LogicValue *d_input, *d_output;
   uint32_t mat_size = matrix->getNumRow() * matrix->getNumCol() * sizeof(uint64_t);
   uint32_t inp_size = matrix->getNumInp() * sizeof(LogicValue);
   uint32_t out_size = matrix->getNumOut() * sizeof(LogicValue);
@@ -83,10 +146,11 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   cudaMemcpy(d_input, input, inp_size, cudaMemcpyHostToDevice);
   
   // Launch kernel on CPU
-   
+  Simulate<<<1, matrix->getNumCol(), mat_size>>>(d_matrix, matrix->getNumRow(), matrix->getNumCol(),
+                                                 d_input, inp_size, d_output, out_size);
+ 
   // Copy results back to host
   cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
-
 } 
 
 #if DEBUG
