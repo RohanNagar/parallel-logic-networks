@@ -42,7 +42,7 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     // TODO find a way to simplify?
     switch(getGATE(gateEntry)){
       case NO_GATE:
-        gateOut = X;
+        gateOut = getGATE(gateEntry);
         break;
       case PORT_I:
         break;
