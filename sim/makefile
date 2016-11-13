@@ -1,6 +1,6 @@
 
-test: gateMatrix.cpp gateMatrix.h main.cpp
-	g++ gateMatrix.cpp gateMatrix.h main.cpp -o test
+test: gateMatrix.cpp gateMatrix.h test.cpp
+	g++ gateMatrix.cpp gateMatrix.h test.cpp -o test
 
 testClean: test
 	rm test
