@@ -5,5 +5,8 @@ test: gateMatrix.cpp gateMatrix.h main.cpp
 testClean: test
 	rm test
 
-cuda: simulator.cu gateMatrix.h gateMatrix.cpp
-	g++ sumulator
+cuda: simulator.cu gateMatrix.cpp
+	nvcc -arch=compute_35 -code=sm_35 simulator.cu gateMatrix.cpp -o simulator
+
+cleanCuda: simulator
+	rm simulator

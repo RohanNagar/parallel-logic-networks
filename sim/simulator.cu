@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "addMatrix.h" // using header to create the matrix 
-using namepsace std;
+using namespace std;
 
 void SimulateOnCuda(uint64_t** matrix);
 
@@ -23,12 +23,12 @@ int main(void){  //int argc, char** argv){
 #if DEBUG
   uint64_t** matrix = createMatrixForCuda();
 
-  SimulateOnCuda(CUDA_MATRIX, ADD_MATRIX_ROW, ADD_MATRIX_COL);
+//  SimulateOnCuda(CUDA_MATRIX, ADD_MATRIX_ROW, ADD_MATRIX_COL);
 
   delete matrix;
 #endif
 }
-
+/*
 void SimulateOnCuda(uint64_t** matrix, uint32_t num_row, uint32_t num_col, 
                     uint64_t* input, uint64_t* output){
   // Initialize pointers for cuda memory
@@ -46,7 +46,7 @@ void SimulateOnCuda(uint64_t** matrix, uint32_t num_row, uint32_t num_col,
   // Copy results back to host
   cudaMemcpy 
 
-} 
+} */
 
 #if DEBUG
 uint64_t** createMatrixForCuda(void){
