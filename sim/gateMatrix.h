@@ -94,7 +94,7 @@ public:
   // add a gate entry to the matrix (either seperate values or entry itself)
   void addGate(uint16_t O_row, uint16_t O_col, GateType gate, 
                uint16_t I0_row, uint16_t I0_col, uint16_t I1_row, uint16_t I1_col);
-  void addGate(uint64_t gate_entry, uint16_t O_row, uint1_t O_col);
+  void addGate(uint64_t gate_entry, uint16_t O_row, uint16_t O_col);
 
 #if DEBUG
   void clearGate(uint16_t O_row, uint16_t O_col);
