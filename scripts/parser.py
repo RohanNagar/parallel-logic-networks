@@ -1,5 +1,57 @@
 import argparse
 
+from itertools import product
+
+class Net():
+    '''Defines a network connection.
+    
+    Each network connection is composed of
+        - an output node
+        - a set of input nodes
+        
+    '''
+    
+    def __init__(self, name):
+        self.name = name
+        self.output = None
+        self.inputs = list()
+
+    def set_output(self, name):
+        self.output = name
+
+    def add_input(self, name):
+        self.inputs.append(name)
+
+    def swap(self):
+        ''' Swaps the output and input.
+        
+        Should only be used when there is a single input. If there 
+        is more than one input, the first input in the list is 
+        swapped with the output.
+        
+        '''
+        
+        self.inputs.append(self.output)
+        self.output = self.inputs[0]
+        del self.inputs[0]
+
+    def check_output(self, cells):
+        if self.output is not None:
+            return True
+
+        # TODO: determine if there is an input that should be an output
+
+        return False
+
+    def __str__(self):
+        result = self.output + ' <-'
+
+        for inp in self.inputs:
+            result += ' ' + inp + ','
+
+        return result.rstrip(',')
+
+
 class Cell():
 
     def __init__(self, name):
@@ -21,6 +73,9 @@ class Cell():
     def add_net(self, name):
         self.nets.append(name)
 
+    def contains_output(self, name):
+        return (name in self.outputs)
+
     def __str__(self):
         result = (self.name
                   + ' -i ' + ' '.join(name for name in self.inputs)
@@ -34,7 +89,7 @@ class Cell():
         if self.nets:
             result += '\n\tNets:'
             for net in self.nets:
-                result += ('\n\t\t' + net)
+                result += ('\n\t\t' + str(net))
 
         return result
 
@@ -44,6 +99,8 @@ def main(infile_name, outfile_name):
         current_cell = None
         current_net = None
 
+        all_cells = list()
+
         for line in infile:
             words = line.strip().split(' ')
             words = [word.strip('(').strip(')') for word in words]
@@ -52,6 +109,7 @@ def main(infile_name, outfile_name):
             # and start creating the new one
             if words[0] == 'cell':
                 if current_cell is not None:
+                    all_cells.append(current_cell)
                     outfile.write(str(current_cell) + '\n\n')
 
                 current_cell = Cell(words[1])
@@ -70,19 +128,24 @@ def main(infile_name, outfile_name):
 
             if words[0] == 'net':
                 if current_net is not None:
-                    current_cell.add_net(current_net.rstrip(','))
+                    current_cell.add_net(current_net)
 
-                current_net = (words[1] + ' -')
+                current_net = Net(words[1])
 
             if words[0] == 'portref':
                 if len(words) > 2:
-                    current_net += (' ' + words[3] + ' ' +  words[1] + ',')
+                    current_net.add_input(words[3] + ' ' + words[1])
                 else:
-                    current_net += (' ' + words[1] + ',')
+                    current_net.set_output(words[1])
+                    if current_cell.contains_output(words[1]):
+                        current_net.swap() 
 
         # Write the last cell
         if current_net is not None:
-            current_cell.add_net(current_net.rstrip(','))
+            if current_net.check_output(all_cells):
+                current_cell.add_net(current_net)
+            else:
+                print('Could not find an output for the current net')
 
         outfile.write(str(current_cell))
 
