@@ -1,0 +1,8 @@
+To create gate level. (could use cuda to parallize... lol) (ALAP)
+-Keep track of the Top Module! we need to know the PORT_Is and PORT_Os of it
+-Use a BFS from the output. (top level is 0, bottom level is max height)
+ -BFS down, making each place 1+ 
+-Use global counter to keep track of gate widths and assign it to gate and increment.
+
+To create gate matrix.
+-
