@@ -26,9 +26,9 @@ using namespace std;
 #define I1C_NUMB    14
 
 // Bit mask for gate entry values
-#define OUT_BMASK   0x0003
-#define GATE_BMASK  0x002F
-#define INP_BMASK   0x3FFF
+#define OUT_BMASK   0x0000000000000003
+#define GATE_BMASK  0x000000000000002F
+#define INP_BMASK   0x0000000000003FFF
 
 // Location of gate entry values
 #define OUT_SHFT    62
@@ -39,12 +39,12 @@ using namespace std;
 #define I1C_SHFT    28
 
 // Mask for gate entry values
-#define OUT_MASK    OUT_BMASK << OUT_SHFT
-#define GATE_MASK   GATE_BMASK << GATE_SHFT
-#define I0R_MASK    INP_BMASK << I0R_SHFT
-#define I0C_MASK    INP_BMASK << I0C_SHFT
-#define I1R_MASK    INP_BMASK << I1R_SHFT
-#define I1C_MASK    INP_BMASK << I1C_SHFT
+#define OUT_MASK    (OUT_BMASK << OUT_SHFT)
+#define GATE_MASK   (GATE_BMASK << GATE_SHFT)
+#define I0R_MASK    (INP_BMASK << I0R_SHFT)
+#define I0C_MASK    (INP_BMASK << I0C_SHFT)
+#define I1R_MASK    (INP_BMASK << I1R_SHFT)
+#define I1C_MASK    (INP_BMASK << I1C_SHFT)
 
 // Function macros to set gate entry values
 #define setOUT(x)   (((uint64_t)x & OUT_BMASK) << OUT_SHFT)

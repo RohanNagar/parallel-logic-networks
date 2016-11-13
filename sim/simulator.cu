@@ -15,24 +15,26 @@ using namespace std;
 __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col, 
                          LogicValue* input, uint32_t num_inp,   
                          LogicValue* output, uint32_t num_out){ // use LogicValue** and num_tests
-  extern __shared__ int sMatrix[];
+  extern __shared__ uint64_t sMatrix[];
   // int myId = threadIdx.x +blockDim.x * blockIdx.x;
-  int tid = threadIdx.x; // TODO num_col == block? 
-  int gateEntry, gateInp0, gateInp1, gateOut;
+  uint32_t tid = threadIdx.x; // TODO num_col == block? 
+  uint32_t gateEntry, gateInp0, gateInp1, gateOut;
 
   // move gate network into shared memory
-  for(int i = 0; i < num_row; i++){    
+  for(uint32_t i = 0; i < num_row; i++){    
     sMatrix[i * num_col +  tid] =  matrix[i * num_col + tid];
     __syncthreads();
   }
 
   // enter input values (0) 
   if(tid < num_inp){
-    sMatrix[tid] |= setOUT(input[tid]); // TODO will need to fix based on location of input...
+    sMatrix[tid] &= (~OUT_MASK);
+    sMatrix[tid] |= setOUT(input[tid]); // TODO will need to fix based on location of input..
+    __syncthreads();
   } 
 
   // evaluate circuit (0 -> num_row - 1)
-  for(int i = 1; i < num_row; i++){
+  for(uint32_t i = 1; i < num_row; i++){
     gateEntry = sMatrix[i * num_col + tid];    
     gateInp0  = getOUT(sMatrix[getI0R(gateEntry) * num_col + getI0C(gateEntry)]); 
     gateInp1  = getOUT(sMatrix[getI1R(gateEntry) * num_col + getI1C(gateEntry)]);
@@ -45,7 +47,6 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
         break;
       case PORT_O:
       case OBUF:
-        gateOut = gateInp0;
         gateOut = gateInp0; 
         break;
       case RTL_INV: // TODO for all gates
@@ -82,13 +83,14 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
       default:
         break;
     }
+    sMatrix[i * num_col + tid] &= (~OUT_MASK);
     sMatrix[i * num_col + tid] |= setOUT(gateOut);
     __syncthreads(); 
   } 
 
   // enter output values 
   if(tid < num_out){
-    output[tid] = (LogicValue)setOUT(sMatrix[num_row * num_col + tid]);
+    output[tid] = (LogicValue)setOUT(sMatrix[(num_row - 1) * num_col + tid]);
   }
 }
 
@@ -154,7 +156,7 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
  
   // Copy results back to host
   cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
-  cout << "Copying outputs\n";
+  cout << "Copying Outputs\n";
 } 
 
 #if DEBUG

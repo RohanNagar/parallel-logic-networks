@@ -1,7 +1,7 @@
 
-all: gateGraph.cpp gateGraph.h 
-	g++ gateGraph.cpp gateGraph.h -o gateGraph
+all: module.cpp module.h 
+	g++ module.cpp module.h -o createGraph
 
-clean: gateGraph 
-	rm gateGraph
+clean: createGraph 
+	rm createGraph
 
