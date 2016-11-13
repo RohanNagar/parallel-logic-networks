@@ -1,14 +1,12 @@
 import argparse
 
-from itertools import product
 
 class Net():
-    '''Defines a network connection.
+    ''' Defines a network connection.
     
-    Each network connection is composed of
-        - an output node
-        - a set of input nodes
-        
+        Each network connection is composed of
+            - an output node
+            - a set of input nodes
     '''
     
     def __init__(self, name):
@@ -25,10 +23,9 @@ class Net():
     def swap(self):
         ''' Swaps the output and input.
         
-        Should only be used when there is a single input. If there 
-        is more than one input, the first input in the list is 
-        swapped with the output.
-        
+            Should only be used when there is a single input. If there 
+            is more than one input, the first input in the list is 
+            swapped with the output.
         '''
         
         self.inputs.append(self.output)
@@ -36,6 +33,12 @@ class Net():
         del self.inputs[0]
 
     def check_output(self, current_cell, all_cells):
+        ''' Checks if self.output is not None.
+            If it is none, this method then attempts to
+            find an output port from the list of inputs.
+        '''
+        
+        # If we already have an output, we're fine
         if self.output is not None:
             return True
 
@@ -44,27 +47,33 @@ class Net():
             name, port = inp.split(' ')
             typ = None
 
+            # Find the type of the instance that matches the input name
             instances = current_cell.get_instances()
             for instance in instances:
                 if instance.split(' ')[0] == name:
                     typ = instance.split(' ')[1]
 
             if typ is None:
-                print('No type found')
-                return False
+                print('No appropriate type found.')
+                continue
 
+            # Go through all known types and see if the input port
+            # corresponds to one of that type's output ports
             for cell in all_cells:
                 if cell.get_name() == typ and cell.contains_output(port):
                     self.output = inp
                     index = idx
                     break
 
+            # If we have set the index value, then we're done
             if index is not None:
                 break
 
+        # Return false if no ports were found
         if index is None:
             return False
 
+        # Remove the set output from the inputs list
         del self.inputs[index]
         return True
 
@@ -124,6 +133,17 @@ class Cell():
 
         return result
 
+
+def add_net_to_cell(net, cell, all_cells):
+    if net is None:
+        return
+
+    if net.check_output(cell, all_cells):
+        cell.add_net(net)
+    else:
+        print('Could not find an output for the current net')
+
+
 def main(infile_name, outfile_name):
     # Open the file to read
     with open(infile_name, 'r') as infile, open(outfile_name, 'w') as outfile:
@@ -158,12 +178,9 @@ def main(infile_name, outfile_name):
                 current_cell.add_instance(words[1] + ' ' +  words[5])
 
             if words[0] == 'net':
-                if current_net is not None:
-                    if current_net.check_output(current_cell, all_cells):
-                        current_cell.add_net(current_net)
-                    else:
-                        print('Could not find an output for the current net')
-
+                add_net_to_cell(current_net, current_cell, all_cells)
+                
+                # Create a new net
                 current_net = Net(words[1])
 
             if words[0] == 'portref':
@@ -175,13 +192,9 @@ def main(infile_name, outfile_name):
                         current_net.swap() 
 
         # Write the last cell
-        if current_net is not None:
-            if current_net.check_output(current_cell, all_cells):
-                current_cell.add_net(current_net)
-            else:
-                print('Could not find an output for the current net')
-
+        add_net_to_cell(current_net, current_cell, all_cells)
         outfile.write(str(current_cell))
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('EDN File Parser')
