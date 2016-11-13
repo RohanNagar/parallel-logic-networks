@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#SBATCH -J simulator
+#SBATCH -o simulator.out%j
+#SBATCH -p gpudev 
+#SBATCH -n 32
+#SBATCH -t 00:30:00
+
+./simulator
+     
