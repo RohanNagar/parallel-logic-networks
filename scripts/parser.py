@@ -81,6 +81,9 @@ def main(infile_name, outfile_name):
                     current_net += (' ' + words[1] + ',')
 
         # Write the last cell
+        if current_net is not None:
+            current_cell.add_net(current_net.rstrip(','))
+
         outfile.write(str(current_cell))
 
 if __name__ == '__main__':
