@@ -13,7 +13,8 @@ int getI(string &input){
   return out;
 }
 
-int main(void){
+int main(int argv, char** argc){
+  if(argv < 2){ cout << "ERROR: output header file name ex: \"./manual <DESIGN.h>\"\n"; return -1;}
   int Nr, Nc, Ni, No, Gt, Or, Oc, I0r, I0c, I1r, I1c;
   string input;
   bool done = false;
@@ -55,5 +56,5 @@ int main(void){
   }
 
   manualMat.printMatrix();
-  manualMat.outputMatrixHeader();
+  manualMat.outputMatrixHeader(argc[1]);
 }

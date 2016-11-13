@@ -26,9 +26,9 @@ using namespace std;
 #define I1C_NUMB    14
 
 // Bit mask for gate entry values
-#define OUT_BMASK   0x0000000000000003
-#define GATE_BMASK  0x000000000000002F
-#define INP_BMASK   0x0000000000003FFF
+#define OUT_BMASK   0x0003
+#define GATE_BMASK  0x002F
+#define INP_BMASK   0x3FFF
 
 // Location of gate entry values
 #define OUT_SHFT    62
@@ -122,12 +122,17 @@ public:
                uint16_t I0_row, uint16_t I0_col, uint16_t I1_row, uint16_t I1_col);
   void addGate(uint64_t gate_entry, uint16_t O_row, uint16_t O_col);
 
-#if DEBUG
+  // clear a gate entry in the matrix
   void clearGate(uint16_t O_row, uint16_t O_col);
+
+  // ouput matrix to screen
   void printMatrix(void);
-  void outputMatrixHeader(void);
-//  void outputMatrixText(void);
-#endif
+
+  // output matrix to header file
+  void outputMatrixHeader(char* name);
+
+  //  void outputMatrixText(void);
+
 };
 
 #endif // GATEMATRIX_H

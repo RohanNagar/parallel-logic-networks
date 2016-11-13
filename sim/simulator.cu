@@ -4,12 +4,11 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
-#include "CudaMat.h" // using header to create the matrix
+//#include "CudaMat.h" // using header to create the matrix
 #include "gateMatrix.h" 
 using namespace std;
 
-
+ 
 // when simulating with multiple inputs, try to not leave here..
 // so setup a shared memory gate representation and work here... .
 __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col, 
@@ -95,7 +94,6 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     matrix[i * num_col +  tid] =  sMatrix[i * num_col + tid];
     __syncthreads();
   } 
-  return;
 
   // enter output values 
   if(tid < num_out){
@@ -104,9 +102,7 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
 }
 
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* ouput);
-#if DEBUG
-gateMatrix* createMatrixForCuda(void);
-#endif 
+gateMatrix* createMatrixForCuda(void); 
 
 int main(void){  //int argc, char** argv){
   // currently using the header file instead of input file 
@@ -118,7 +114,6 @@ int main(void){  //int argc, char** argv){
 
   // Take graph matrix, and put it into cuda.... 
   // using for loop instead to create matrix from "addMatrix.h" (hard coded)
-#if DEBUG
   LogicValue *input, *output;                   // given input and produced ouput
   gateMatrix* matrix = createMatrixForCuda();   // create matrix 
   input = new LogicValue[matrix->getNumInp()];  // create input 
@@ -136,7 +131,6 @@ int main(void){  //int argc, char** argv){
   cout << "\nOutputs: " << output[0];
 
   delete matrix;
-#endif
 }
 
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
@@ -162,17 +156,14 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   Simulate<<<1, matrix->getNumCol(), mat_size>>>(d_matrix, matrix->getNumRow(), matrix->getNumCol(),
                                                  d_input, inp_size, d_output, out_size);
   cout << "Completed simulation \n";
-  
-  // test code 
-  cudaMemcpy(matrix->getRawMatrix(), d_matrix, mat_size, cudaMemcpyDeviceToHost); 
-  return;
- 
+   
   // Copy results back to host
+  cudaMemcpy(matrix->getRawMatrix(), d_matrix, mat_size, cudaMemcpyDeviceToHost); 
   cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
   cout << "Copying Outputs\n";
 } 
 
-#if DEBUG
+
 gateMatrix* createMatrixForCuda(void){
 
   gateMatrix* matrix = new gateMatrix(CUDA_MATRIX_ROW, CUDA_MATRIX_COL, 
@@ -185,6 +176,5 @@ gateMatrix* createMatrixForCuda(void){
   } 
   return matrix;
 }
-#endif
 
 

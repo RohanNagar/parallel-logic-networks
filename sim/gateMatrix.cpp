@@ -1,12 +1,9 @@
-
 #include <stdint.h>
-#include "gateMatrix.h"
-#if DEBUG
+#include <string>
 #include <iostream>
 #include <fstream>
-#include <iomanip>
-#endif 
-
+#include <iomanip> 
+#include "gateMatrix.h"
 using namespace std;
 
 /*
@@ -19,8 +16,7 @@ using namespace std;
   Can be seen as a self contained unit for thread block
 */
 
-// Construtor 
-
+  // Construtor 
   gateMatrix::gateMatrix(uint32_t num_row, uint32_t num_col, uint32_t num_inp, uint32_t num_out){
     matrix = new uint64_t[num_row * num_col];
     this->num_row = num_row;
@@ -33,9 +29,7 @@ using namespace std;
     delete[] matrix;
   }
 
-
-// Set and Get Functions
-
+  // Set and Get Functions
   uint64_t* gateMatrix::getRawMatrix(void){
     return matrix;
   }
@@ -75,7 +69,6 @@ using namespace std;
     matrix[O_row * num_col + O_col] = gate_entry;
   }
 
-#if DEBUG
   void gateMatrix::clearGate(uint16_t O_row, uint16_t O_col){
     if(num_row < O_row || num_col < O_col){
        cout << "Gate entry out of bounds\n"; 
@@ -98,9 +91,9 @@ using namespace std;
     }
   }
   
-  void gateMatrix::outputMatrixHeader(){
+  void gateMatrix::outputMatrixHeader(char* name){
     ofstream outFile;
-    outFile.open("CudaMat.h");
+    outFile.open(name);
     outFile << "#include <stdint.h>\n\n";
     outFile << "#define CUDA_MATRIX_ROW " << num_row << "\n";
     outFile << "#define CUDA_MATRIX_COL " << num_col << "\n";
@@ -121,5 +114,4 @@ using namespace std;
     ofstream outFile;
     outFile.open(name += ".txt");*/
     
-#endif 
 

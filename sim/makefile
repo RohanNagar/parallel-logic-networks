@@ -6,7 +6,19 @@ manualClean: manualMatrix
 	rm manualMatrix
 
 cuda: simulator.cu gateMatrix.cpp
-	nvcc -arch=compute_35 -code=sm_35 simulator.cu -x cu gateMatrix.cpp -o simulator
+	nvcc -arch=compute_35 -code=sm_35 -include $(DESIGN.h) simulator.cu -x cu gateMatrix.cpp -o simulator
 
 cleanCuda: simulator
 	rm simulator
+
+simUser: simulator.cu gateMatrix.cpp
+	nvcc -arch=compute_35 -code=sm_35 -D USERINPUT simulator.cu -x cu gateMatrix.cpp -o simUser
+
+cleanSimUser: simUser
+	rm simUser  
+
+simText: simulator.cu gateMatrix.cpp 
+	nvcc -arch=compute_35 -code=sm_35 -D TEXTINPUT simulator.cu -x cu gateMatrix.cpp -o simText
+
+cleanSimText: simText
+	rm simText
