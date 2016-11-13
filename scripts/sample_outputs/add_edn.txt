@@ -9,7 +9,7 @@ Combinational -i iA iB -o oD
 		oD_OBUF_inst OBUF
 		oD_i RTL_ADD
 	Nets:
-		iA - oD_i I0, iA
-		iB - oD_i I1, iB
-		oD - oD_OBUF_inst O, oD
-		oD_OBUF - oD_OBUF_inst I, oD_i O
+		iA <- oD_i I0
+		iB <- oD_i I1
+		oD <- oD_OBUF_inst O
+		oD_OBUF <- oD_OBUF_inst I, oD_i O

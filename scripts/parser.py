@@ -21,6 +21,9 @@ class Cell():
     def add_net(self, name):
         self.nets.append(name)
 
+    def contains_output(self, name):
+        return (name in self.outputs)
+
     def __str__(self):
         result = (self.name
                   + ' -i ' + ' '.join(name for name in self.inputs)
@@ -72,13 +75,11 @@ def main(infile_name, outfile_name):
                 if current_net is not None:
                     current_cell.add_net(current_net.rstrip(','))
 
-                current_net = (words[1] + ' -')
+                current_net = (words[1] + ' <-')
 
             if words[0] == 'portref':
                 if len(words) > 2:
                     current_net += (' ' + words[3] + ' ' +  words[1] + ',')
-                else:
-                    current_net += (' ' + words[1] + ',')
 
         # Write the last cell
         if current_net is not None:
