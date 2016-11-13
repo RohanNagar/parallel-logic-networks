@@ -18,7 +18,8 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
   extern __shared__ uint64_t sMatrix[];
   // int myId = threadIdx.x +blockDim.x * blockIdx.x;
   uint32_t tid = threadIdx.x; // TODO num_col == block? 
-  uint32_t gateEntry, gateInp0, gateInp1, gateOut;
+  uint64_t gateEntry;
+  int gateInp0, gateInp1, gateOut;
 
   // move gate network into shared memory
   for(uint32_t i = 0; i < num_row; i++){    
@@ -36,8 +37,8 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
   // evaluate circuit (0 -> num_row - 1)
   for(uint32_t i = 1; i < num_row; i++){
     gateEntry = sMatrix[i * num_col + tid];    
-    gateInp0  = getOUT(sMatrix[getI0R(gateEntry) * num_col + getI0C(gateEntry)]); 
-    gateInp1  = getOUT(sMatrix[getI1R(gateEntry) * num_col + getI1C(gateEntry)]);
+    gateInp0  = (LogicValue)getOUT(sMatrix[getI0R(gateEntry) * num_col + getI0C(gateEntry)]); 
+    gateInp1  = (LogicValue)getOUT(sMatrix[getI1R(gateEntry) * num_col + getI1C(gateEntry)]);
 
     // TODO find a way to simplify?
     switch(getGATE(gateEntry)){
@@ -67,19 +68,19 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
         }
         break;
       case RTL_AND:
-        gateOut = gateInp0 * gateInp1;
+        gateOut = gateInp0 & gateInp1;
         break;
       case RTL_OR:
-        gateOut = gateInp0 + gateInp1;
+        gateOut = gateInp0 | gateInp1;
         break;
-      case RTL_XOR:
+      case RTL_XOR: // only works for 0 and 1
         gateOut = gateInp0 ^ gateInp1;
         break;
       case RTL_NAND:
-        gateOut = !(gateInp0 * gateInp1);
+        gateOut = !(gateInp0 & gateInp1);
         break;
       case RTL_NOR:
-        gateOut = !(gateInp0 + gateInp1);
+        gateOut = !(gateInp0 | gateInp1);
         break;
       default:
         break;
