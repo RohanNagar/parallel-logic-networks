@@ -11,6 +11,6 @@ Combinational -i iA iB -o oD
 	Nets:                      // ex: Ouput <- Inputs, Inputs, Inputs
 		iA <- oD_i I0            // don't need the last portref (add "<" to help ben now to connect right values to iA)
 		iB <- oD_i I1            // ^ same, don't need the last portref
-		oD_OBUF_inst O <- oD     // ^ same, and also, if possible, when you see an ouput port (ex: port oD), swap direction to make it easier for ben
-    oD_i O <- oD_OBUF_inst I // missing
+		oD_OBUF_inst O <- oD     // ^ same, and also, if possible, when you see an ouput port (ex: port oD), swap direction
+                oD_i O <- oD_OBUF_inst I // missing
     
