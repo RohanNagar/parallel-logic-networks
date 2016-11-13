@@ -21,7 +21,7 @@ using namespace std;
 
   gateMatrix::gateMatrix(uint32_t num_row, uint32_t num_col){
     matrix = new uint64_t*[num_row];
-    for(int i = 0; i < num_row; i++)
+    for(int i = 0; i < num_row; i++) // Initialize to 0??
       matrix[i] = new uint64_t[num_col];
     this->num_row = num_row;
     this->num_col = num_col;
@@ -45,6 +45,10 @@ using namespace std;
     }
 #endif    
     matrix[O_row][O_col] = setGATE(gate) | setI0R(I0_row) | setI0C(I0_col) | setI1R(I1_row) | setI1C(I1_col);    
+  }
+
+  void gateMatrix::addGate(uint64_t gate_entry, uint16_t O_row, uint16_t O_col){
+    matrix[O_row][O_col] = gate_entry;
   }
 
 #if DEBUG
