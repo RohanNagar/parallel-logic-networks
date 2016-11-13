@@ -90,7 +90,7 @@ using namespace std;
     for(int i = num_row - 1; i >= 0; i--){
       for(int j = 0; j < num_col; j++){
         value = matrix[i * num_col + j];
-        cout << "" << getOUT(value) <<  " " << GateNames[getGATE(value)] \
+        cout << "" << LogicNames[getOUT(value)] <<  " " << GateNames[getGATE(value)] \
              << "[" << getI0R(value) << "][" << getI0C(value) \
              << "] [" << getI1R(value) << "][" << getI1C(value) << "] "; 
       }

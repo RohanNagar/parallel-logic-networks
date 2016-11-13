@@ -69,7 +69,10 @@ typedef enum LogicValue
   I,
   X,
   Z,  
+  NUM_LOGIC,
 }LogicValue;
+
+string const LogicNames[NUM_LOGIC] = {"0", "1", "X", "Z"};
 
 // Gate type enum and names
 typedef enum GateType
