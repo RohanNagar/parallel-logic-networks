@@ -5,7 +5,7 @@
 #include <fstream>
 #include <vector>
 
-#include "addMatrix.h" // using header to create the matrix 
+#include "CudaMat.h" // using header to create the matrix 
 using namespace std;
 
 void SimulateOnCuda(uint64_t** matrix);
