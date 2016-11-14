@@ -9,6 +9,8 @@
 #include "gateMatrix.h" 
 using namespace std;
 
+#define TEST 1
+
 // GLobal functions 
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* ouput, uint32_t num_passes);
 __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col, 
@@ -29,7 +31,9 @@ int main(void){
  
   // reserving space to create matrix from graph, <Design.h>
   gateMatrix* matrix = createMatrixForCuda();
- 
+#if TEST
+cout << "Created matrix\n";
+#endif
   // parse input file
   getInput(inputFile, matrix, input, num_passes);
 
