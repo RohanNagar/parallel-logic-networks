@@ -123,8 +123,8 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     __syncthreads();
   }
 
- for(int pass = 0; pass < num_passes; pass++){ 
-
+// for(int pass = 0; pass < num_passes; pass++){ 
+   pass = 1;
     // enter input values (0) 
     if(tid < num_inp){
       sMatrix[tid] &= (~OUT_MASK);
@@ -265,32 +265,17 @@ cout << "\n";
 }
 
 void printOutput(char* outputFile, gateMatrix* matrix, LogicValue* output, uint32_t num_passes){
-  matrix->printMatrix();
+  ofstream file;
+  file.open(outputFile);
+
+  for(int i = 0; i < num_passes; i++){
+    for(int j = 0; j < matrix->getNumOut(); j++){
+      file << "" << output[i * matrix->getNumOut() + j] << " ";
+    }
+    file << "\n";
+  } 
+  file.close();
+
+  
 }
 
-
-/*  Tokenizer T = Tokenizer(' ', ' ');
-
-  int getI(string &input){
-    int out;
-    stringstream myStream(input);
-    if(!(myStream >> out))
-      cout << "getI broken";
-    return out;
-  } 
-
-  LogicValue* getUserInput(gateMatrix* matrix){
-    string in; string** token;
-    LogicValue* input = new LogicValue[matrix->getNumInp()];  
- 
-    cout << "Enter input of size " << matrix->getNumInp() << ". (ex: 0 1 0 0 1)";
-    getline(cin, in); 
-    token = T.tokenize(&in);
-    for(int i = 0; i < matrix->getNumInp(); i++){
-      input[i] = (LogicValue)getI(*token[i]); 
-      cout << "" << input[i];
-    }
-    return input; 
-  }
-  //printUserOutput();
-*/
