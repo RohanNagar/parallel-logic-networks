@@ -85,12 +85,16 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output, u
   // Launch Kernel on GPU
 #if TEST
   cout << "" << num_passes * matrix->getNumInp() << "\n";
-  for(int i = 0; i < matrix->getNumInp() * num_passes; i++){
-    cout << "" << input[i] << "\n"; 
-  }exit(1);
+  for(int i = 0; i < num_passes; i++){
+    for(int j = 0; j < matrix->getNumInp(); j++){ 
+      cout << "" << input[i * matrix->getNumInp() + j] << " "; 
+    }
+    cout << "\n";
+  }
 #endif
   Simulate<<<1, matrix->getNumCol(), mat_size>>>(d_matrix, matrix->getNumRow(), matrix->getNumCol(),
-                                                 d_input, inp_size, d_output, out_size, num_passes);
+                                                 d_input, matrix->getNumInp(), d_output, matrix->getNumOut(), 
+                                                 num_passes);
 
   // Copy matrix and results back to host
   cudaMemcpy(matrix->getRawMatrix(), d_matrix, mat_size, cudaMemcpyDeviceToHost); 
