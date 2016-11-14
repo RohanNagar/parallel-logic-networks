@@ -21,8 +21,8 @@ void getInput(char* inputFile, gateMatrix* matrix, LogicValue* input, uint32_t* 
 void printOutput(char* outputFile, gateMatrix* matrix, LogicValue* output, uint32_t num_passes);
 
 // Files for input and output
-char* const inputFile = "input.txt";
-char* const outputFile = "output.txt";
+char inputFile[]  = "input.txt";
+char outputFile[] = "output.txt";
 
 
 int main(void){ 
