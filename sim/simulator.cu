@@ -5,11 +5,11 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
-#include "Tokenizer.h"
 #include "gateMatrix.h" 
 using namespace std;
 
-#define TEST 1
+#define TEST    0
+#define TIMING  1
 
 // GLobal functions 
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* ouput, uint32_t num_passes);
@@ -46,8 +46,20 @@ cout << "Created matrix\n";
 cout << "Parsed input file\n";
 #endif
   // simulate design
+#if TIMING
+  cudaEvent_t start, stop;
+  float time;
+  cudaEventCreate(&start);
+  cudaEventCreate(&stop);
+  cudaEventRecord(start,0);
+#endif
   SimulateOnCuda(matrix, input, output, num_passes);
-
+#if TIMING
+  cudaEventRecord(stop, 0);
+  cudaEventSynchronize(stop);
+  cudaEventElapsedTime(&time, start, stop);
+  cout << "Simulation Time for " << num_passes << "Passes: " << time << "ms\n ";
+#endif
   // print output to file
   printOutput(outputFile, matrix, output, num_passes);
 
@@ -275,6 +287,6 @@ void printOutput(char* outputFile, gateMatrix* matrix, LogicValue* output, uint3
     file << "\n";
   } 
   file.close();
-  matrix->printMatrix();  
+//  matrix->printMatrix();  
 }
 
