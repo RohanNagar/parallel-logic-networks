@@ -17,7 +17,7 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
                          LogicValue* input, uint32_t num_inp,   
                          LogicValue* output, uint32_t num_out, uint32_t num_passes);
 gateMatrix* createMatrixForCuda(void); 
-void getInput(char* inputFile, gateMatrix* matrix, LogicValue* input, uint32_t* num_passes);
+void getInput(char* inputFile, gateMatrix* matrix, LogicValue** input, uint32_t* num_passes);
 void printOutput(char* outputFile, gateMatrix* matrix, LogicValue* output, uint32_t num_passes);
 
 // Files for input and output
@@ -26,9 +26,9 @@ char outputFile[] = "output.txt";
 
 
 int main(void){ 
-  LogicValue *input = 0;
-  LogicValue *output = 0;     // given inputs and produced ouputs
-  uint32_t num_passes = 0;    // number of inputs passes to iterate over
+  LogicValue *input;
+  LogicValue *output;     // given inputs and produced ouputs
+  uint32_t num_passes;    // number of inputs passes to iterate over
  
   // reserving space to create matrix from graph, <Design.h>
   gateMatrix* matrix = createMatrixForCuda();
@@ -37,8 +37,14 @@ matrix->printMatrix();
 cout << "Created matrix\n";
 #endif
   // parse input file
-  getInput(inputFile, matrix, input, &num_passes);
+  getInput(inputFile, matrix, &input, &num_passes);
 
+  // initialize output array
+  output = new LogicValue[num_passes * matrix->getNumOut()];
+
+#if TEST
+cout << "Parsed input file\n";
+#endif
   // simulate design
   SimulateOnCuda(matrix, input, output, num_passes);
 
@@ -77,6 +83,12 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output, u
   //for(int i = 0; i < iterations; i++){
 #endif    
   // Launch Kernel on GPU
+#if TEST
+  cout << "" << num_passes * matrix->getNumInp() << "\n";
+  for(int i = 0; i < matrix->getNumInp() * num_passes; i++){
+    cout << "" << input[i] << "\n"; 
+  }exit(1);
+#endif
   Simulate<<<1, matrix->getNumCol(), mat_size>>>(d_matrix, matrix->getNumRow(), matrix->getNumCol(),
                                                  d_input, inp_size, d_output, out_size, num_passes);
 
@@ -107,78 +119,83 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     __syncthreads();
   }
 
-  // enter input values (0) 
-  if(tid < num_inp){
-    sMatrix[tid] &= (~OUT_MASK);
-    sMatrix[tid] |= setOUT(input[tid]); // TODO will need to fix based on location of input..
-    __syncthreads();
-  } 
+ for(int pass = 0; pass < num_passes; pass++){ 
 
-  // evaluate circuit (0 -> num_row - 1)
-  for(uint32_t i = 1; i < num_row; i++){
-    gateEntry = sMatrix[i * num_col + tid];    
-    gateInp0  = (LogicValue)getOUT(sMatrix[getI0R(gateEntry) * num_col + getI0C(gateEntry)]); 
-    gateInp1  = (LogicValue)getOUT(sMatrix[getI1R(gateEntry) * num_col + getI1C(gateEntry)]);
+    // enter input values (0) 
+    if(tid < num_inp){
+      sMatrix[tid] &= (~OUT_MASK);
+      sMatrix[tid] |= setOUT(input[tid + pass * num_inp]); // TODO will need to fix based on location of input..
+      __syncthreads();
+    } 
 
-    // TODO find a way to simplify?
-    switch(getGATE(gateEntry)){
-      case NO_GATE:
-        gateOut = 0;
-        break;
-      case PORT_I:
-        break;
-      case PORT_O:
-      case OBUF:
-        gateOut = gateInp0; 
-        break;
-      case RTL_INV: // TODO for all gates
-        switch(gateInp0){
-          case O:
-            gateOut = I;
-            break;
-          case I: 
-            gateOut = O;
-            break;
-          case X:
-            gateOut = X;
-            break;
-          case Z:
-            gateOut = Z;
-            break;
-        }
-        break;
-      case RTL_AND:
-        gateOut = gateInp0 & gateInp1;
-        break;
-      case RTL_OR:
-        gateOut = gateInp0 | gateInp1;
-        break;
-      case RTL_XOR: // only works for 0 and 1
-        gateOut = gateInp0 ^ gateInp1;
-        break;
-      case RTL_NAND:
-        gateOut = !(gateInp0 & gateInp1);
-        break;
-      case RTL_NOR:
-        gateOut = !(gateInp0 | gateInp1);
-        break;
-      default:
-        break;
+    // evaluate circuit (0 -> num_row - 1)
+    for(uint32_t i = 1; i < num_row; i++){
+      gateEntry = sMatrix[i * num_col + tid];    
+      gateInp0  = (LogicValue)getOUT(sMatrix[getI0R(gateEntry) * num_col + getI0C(gateEntry)]); 
+      gateInp1  = (LogicValue)getOUT(sMatrix[getI1R(gateEntry) * num_col + getI1C(gateEntry)]);
+
+      // TODO find a way to simplify?
+      switch(getGATE(gateEntry)){
+        case NO_GATE:
+          gateOut = 0;
+          break;
+        case PORT_I:
+          break;
+        case PORT_O:
+        case OBUF:
+          gateOut = gateInp0; 
+          break;
+        case RTL_INV: // TODO for all gates
+          switch(gateInp0){
+            case O:
+              gateOut = I;
+              break;
+            case I: 
+              gateOut = O;
+              break;
+            case X:
+              gateOut = X;
+              break;
+            case Z:
+              gateOut = Z;
+              break;
+          }
+          break;
+        case RTL_AND:
+          gateOut = gateInp0 & gateInp1;
+          break;
+        case RTL_OR:
+          gateOut = gateInp0 | gateInp1;
+          break;
+        case RTL_XOR: // only works for 0 and 1
+          gateOut = gateInp0 ^ gateInp1;
+          break;
+        case RTL_NAND:
+          gateOut = !(gateInp0 & gateInp1);
+          break;
+        case RTL_NOR:
+          gateOut = !(gateInp0 | gateInp1);
+          break;
+        default:
+          break;
+      }
+      sMatrix[i * num_col + tid] &= (~OUT_MASK);
+      sMatrix[i * num_col + tid] |= setOUT(gateOut);
+      __syncthreads(); 
+    } 
+
+#if TEST
+    // test code
+    for(uint32_t i = 0; i < num_row; i++){    
+      matrix[i * num_col +  tid] =  sMatrix[i * num_col + tid];
+      __syncthreads();
+    }  
+#endif 
+
+    // enter output values 
+    if(tid < num_out){
+      output[tid + pass * num_out] = (LogicValue)setOUT(sMatrix[(num_row - 1) * num_col + tid]);
     }
-    sMatrix[i * num_col + tid] &= (~OUT_MASK);
-    sMatrix[i * num_col + tid] |= setOUT(gateOut);
-    __syncthreads(); 
-  } 
-
-  // test code
-   for(uint32_t i = 0; i < num_row; i++){    
-    matrix[i * num_col +  tid] =  sMatrix[i * num_col + tid];
-    __syncthreads();
-  } 
-
-  // enter output values 
-  if(tid < num_out){
-    output[tid] = (LogicValue)setOUT(sMatrix[(num_row - 1) * num_col + tid]);
   }
 }
 
@@ -198,7 +215,7 @@ gateMatrix* createMatrixForCuda(void){
   return matrix;
 }
 
-void getInput(char* inputFile, gateMatrix* matrix, LogicValue* input, uint32_t* num_passes){
+void getInput(char* inputFile, gateMatrix* matrix, LogicValue** input, uint32_t* num_passes){
   ifstream file;
   file.open(inputFile);
   if(!file){
@@ -219,34 +236,32 @@ cout << "" << *num_passes << "\n";
     free(str_c);
   }
  
-  input = new LogicValue[matrix->getNumInp() *  (*num_passes)];
+  *input = new LogicValue[matrix->getNumInp() *  (*num_passes)];
 
   // get inputs
-  int i = 0; int j = 0;
+  int i = 0;
   while(getline(file,str)){
     char* str_c = strdup(str.c_str());
     char* token = strtok(str_c, delim);
     while(token != NULL){
-      input[i * matrix->getNumInp() + j] = (LogicValue)atoi(token);
+      (*input)[i] = (LogicValue)atoi(token);
       token = strtok(NULL, delim);
 #if TEST
-cout << "" << input[i * matrix->getNumInp() + j] << " ";
+cout << "" << (*input)[i] << " ";
 #endif
-      j++;
+      i++;
     }
 #if TEST
 cout << "\n";
 #endif
-    i++;
     free(str_c);
   }
   
   file.close();
-  exit(1);
 }
 
 void printOutput(char* outputFile, gateMatrix* matrix, LogicValue* output, uint32_t num_passes){
-
+  matrix->printMatrix();
 }
 
 
