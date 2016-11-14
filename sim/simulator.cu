@@ -2,9 +2,10 @@
 #include <string.h>
 #include <stdlib.h> 
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <vector>
-//#include "CudaMat.h" // using header to create the matrix
+#include "Tokenizer.h"
 #include "gateMatrix.h" 
 using namespace std;
 
@@ -104,9 +105,11 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* ouput);
 gateMatrix* createMatrixForCuda(void); 
 
+#ifdef USERINPUT
+  LogicValue* getUserInput(gateMatrix* matrix);
+#endif
+
 int main(void){  //int argc, char** argv){
-  // currently using the header file instead of input file 
-  // currently using hardcoded output file name
 
   // reserving space for function to create graph from python input text file (ben)
   
@@ -133,6 +136,7 @@ int main(void){  //int argc, char** argv){
   delete matrix;
 }
 
+// Initialize Memory to simulate for Cuda
 void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   // Initialize pointers for cuda memory
   uint64_t *d_matrix;
@@ -144,31 +148,47 @@ void SimulateOnCuda(gateMatrix* matrix, LogicValue* input, LogicValue* output){
   // Allocate space for device copies
   cudaMalloc((void**)&d_matrix, mat_size);
   cudaMalloc((void**)&d_input, inp_size);
-  cudaMalloc((void**)&d_output, out_size); 
+  cudaMalloc((void**)&d_output, out_size);
+#if DEBUG 
   cout << "Allocating Space\n";
-
+#endif
   // Copy inputs to device
   cudaMemcpy(d_matrix, matrix->getRawMatrix(), mat_size, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_input, input, inp_size, cudaMemcpyHostToDevice);
+#if DEBUG
   cout << "Copying Inputs \n";  
+#endif
 
-  // Launch kernel on CPU
+  // Launch kernel on CPU 
+#ifdef USERINPUT
+while(1){
+  input = getUserInput(matrix); return; 
+  cudaMemcpy(d_input, input, inp_size, cudaMemcpyHostToDevice); 
   Simulate<<<1, matrix->getNumCol(), mat_size>>>(d_matrix, matrix->getNumRow(), matrix->getNumCol(),
                                                  d_input, inp_size, d_output, out_size);
+  cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
+  //printUserOutput(output);
+}
+#endif
+
+
+#if DEBUG
   cout << "Completed simulation \n";
-   
+#endif   
   // Copy results back to host
   cudaMemcpy(matrix->getRawMatrix(), d_matrix, mat_size, cudaMemcpyDeviceToHost); 
-  cudaMemcpy(output, d_output, out_size, cudaMemcpyDeviceToHost);
+#if DEBUG
   cout << "Copying Outputs\n";
+#endif
 } 
 
 
+/* HELPER FUNCTIONS */
+
+// create Matrix for Cuda from Design header file (DESIGN.h) 
 gateMatrix* createMatrixForCuda(void){
 
   gateMatrix* matrix = new gateMatrix(CUDA_MATRIX_ROW, CUDA_MATRIX_COL, 
                                       CUDA_MATRIX_INP, CUDA_MATRIX_OUT);
-
   for(int i = 0; i < CUDA_MATRIX_ROW; i++){
     for(int j = 0; j < CUDA_MATRIX_COL; j++){
       matrix->addGate(CUDA_MATRIX[i][j], i, j);
@@ -177,4 +197,29 @@ gateMatrix* createMatrixForCuda(void){
   return matrix;
 }
 
+#ifdef USERINPUT
+  Tokenizer T = Tokenizer(' ', ' ');
 
+  int getI(string &input){
+    int out;
+    stringstream myStream(input);
+    if(!(myStream >> out))
+      cout << "getI broken";
+    return out;
+  } 
+
+  LogicValue* getUserInput(gateMatrix* matrix){
+    string in; string** token;
+    LogicValue* input = new LogicValue[matrix->getNumInp()];  
+ 
+    cout << "Enter input of size " << matrix->getNumInp() << ". (ex: 0 1 0 0 1)";
+    getline(cin, in); 
+    token = T.tokenize(&in);
+    for(int i = 0; i < matrix->getNumInp(); i++){
+      input[i] = (LogicValue)getI(*token[i]); 
+      cout << "" << input[i];
+    }
+    return input; 
+  }
+  //printUserOutput();
+#endif
