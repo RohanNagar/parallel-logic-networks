@@ -6,7 +6,7 @@ manualClean: manualMatrix
 	rm manualMatrix
 
 cuda: simulator.cu gateMatrix.cpp Tokenizer.cpp
-	nvcc -arch=compute_35 -code=sm_35 -include $(Design.h) simulator.cu -x cu gateMatrix.cpp Tokenizer.cpp -o simulator
+	nvcc -arch=compute_35 -code=sm_35 -include $(Design.h) simulator.cu -x cu gateMatrix.cpp -o simulator
 
 cleanCuda: simulator
 	rm simulator

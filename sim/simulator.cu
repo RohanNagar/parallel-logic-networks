@@ -26,22 +26,24 @@ char outputFile[] = "output.txt";
 
 
 int main(void){ 
-  LogicValue *input, *output; // given inputs and produced ouputs
-  uint32_t *num_passes;       // number of inputs passes to iterate over
+  LogicValue *input = 0;
+  LogicValue *output = 0;     // given inputs and produced ouputs
+  uint32_t num_passes = 0;    // number of inputs passes to iterate over
  
   // reserving space to create matrix from graph, <Design.h>
   gateMatrix* matrix = createMatrixForCuda();
 #if TEST
-cout << "Created matrix\n"; return 0;
+matrix->printMatrix();
+cout << "Created matrix\n";
 #endif
   // parse input file
-  getInput(inputFile, matrix, input, num_passes);
+  getInput(inputFile, matrix, input, &num_passes);
 
   // simulate design
-  SimulateOnCuda(matrix, input, output, *num_passes);
+  SimulateOnCuda(matrix, input, output, num_passes);
 
   // print output to file
-  printOutput(outputFile, matrix, output, *num_passes);
+  printOutput(outputFile, matrix, output, num_passes);
 
   // deallocate memory
   delete input;
@@ -211,24 +213,34 @@ void getInput(char* inputFile, gateMatrix* matrix, LogicValue* input, uint32_t* 
     char* str_c = strdup(str.c_str());
     char* token = strtok(str_c, delim);
     *num_passes = atoi(token);
-cout << "" << *num_passes;
+#if TEST
+cout << "" << *num_passes << "\n";
+#endif  
     free(str_c);
   }
-  
+ 
   input = new LogicValue[matrix->getNumInp() *  (*num_passes)];
 
   // get inputs
-  for(int i = 0; i < *num_passes; i++){
-    int j = 0;
-    while(getline(file,str)){
-      char* str_c = strdup(str.c_str());
-      char* token = strtok(str_c, delim);
+  int i = 0; int j = 0;
+  while(getline(file,str)){
+    char* str_c = strdup(str.c_str());
+    char* token = strtok(str_c, delim);
+    while(token != NULL){
       input[i * matrix->getNumInp() + j] = (LogicValue)atoi(token);
-cout << "" << input[i * matrix->getNumInp() + j];
-     j++;
+      token = strtok(NULL, delim);
+#if TEST
+cout << "" << input[i * matrix->getNumInp() + j] << " ";
+#endif
+      j++;
     }
+#if TEST
+cout << "\n";
+#endif
+    i++;
+    free(str_c);
   }
-
+  
   file.close();
   exit(1);
 }
