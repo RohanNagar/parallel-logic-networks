@@ -32,7 +32,7 @@ int main(void){
   // reserving space to create matrix from graph, <Design.h>
   gateMatrix* matrix = createMatrixForCuda();
 #if TEST
-cout << "Created matrix\n";
+cout << "Created matrix\n"; return 0;
 #endif
   // parse input file
   getInput(inputFile, matrix, input, num_passes);
