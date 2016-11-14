@@ -123,8 +123,8 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
     __syncthreads();
   }
 
-// for(int pass = 0; pass < num_passes; pass++){ 
-   pass = 1;
+  for(int pass = 0; pass < num_passes; pass++){ 
+   
     // enter input values (0) 
     if(tid < num_inp){
       sMatrix[tid] &= (~OUT_MASK);
@@ -198,7 +198,7 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
 
     // enter output values 
     if(tid < num_out){
-      output[tid + pass * num_out] = (LogicValue)setOUT(sMatrix[(num_row - 1) * num_col + tid]);
+      output[tid + pass * num_out] = (LogicValue)getOUT(sMatrix[(num_row - 1) * num_col + tid]);
     }
   }
 }
@@ -275,7 +275,6 @@ void printOutput(char* outputFile, gateMatrix* matrix, LogicValue* output, uint3
     file << "\n";
   } 
   file.close();
-
-  
+  matrix->printMatrix();  
 }
 
