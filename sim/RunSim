@@ -6,5 +6,5 @@
 #SBATCH -n 32
 #SBATCH -t 00:30:00
 
-./simulator
+./simulator 
      
