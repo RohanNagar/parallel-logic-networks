@@ -1,5 +1,4 @@
 import argparse
-import re
 
 
 class Net():
@@ -135,26 +134,21 @@ class Cell():
         return result
 
 
-def add_array_inputs(cell, words, sizes):
+def add_array_ports(cell, words, sizes):
     name = words[3]
+    typ = words[len(words) - 1]
     start, stop = words[4].split(':')
     start, stop = int(start[len(start) - 1]), int(stop[0]) - 1
 
     sizes[name] = start
 
     for i in range(start, stop, -1):
-        cell.add_input(name + str(i))
-
-
-def add_array_outputs(cell, words, sizes):
-    name = words[3]
-    start, stop = words[4].split(':')
-    start, stop = int(start[len(start) - 1]), int(stop[0]) - 1
-
-    sizes[name] = start
-
-    for i in range(start, stop, -1):
-        cell.add_output(name + str(i))
+        if typ == 'INPUT':
+            cell.add_input(name + str(i))
+        elif typ == 'OUTPUT':
+            cell.add_output(name + str(i))
+        else:
+            print('Error adding array ports to cell.')
 
 
 def add_net_to_cell(net, cell, all_cells):
@@ -194,18 +188,15 @@ def main(infile_name, outfile_name):
             if words[0] == 'port':
                 last = len(words) - 1
 
-                if words[last] == 'OUTPUT':
-                    if words[1] == 'array':
-                        add_array_outputs(current_cell, words, arr_sizes)
-                    else:
-                        current_cell.add_output(words[1])
-                elif words[last] == 'INPUT':
-                    if words[1] == 'array':
-                        add_array_inputs(current_cell, words, arr_sizes)
-                    else:
-                        current_cell.add_input(words[1])
+                if words[1] == 'array':
+                    add_array_ports(current_cell, words, arr_sizes)
                 else:
-                    print('Um... something went wrong')
+                    if words[last] == 'OUTPUT':
+                        current_cell.add_output(words[1])
+                    elif words[last] == 'INPUT':
+                        current_cell.add_input(words[1])
+                    else:
+                        print('Um... something went wrong')
 
             if words[0] == 'instance':
                 # Renamed instances have different positions
@@ -226,9 +217,9 @@ def main(infile_name, outfile_name):
             if words[0] == 'portref':
                 if words[1] == 'member':
                     arr_name = words[2]
-                    arr_size = arr_sizes[arr_name]
                     idx = int(words[3])
-                    name = arr_name + str(arr_size - idx)
+                    name = arr_name + str(arr_sizes[arr_name] - idx)
+                    
                     current_net.set_output(name)
                     if current_cell.contains_output(name):
                         current_net.swap()
