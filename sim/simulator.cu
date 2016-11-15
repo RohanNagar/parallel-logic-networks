@@ -58,7 +58,7 @@ cout << "Parsed input file\n";
   cudaEventRecord(stop, 0);
   cudaEventSynchronize(stop);
   cudaEventElapsedTime(&time, start, stop);
-  cout << "Simulation Time for " << num_passes << "Passes: " << time << "ms\n ";
+  cout << "Simulation Time for " << num_passes << " Passes: " << time << "ms\n";
 #endif
   // print output to file
   printOutput(outputFile, matrix, output, num_passes);
@@ -287,6 +287,6 @@ void printOutput(char* outputFile, gateMatrix* matrix, LogicValue* output, uint3
     file << "\n";
   } 
   file.close();
-//  matrix->printMatrix();  
+  matrix->printMatrix();  
 }
 
