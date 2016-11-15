@@ -24,14 +24,14 @@ Sub_1Bit -i A B Bin -o Bout Diff
 		A <- Bout2_i I0, Diff0_i I0
 		B <- Bout0_i__0 I0, Bout1_i I1, Diff0_i I1
 		Bin <- Bout0_i__0 I1, Bout1_i__0 I1, Diff_i I1
-		Bout_i O <- Bout
-		Bout0_i O <- Bout_i I0
-		Bout0_i__0 O <- Bout_i I1
-		Bout1_i O <- Bout0_i I0
-		Bout1_i__0 O <- Bout0_i I1
-		Bout2_i O <- Bout1_i I0, Bout1_i__0 I0
-		Diff_i O <- Diff
-		Diff0_i O <- Diff_i I0
+		Bout_i <- Bout
+		Bout0_i <- Bout_i I0
+		Bout0_i__0 <- Bout_i I1
+		Bout1_i <- Bout0_i I0
+		Bout1_i__0 <- Bout0_i I1
+		Bout2_i <- Bout1_i I0, Bout1_i__0 I0
+		Diff_i <- Diff
+		Diff0_i <- Diff_i I0
 
 Sub_1Bit_HD7 -i A B Bin -o Bout Diff
 	Instances:
@@ -44,18 +44,18 @@ Sub_1Bit_HD7 -i A B Bin -o Bout Diff
 		Diff0_i RTL_XOR0
 		Diff_i RTL_XOR0
 	Nets:
-		Diff0_i O <- Diff_i I0
+		Diff0_i <- Diff_i I0
 		A <- Bout2_i I0, Diff0_i I0
 		B <- Bout0_i__0 I0, Bout1_i I1, Diff0_i I1
 		Bin <- Bout0_i__0 I1, Bout1_i__0 I1, Diff_i I1
-		Bout_i O <- Bout
-		Bout0_i O <- Bout_i I0
-		Bout0_i__0 O <- Bout_i I1
-		Bout1_i O <- Bout0_i I0
-		Bout1_i__0 O <- Bout0_i I1
-		Bout2_i O <- Bout1_i I0, Bout1_i__0 I0
-		Diff_i O <- Diff
-		Diff0_i O <- Diff_i I0
+		Bout_i <- Bout
+		Bout0_i <- Bout_i I0
+		Bout0_i__0 <- Bout_i I1
+		Bout1_i <- Bout0_i I0
+		Bout1_i__0 <- Bout0_i I1
+		Bout2_i <- Bout1_i I0, Bout1_i__0 I0
+		Diff_i <- Diff
+		Diff0_i <- Diff_i I0
 
 Sub_1Bit_HD8 -i A B Bin -o Bout Diff
 	Instances:
@@ -68,18 +68,18 @@ Sub_1Bit_HD8 -i A B Bin -o Bout Diff
 		Diff0_i RTL_XOR0
 		Diff_i RTL_XOR0
 	Nets:
-		Diff0_i O <- Diff_i I0
+		Diff0_i <- Diff_i I0
 		A <- Bout2_i I0, Diff0_i I0
 		B <- Bout0_i__0 I0, Bout1_i I1, Diff0_i I1
 		Bin <- Bout0_i__0 I1, Bout1_i__0 I1, Diff_i I1
-		Bout_i O <- Bout
-		Bout0_i O <- Bout_i I0
-		Bout0_i__0 O <- Bout_i I1
-		Bout1_i O <- Bout0_i I0
-		Bout1_i__0 O <- Bout0_i I1
-		Bout2_i O <- Bout1_i I0, Bout1_i__0 I0
-		Diff_i O <- Diff
-		Diff0_i O <- Diff_i I0
+		Bout_i <- Bout
+		Bout0_i <- Bout_i I0
+		Bout0_i__0 <- Bout_i I1
+		Bout1_i <- Bout0_i I0
+		Bout1_i__0 <- Bout0_i I1
+		Bout2_i <- Bout1_i I0, Bout1_i__0 I0
+		Diff_i <- Diff
+		Diff0_i <- Diff_i I0
 
 Sub_1Bit_HD9 -i A B Bin -o Bout Diff
 	Instances:
@@ -92,18 +92,18 @@ Sub_1Bit_HD9 -i A B Bin -o Bout Diff
 		Diff0_i RTL_XOR0
 		Diff_i RTL_XOR0
 	Nets:
-		Diff0_i O <- Diff_i I0
+		Diff0_i <- Diff_i I0
 		A <- Bout2_i I0, Diff0_i I0
 		B <- Bout0_i__0 I0, Bout1_i I1, Diff0_i I1
 		Bin <- Bout0_i__0 I1, Bout1_i__0 I1, Diff_i I1
-		Bout_i O <- Bout
-		Bout0_i O <- Bout_i I0
-		Bout0_i__0 O <- Bout_i I1
-		Bout1_i O <- Bout0_i I0
-		Bout1_i__0 O <- Bout0_i I1
-		Bout2_i O <- Bout1_i I0, Bout1_i__0 I0
-		Diff_i O <- Diff
-		Diff0_i O <- Diff_i I0
+		Bout_i <- Bout
+		Bout0_i <- Bout_i I0
+		Bout0_i__0 <- Bout_i I1
+		Bout1_i <- Bout0_i I0
+		Bout1_i__0 <- Bout0_i I1
+		Bout2_i <- Bout1_i I0, Bout1_i__0 I0
+		Diff_i <- Diff
+		Diff0_i <- Diff_i I0
 
 Sub_4Bit -i Bin A3 A2 A1 A0 B3 B2 B1 B0 -o Bout Diff3 Diff2 Diff1 Diff0
 	Instances:
@@ -117,7 +117,7 @@ Sub_4Bit -i Bin A3 A2 A1 A0 B3 B2 B1 B0 -o Bout Diff3 Diff2 Diff1 Diff0
 		SB2 Sub_1Bit_HD8
 		SB3 Sub_1Bit_HD9
 	Nets:
-		Diff0_i O <- Diff_i I0
+		Diff0_i <- Diff_i I0
 		A0 <- SB0 A
 		A1 <- SB1 A
 		A2 <- SB2 A
@@ -127,12 +127,12 @@ Sub_4Bit -i Bin A3 A2 A1 A0 B3 B2 B1 B0 -o Bout Diff3 Diff2 Diff1 Diff0
 		B2 <- SB2 B
 		B3 <- SB3 B
 		Bin <- SB0 Bin
-		Bout_OBUF_inst O <- Bout
+		Bout_OBUF_inst <- Bout
 		SB3 Bout <- Bout_OBUF_inst I
-		Diff_0__OBUF_inst O <- Diff0
-		Diff_1__OBUF_inst O <- Diff1
-		Diff_2__OBUF_inst O <- Diff2
-		Diff_3__OBUF_inst O <- Diff3
+		Diff_0__OBUF_inst <- Diff0
+		Diff_1__OBUF_inst <- Diff1
+		Diff_2__OBUF_inst <- Diff2
+		Diff_3__OBUF_inst <- Diff3
 		SB0 Diff <- Diff_0__OBUF_inst I
 		SB1 Diff <- Diff_1__OBUF_inst I
 		SB2 Diff <- Diff_2__OBUF_inst I

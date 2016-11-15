@@ -78,7 +78,7 @@ class Net():
         return True
 
     def __str__(self):
-        result = self.output + ' <-'
+        result = self.output.strip(' O ') + ' <-'
 
         for inp in self.inputs:
             result += ' ' + inp + ','
