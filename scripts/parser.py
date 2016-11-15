@@ -1,4 +1,5 @@
 import argparse
+import re
 
 
 class Net():
@@ -134,6 +135,28 @@ class Cell():
         return result
 
 
+def add_array_inputs(cell, words, sizes):
+    name = words[3]
+    start, stop = words[4].split(':')
+    start, stop = int(start[len(start) - 1]), int(stop[0]) - 1
+
+    sizes[name] = start
+
+    for i in range(start, stop, -1):
+        cell.add_input(name + str(i))
+
+
+def add_array_outputs(cell, words, sizes):
+    name = words[3]
+    start, stop = words[4].split(':')
+    start, stop = int(start[len(start) - 1]), int(stop[0]) - 1
+
+    sizes[name] = start
+
+    for i in range(start, stop, -1):
+        cell.add_output(name + str(i))
+
+
 def add_net_to_cell(net, cell, all_cells):
     if net is None:
         return
@@ -151,6 +174,7 @@ def main(infile_name, outfile_name):
         current_net = None
 
         all_cells = list()
+        arr_sizes = dict()
 
         for line in infile:
             words = line.strip().split(' ')
@@ -168,24 +192,47 @@ def main(infile_name, outfile_name):
 
             # Check for items to add to the cell
             if words[0] == 'port':
-                if words[3] == 'OUTPUT':
-                    current_cell.add_output(words[1])
-                elif words[3] == 'INPUT':
-                    current_cell.add_input(words[1])
+                last = len(words) - 1
+
+                if words[last] == 'OUTPUT':
+                    if words[1] == 'array':
+                        add_array_outputs(current_cell, words, arr_sizes)
+                    else:
+                        current_cell.add_output(words[1])
+                elif words[last] == 'INPUT':
+                    if words[1] == 'array':
+                        add_array_inputs(current_cell, words, arr_sizes)
+                    else:
+                        current_cell.add_input(words[1])
                 else:
                     print('Um... something went wrong')
 
             if words[0] == 'instance':
-                current_cell.add_instance(words[1] + ' ' +  words[5])
+                # Renamed instances have different positions
+                if words[1] == 'rename':
+                    current_cell.add_instance(words[2] + ' ' + words[7])
+                else:
+                    current_cell.add_instance(words[1] + ' ' +  words[5])
 
             if words[0] == 'net':
                 add_net_to_cell(current_net, current_cell, all_cells)
                 
                 # Create a new net
-                current_net = Net(words[1])
+                if words[1] == 'rename':
+                    current_net = Net(words[2])
+                else:
+                    current_net = Net(words[1])
 
             if words[0] == 'portref':
-                if len(words) > 2:
+                if words[1] == 'member':
+                    arr_name = words[2]
+                    arr_size = arr_sizes[arr_name]
+                    idx = int(words[3])
+                    name = arr_name + str(arr_size - idx)
+                    current_net.set_output(name)
+                    if current_cell.contains_output(name):
+                        current_net.swap()
+                elif len(words) > 2:
                     current_net.add_input(words[3] + ' ' + words[1])
                 else:
                     current_net.set_output(words[1])
