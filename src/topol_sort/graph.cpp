@@ -78,6 +78,10 @@ void graph::print()
         {
             cout << adj_gates[0];
         }
+
+        // ALVIN ADDED
+        cout << " " <<  cur_gate.get_gate_level() << "" << cur_gate.get_gate_pos();
+        
         cout << endl;
     }
 }
