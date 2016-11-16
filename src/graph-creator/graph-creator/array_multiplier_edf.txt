@@ -2,11 +2,11 @@ OBUF -i I -o O
 
 INV -i I -o O
 
-RTL_OR0 -i I0 I1 -o O
+OR0 -i I0 I1 -o O
 
-RTL_AND -i I0 I1 -o O
+AND -i I0 I1 -o O
 
-RTL_XOR0 -i I0 I1 -o O
+XOR0 -i I0 I1 -o O
 
 FullAdder -i Cin X Y -o Cout Sum
 	Instances:

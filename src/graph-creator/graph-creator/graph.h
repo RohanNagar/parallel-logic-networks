@@ -30,17 +30,16 @@ class graph
 private:
     std::vector<std::vector<gid_t>> m_graph;        // adjacencly list structure
     std::vector<gate> m_gate_list;                  // list of all gates; index is the gate id
-
     std::vector<module> m_module_list;              // list of all modules; the last module will be the overall module
 
 public:
     graph();
 
     void insert_gate(gate const & new_gate);
-
     void insert_edge(gid_t src, gid_t dest);
-
     void set_heights(std::vector<gid_t> const & start_vertices);
+
+    void print();
 
 };
 

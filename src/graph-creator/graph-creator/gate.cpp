@@ -8,7 +8,7 @@ using std::unordered_set;
 namespace pln
 {
 
- uint32_t gate::m_num_gates = 0;         // initialize the gate count to 0
+uint32_t gate::m_num_gates = 0;         // initialize the gate count to 0
 unordered_set<string> gate::m_gate_lib
 {
     "NO_GATE",
@@ -18,8 +18,8 @@ unordered_set<string> gate::m_gate_lib
     "INV",
     "AND",
     "ADD",
-    "OR",
-    "XOR",
+    "OR0",
+    "XOR0",
     "NAND",
     "NOR",
     "NUM_GATES"
@@ -40,7 +40,9 @@ gate::gate(string const & name) :
 
 
 gate::gate(string const & name, string const & type) :
-    m_id{ gate::m_num_gates }
+    m_id{ gate::m_num_gates },
+    m_name{ name },
+    m_type_name{ type }
 {
     ++gate::m_num_gates;            // increment total gate count
 
@@ -113,9 +115,19 @@ gate::gate(string const & name, string const & type) :
  */
 
 
-gid_t gate::get_id()
+gid_t gate::get_id() const
 {
     return m_id;
+}
+
+string const & gate::get_name() const
+{
+    return m_name;
+}
+
+string const & gate::get_type() const
+{
+    return m_type_name;
 }
 
 

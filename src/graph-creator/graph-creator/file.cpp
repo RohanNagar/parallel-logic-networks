@@ -31,7 +31,8 @@ file_parser::file_parser(string const & fname_in, string const & fname_out) :
 void file_parser::parse(graph & g)
 {
     ifstream file_in;
-    file_in.open("add_edn.txt");
+    file_in.open(m_filename_in);
+    // file_in.open("array_multiplier_edf.txt");
 
     if (!file_in.is_open())
     {
@@ -63,7 +64,7 @@ void file_parser::parse(graph & g)
     
     // parse all the modules
     // at this point, cur_line contains the first line of a new module
-    while (1)
+    while (file_in)
     {
         stringstream ss{ cur_line };
         string cur_token;
@@ -72,6 +73,7 @@ void file_parser::parse(graph & g)
         module new_module{ cur_token };
         cout << "New module name is " << cur_token << endl;
 
+        // create the module inputs and outputs
         ss >> cur_token;
         if (cur_token != "-i")
         {
@@ -87,7 +89,7 @@ void file_parser::parse(graph & g)
                 cout << "Syntax error: expected -o after inputs." << endl;
                 return;
             }
-            gate in_gate{ cur_token, "PORT_I" };
+            gate in_gate{ string{ cur_token }, "PORT_I" };
             cout << "Added input port " << cur_token << endl;
             g.insert_gate(in_gate);
             new_module.add_input_port(in_gate.get_id());
@@ -105,6 +107,18 @@ void file_parser::parse(graph & g)
 
             ss >> cur_token;
         }
+
+        // make sure instances is the next keyword
+        getline(file_in, cur_line);
+        ss = stringstream{ cur_line };
+        ss >> cur_token;
+        if (cur_token != "Instances:")
+        {
+            cout << "Syntax error: expected Instances keyword" << endl;
+            return;
+        }
+
+        // create all the instances, which could be modules or gates
 
         getline(file_in, cur_line);
         break;

@@ -50,5 +50,7 @@ int main(int argc, char* argv[])
     
     fp.parse(g);
 
+    g.print();
+
 }
 
