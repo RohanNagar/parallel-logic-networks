@@ -40,6 +40,7 @@ public:
     gtid_t get_id() const;
     std::string const & get_name() const;
     std::string const & get_type() const;
+    gate_type get_gate_type();
     void set_gate_level(uint32_t); // ALVIN ADDED
     void set_gate_pos(uint32_t);   // ALVIN ADDED
     uint32_t get_gate_level(); // ALVIN ADDED

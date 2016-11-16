@@ -134,6 +134,10 @@ string const & gate::get_type() const
     return m_type_name;
 }
 
+gate_type gate::get_gate_type(){
+    return m_type;  
+}
+
 // ALVIN ADDED
 void gate::set_gate_level(uint32_t level){
   m_gate_level = level;
