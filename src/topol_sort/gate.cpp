@@ -115,7 +115,7 @@ gate::gate(string const & name, string const & type) :
  */
 
 
-gid_t gate::get_id() const
+gtid_t gate::get_id() const
 {
     return m_id;
 }

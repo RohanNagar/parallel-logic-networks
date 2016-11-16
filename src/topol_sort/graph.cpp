@@ -15,15 +15,25 @@ namespace pln
 * Create an empty ordered map.
 */
 graph::graph() :
-    m_graph{ std::vector<std::vector<gid_t>>{} },
+    m_graph{ std::vector<std::vector<gtid_t>>{} },
     m_gate_list{ std::vector<gate>{} }
 {
 
 }
 
+// ALVIN ADDED
+std::vector<std::vector<gtid_t>>& graph::get_graph(){
+  return m_graph;
+}
+
+// ALVIN ADDED
+std::vector<gate>& graph::get_gate_list(){
+  return m_gate_list;
+}
+
 void graph::insert_gate(gate const & new_gate)
 {
-    std::vector<gid_t> adj_vertices{};
+    std::vector<gtid_t> adj_vertices{};
     m_graph.push_back(adj_vertices);
 
     // map the new gate to its index
@@ -31,7 +41,7 @@ void graph::insert_gate(gate const & new_gate)
     m_gate_list.push_back(new_gate);
 }
 
-void graph::insert_edge(gid_t src, gid_t dest)
+void graph::insert_edge(gtid_t src, gtid_t dest)
 {
     if (src > m_graph.size())
     {
@@ -41,7 +51,7 @@ void graph::insert_edge(gid_t src, gid_t dest)
     m_graph[src].push_back(dest);
 }
 
-void graph::set_heights(std::vector<gid_t> const & start_vertices)
+void graph::set_heights(std::vector<gtid_t> const & start_vertices)
 {
 
 }
@@ -56,7 +66,7 @@ void graph::print()
     for (uint32_t i = 0; i < m_graph.size(); ++i)
     {
         gate cur_gate = m_gate_list[i];
-        vector<gid_t> adj_gates = m_graph[i];
+        vector<gtid_t> adj_gates = m_graph[i];
         cout << cur_gate.get_id() << '\t' <<
             '(' << cur_gate.get_name() << ')' << "\t\t" <<
             '(' << cur_gate.get_type() << ')' << "\t\t";

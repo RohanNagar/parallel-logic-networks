@@ -8,7 +8,7 @@ using namespace pln;
 using namespace std;
  
 // Class to represent a graph
-class Graph
+/*class Graph
 {
     int V;    // No. of vertices'
  
@@ -37,42 +37,49 @@ void Graph::addEdge(int v, int w)
 {
     adj[v].push_back(w); // Add w to vs list.
 }
- 
+ */
+
 // A recursive function used by topologicalSort
-void Graph::topologicalSortUtil(int v, bool visited[], 
+void topologicalSortUtil(graph& g, int v, bool visited[], 
                                 stack<int> &Stack)
 {
     // Mark the current node as visited.
     visited[v] = true;
- 
+
     // Recur for all the vertices adjacent to this vertex
-    list<int>::iterator i;
-    for (i = adj[v].begin(); i != adj[v].end(); ++i)
-        if (!visited[*i])
-            topologicalSortUtil(*i, visited, Stack);
- 
+    if(g.get_graph()[v].size() > 0){
+      for (int i = 0; i < (g.get_graph()[v]).size(); ++i){
+          if (!visited[g.get_graph()[v][i]]){
+              topologicalSortUtil(g, g.get_graph()[v][i], visited, Stack);
+          }
+      }
+    }
     // Push current vertex to stack which stores result
     Stack.push(v);
 }
  
+
 // The function to do Topological Sort. It uses recursive 
 // topologicalSortUtil()
-void Graph::topologicalSort()
+void topologicalSort(graph& g)
 {
     stack<int> Stack;
- 
+
     // Mark all the vertices as not visited
-    bool *visited = new bool[V];
-    for (int i = 0; i < V; i++)
+    bool *visited = new bool[g.get_gate_list().size()];
+    for (int i = 0; i < g.get_gate_list().size(); i++){
         visited[i] = false;
- 
+    }
+
     // Call the recursive helper function to store Topological
     // Sort starting from all vertices one by one
-    for (int i = 0; i < V; i++)
-      if (visited[i] == false)
-        topologicalSortUtil(i, visited, Stack);
- 
-    // Print contents of stack
+    for (int i = 0; i < g.get_gate_list().size(); i++){
+      if (visited[i] == false){
+        topologicalSortUtil(g, i, visited, Stack);
+      }
+    }
+
+    // Print contents and set heights of stack
     while (Stack.empty() == false)
     {
         cout << Stack.top() << " ";
@@ -98,23 +105,22 @@ int main()
     graph g{};
     
     // create gates
+    gate PO_30  = gate{"PO_30",  "PORT_O"}; g.insert_gate(PO_30);
     gate PI_00  = gate{"PI_00",  "PORT_I"}; g.insert_gate(PI_00);
     gate PI_01  = gate{"PI_01",  "PORT_O"}; g.insert_gate(PI_01);
     gate AND_10 = gate{"AND_10", "AND"};    g.insert_gate(AND_10);
     gate BUF_20 = gate{"BUF_20", "OBUF"};   g.insert_gate(BUF_20);
-    gate PO_30  = gate{"PO_30",  "PORT_O"}; g.insert_gate(PO_30);
 
-    g.insert_edge(2,0);
-    g.insert_edge(2,1);
+    g.insert_edge(3,1);
     g.insert_edge(3,2);
     g.insert_edge(4,3);
+    g.insert_edge(0,4);
 
     g.print();
 
-    return 8;
-  
-//    cout << "Following is a Topological Sort of the given graph \n";
-  //  g.topologicalSort();
+   
+    cout << "Following is a Topological Sort of the given graph \n";
+    topologicalSort(g);
  
     return 0;
 }
