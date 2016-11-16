@@ -150,6 +150,7 @@
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="gate.cpp" />
+    <ClCompile Include="module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.h" />

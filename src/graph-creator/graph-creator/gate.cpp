@@ -17,6 +17,7 @@ unordered_set<string> gate::m_gate_lib
     "OBUF",
     "INV",
     "AND",
+    "ADD",
     "OR",
     "XOR",
     "NAND",

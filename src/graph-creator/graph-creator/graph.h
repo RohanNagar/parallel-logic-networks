@@ -28,12 +28,10 @@ class graph
 {
 
 private:
-    std::vector<std::vector<gid_t>> m_graph;
-    std::vector<gate> m_gate_list;
+    std::vector<std::vector<gid_t>> m_graph;        // adjacencly list structure
+    std::vector<gate> m_gate_list;                  // list of all gates; index is the gate id
 
-    std::vector<module> m_module_list;
-
-    std::vector<std::string> m_gate_types;
+    std::vector<module> m_module_list;              // list of all modules; the last module will be the overall module
 
 public:
     graph();

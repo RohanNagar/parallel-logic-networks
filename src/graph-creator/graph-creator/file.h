@@ -18,9 +18,9 @@ private:
     std::string m_filename_out;
 
 public:
-    file_parser(std::string filename_in, std::string filename_out);
+    file_parser(std::string const & filename_in, std::string const & filename_out);
 
-    void parse(graph& g);
+    void parse(graph & g);
 };
 
 
