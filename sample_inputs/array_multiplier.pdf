@@ -1,0 +1,495 @@
+# File saved with Nlview 6.4.12  2014-12-16 bk=1.3272 VDI=35 GEI=35 GUI=JA:1.6
+# 
+# non-default properties - (restore without -noprops)
+property attrcolor #000000
+property attrfontsize 8
+property autobundle 1
+property backgroundcolor #ffffff
+property boxcolor0 #000000
+property boxcolor1 #000000
+property boxcolor2 #000000
+property boxinstcolor #000000
+property boxpincolor #000000
+property buscolor #008000
+property closeenough 5
+property createnetattrdsp 2048
+property decorate 1
+property elidetext 40
+property fillcolor1 #ffffcc
+property fillcolor2 #dfebf8
+property fillcolor3 #f0f0f0
+property gatecellname 2
+property instattrmax 30
+property instdrag 15
+property instorder 1
+property marksize 12
+property maxfontsize 12
+property maxzoom 5
+property netcolor #19b400
+property objecthighlight0 #ff00ff
+property objecthighlight1 #ffff00
+property objecthighlight2 #00ff00
+property objecthighlight3 #ff6666
+property objecthighlight4 #0000ff
+property objecthighlight5 #ffc800
+property objecthighlight7 #00ffff
+property objecthighlight8 #ff00ff
+property objecthighlight9 #ccccff
+property objecthighlight10 #0ead00
+property objecthighlight11 #cefc00
+property objecthighlight12 #9e2dbe
+property objecthighlight13 #ba6a29
+property objecthighlight14 #fc0188
+property objecthighlight15 #02f990
+property objecthighlight16 #f1b0fb
+property objecthighlight17 #fec004
+property objecthighlight18 #149bff
+property objecthighlight19 #eb591b
+property overlapcolor #19b400
+property pbuscolor #000000
+property pbusnamecolor #000000
+property pinattrmax 20
+property pinorder 2
+property pinpermute 0
+property portcolor #000000
+property portnamecolor #000000
+property ripindexfontsize 8
+property rippercolor #000000
+property rubberbandcolor #000000
+property rubberbandfontsize 12
+property selectattr 0
+property selectionappearance 2
+property selectioncolor #0000ff
+property sheetheight 44
+property sheetwidth 68
+property showmarks 1
+property shownetname 0
+property showpagenumbers 1
+property showripindex 4
+property timelimit 1
+#
+module new Array_Mult work:Array_Mult:NOFILE -nosplit
+load symbol FullAdder work:FullAdder:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol FullAdder_HD7 work:abstract:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol FullAdder_HD8 work:abstract:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol FullAdder_HD9 work:abstract:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol FullAdder_HD10 work:abstract:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol FullAdder_HD11 work:abstract:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol FullAdder_HD12 work:abstract:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol FullAdder_HD13 work:abstract:NOFILE HIERBOX pin Cin input.left pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol HalfAdder work:HalfAdder:NOFILE HIERBOX pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol HalfAdder_HD14 work:abstract:NOFILE HIERBOX pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol HalfAdder_HD15 work:abstract:NOFILE HIERBOX pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol HalfAdder_HD16 work:abstract:NOFILE HIERBOX pin Cout output.right pin Sum output.right pin X input.left pin Y input.left boxcolor 1 fillcolor 2 minwidth 13%
+load symbol RTL_AND work AND pin I0 input pin I1 input pin O output fillcolor 1
+load symbol OBUF hdi_primitives[7:0] BUF pinBus O output [7:0] pinBus I input [7:0] fillcolor 1 sandwich 3 prop @bundle 8
+load symbol RTL_XOR0 work XOR pin I0 input pin I1 input pin O output fillcolor 1
+load symbol RTL_OR0 work OR pin I0 input pin I1 input pin O output fillcolor 1
+load portBus P output [7:0] -attr @name P[7:0] -pg 1 -y 180
+load portBus X input [3:0] -attr @name X[3:0] -pg 1 -y 40
+load portBus Y input [3:0] -attr @name Y[3:0] -pg 1 -y 60
+load inst FA2 FullAdder_HD7 work:abstract:NOFILE -autohide -attr @cell(#000000) FullAdder_HD7 -attr @fillcolor #fafafa -pg 1 -lvl 4 -y 350 -regy -20
+load inst FA2|Cout0_i__0 RTL_AND work -hier FA2 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 520
+load inst FA1 FullAdder work:FullAdder:NOFILE -autohide -attr @cell(#000000) FullAdder -attr @fillcolor #fafafa -pg 1 -lvl 3 -y 120 -regy -20
+load inst FA1|Cout1_i__0 RTL_AND work -hier FA1 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 140
+load inst FA7 FullAdder_HD12 work:abstract:NOFILE -autohide -attr @cell(#000000) FullAdder_HD12 -attr @fillcolor #fafafa -pg 1 -lvl 8 -y 180 -regy -20
+load inst FA7|Cout0_i__0 RTL_AND work -hier FA7 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 350
+load inst FA1|Cout0_i__0 RTL_AND work -hier FA1 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 290
+load inst FA6 FullAdder_HD11 work:abstract:NOFILE -autohide -attr @cell(#000000) FullAdder_HD11 -attr @fillcolor #fafafa -pg 1 -lvl 7 -y 370 -regy -20
+load inst FA6|Cout_i RTL_OR0 work -hier FA6 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 400
+load inst FA3 FullAdder_HD8 work:abstract:NOFILE -autohide -attr @cell(#000000) FullAdder_HD8 -attr @fillcolor #fafafa -pg 1 -lvl 5 -y 350 -regy -20
+load inst FA3|Cout_i RTL_OR0 work -hier FA3 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 380
+load inst P0_i RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 9 -y 460
+load inst FA4 FullAdder_HD9 work:abstract:NOFILE -autohide -attr @cell(#000000) FullAdder_HD9 -attr @fillcolor #fafafa -pg 1 -lvl 6 -y 130 -regy -20
+load inst FA4|Cout0_i__0 RTL_AND work -hier FA4 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 300
+load inst FA3|Sum0_i RTL_XOR0 work -hier FA3 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 440
+load inst HA4 HalfAdder_HD16 work:abstract:NOFILE -autohide -attr @cell(#000000) HalfAdder_HD16 -attr @fillcolor #fafafa -pg 1 -lvl 6 -y 430 -regy -20
+load inst HA4|Cout_i RTL_AND work -hier HA4 -attr @cell(#000000) RTL_AND -attr @name Cout_i -pg 1 -lvl 1 -y 450
+load inst FA6|Cout0_i__0 RTL_AND work -hier FA6 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 540
+load inst FA2|Cout0_i RTL_OR0 work -hier FA2 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 370
+load inst FA2|Sum_i RTL_XOR0 work -hier FA2 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 450
+load inst X0_i__0 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 2 -y 240
+load inst FA5 FullAdder_HD10 work:abstract:NOFILE -autohide -attr @cell(#000000) FullAdder_HD10 -attr @fillcolor #fafafa -pg 1 -lvl 7 -y 90 -regy -20
+load inst FA5|Cout0_i RTL_OR0 work -hier FA5 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 110
+load inst FA7|Sum0_i RTL_XOR0 work -hier FA7 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 270
+load inst Y0_i RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 1 -y 130
+load inst X0_i RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 1 -y 50
+load inst X0_i__1 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 3 -y 450
+load inst FA2|Cout1_i__0 RTL_AND work -hier FA2 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 370
+load inst X0_i__2 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 4 -y 710
+load inst FA8 FullAdder_HD13 work:abstract:NOFILE -autohide -attr @cell(#000000) FullAdder_HD13 -attr @fillcolor #fafafa -pg 1 -lvl 9 -y 180 -regy -20
+load inst FA8|Cout1_i RTL_AND work -hier FA8 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 320
+load inst FA2|Cout_i RTL_OR0 work -hier FA2 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 380
+load inst FA2|Sum0_i RTL_XOR0 work -hier FA2 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 440
+load inst FA1|Cout_i RTL_OR0 work -hier FA1 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 150
+load inst FA5|Cout0_i__0 RTL_AND work -hier FA5 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 260
+load inst HA3 HalfAdder_HD15 work:abstract:NOFILE -autohide -attr @cell(#000000) HalfAdder_HD15 -attr @fillcolor #fafafa -pg 1 -lvl 4 -y 140 -regy -20
+load inst HA3|Cout_i RTL_AND work -hier HA3 -attr @cell(#000000) RTL_AND -attr @name Cout_i -pg 1 -lvl 1 -y 160
+load inst FA6|Cout1_i RTL_AND work -hier FA6 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 510
+load inst FA5|Sum0_i RTL_XOR0 work -hier FA5 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 180
+load inst FA7|Cout1_i RTL_AND work -hier FA7 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 320
+load inst HA4|Sum_i RTL_XOR0 work -hier HA4 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 1 -y 520
+load inst FA4|Cout0_i RTL_OR0 work -hier FA4 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 150
+load inst FA4|Sum_i RTL_XOR0 work -hier FA4 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 230
+load inst FA5|Sum_i RTL_XOR0 work -hier FA5 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 190
+load inst HA2 HalfAdder_HD14 work:abstract:NOFILE -autohide -attr @cell(#000000) HalfAdder_HD14 -attr @fillcolor #fafafa -pg 1 -lvl 5 -y 130 -regy -20
+load inst HA2|Sum_i RTL_XOR0 work -hier HA2 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 1 -y 220
+load inst FA3|Cout0_i RTL_OR0 work -hier FA3 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 370
+load inst FA6|Cout1_i__0 RTL_AND work -hier FA6 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 390
+load inst FA3|Cout1_i RTL_AND work -hier FA3 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 490
+load inst HA1 HalfAdder work:HalfAdder:NOFILE -autohide -attr @cell(#000000) HalfAdder -attr @fillcolor #fafafa -pg 1 -lvl 2 -y 50 -regy -20
+load inst HA1|Sum_i RTL_XOR0 work -hier HA1 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 1 -y 140
+load inst FA7|Cout0_i RTL_OR0 work -hier FA7 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 200
+load inst FA7|Sum_i RTL_XOR0 work -hier FA7 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 280
+load inst Y0_i__0 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 3 -y 380
+load inst FA8|Sum_i RTL_XOR0 work -hier FA8 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 280
+load inst Y0_i__1 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 5 -y 630
+load inst Y0_i__2 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 6 -y 630
+load inst HA2|Cout_i RTL_AND work -hier HA2 -attr @cell(#000000) RTL_AND -attr @name Cout_i -pg 1 -lvl 1 -y 150
+load inst Y0_i__3 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 7 -y 690
+load inst FA5|Cout1_i RTL_AND work -hier FA5 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 230
+load inst FA7|Cout1_i__0 RTL_AND work -hier FA7 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 200
+load inst FA6|Cout0_i RTL_OR0 work -hier FA6 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 390
+load inst Y0_i__4 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 8 -y 480
+load inst Y0_i__5 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 2 -y 330
+load inst FA4|Cout1_i RTL_AND work -hier FA4 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 270
+load inst Y0_i__6 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 4 -y 630
+load inst P[7:0]_OBUF_inst OBUF hdi_primitives[7:0] -attr @cell(#000000) OBUF -pg 1 -lvl 10 -y 180
+load inst Y0_i__7 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 5 -y 710
+load inst FA4|Cout1_i__0 RTL_AND work -hier FA4 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 150
+load inst FA8|Cout0_i__0 RTL_AND work -hier FA8 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 350
+load inst Y0_i__8 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 6 -y 710
+load inst Y0_i__9 RTL_AND work -attr @cell(#000000) RTL_AND -pg 1 -lvl 3 -y 530
+load inst FA1|Sum_i RTL_XOR0 work -hier FA1 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 220
+load inst FA1|Cout0_i RTL_OR0 work -hier FA1 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 140
+load inst FA4|Cout_i RTL_OR0 work -hier FA4 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 160
+load inst FA6|Sum_i RTL_XOR0 work -hier FA6 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 470
+load inst FA3|Cout1_i__0 RTL_AND work -hier FA3 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 370
+load inst FA6|Sum0_i RTL_XOR0 work -hier FA6 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 460
+load inst FA8|Cout1_i__0 RTL_AND work -hier FA8 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 200
+load inst FA8|Sum0_i RTL_XOR0 work -hier FA8 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 270
+load inst FA1|Cout1_i RTL_AND work -hier FA1 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 260
+load inst FA2|Cout1_i RTL_AND work -hier FA2 -attr @cell(#000000) RTL_AND -attr @name Cout1_i -pg 1 -lvl 1 -y 490
+load inst FA8|Cout0_i RTL_OR0 work -hier FA8 -attr @cell(#000000) RTL_OR -attr @name Cout0_i -pg 1 -lvl 2 -y 200
+load inst HA3|Sum_i RTL_XOR0 work -hier HA3 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 1 -y 230
+load inst FA5|Cout_i RTL_OR0 work -hier FA5 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 120
+load inst FA8|Cout_i RTL_OR0 work -hier FA8 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 210
+load inst FA4|Sum0_i RTL_XOR0 work -hier FA4 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 220
+load inst HA1|Cout_i RTL_AND work -hier HA1 -attr @cell(#000000) RTL_AND -attr @name Cout_i -pg 1 -lvl 1 -y 70
+load inst FA3|Sum_i RTL_XOR0 work -hier FA3 -attr @cell(#000000) RTL_XOR -attr @name Sum_i -pg 1 -lvl 3 -y 450
+load inst FA3|Cout0_i__0 RTL_AND work -hier FA3 -attr @cell(#000000) RTL_AND -attr @name Cout0_i__0 -pg 1 -lvl 2 -y 520
+load inst FA1|Sum0_i RTL_XOR0 work -hier FA1 -attr @cell(#000000) RTL_XOR -attr @name Sum0_i -pg 1 -lvl 2 -y 210
+load inst FA5|Cout1_i__0 RTL_AND work -hier FA5 -attr @cell(#000000) RTL_AND -attr @name Cout1_i__0 -pg 1 -lvl 1 -y 110
+load inst FA7|Cout_i RTL_OR0 work -hier FA7 -attr @cell(#000000) RTL_OR -attr @name Cout_i -pg 1 -lvl 3 -y 210
+load net Y[3] -attr @rip(#000000) Y[3] -port Y[3] -pin Y0_i__1 I1 -pin Y0_i__2 I1 -pin Y0_i__3 I1 -pin Y0_i__4 I1
+load net HA1|Cout -attr @name Cout -hierPin HA1 Cout -pin HA1|Cout_i O
+netloc HA1|Cout 1 1 1 N
+load net FA7|Cin -attr @name Cin -hierPin FA7 Cin -pin FA7|Cout0_i__0 I1 -pin FA7|Cout1_i__0 I1 -pin FA7|Sum_i I1
+netloc FA7|Cin 1 0 3 4650 240 4870 310 NJ
+load net HA2_n_0 -pin FA5 X -pin HA2 Cout
+netloc HA2_n_0 1 5 2 2880 70 NJ
+load net HA2_n_1 -pin FA4 X -pin HA2 Sum
+netloc HA2_n_1 1 5 1 2920
+load net Y0_i__2_n_0 -pin FA6 Y -pin Y0_i__2 O
+netloc Y0_i__2_n_0 1 6 1 3720
+load net FA6|Sum -attr @name Sum -hierPin FA6 Sum -pin FA6|Sum_i O
+netloc FA6|Sum 1 3 1 N
+load net HA1|X -attr @name X -hierPin HA1 X -pin HA1|Cout_i I0 -pin HA1|Sum_i I0
+netloc HA1|X 1 0 1 370
+load net FA2|Cout0 -attr @name Cout0 -pin FA2|Cout0_i O -pin FA2|Cout_i I0
+netloc FA2|Cout0 1 2 1 N
+load net HA2|Cout -attr @name Cout -hierPin HA2 Cout -pin HA2|Cout_i O
+netloc HA2|Cout 1 1 1 N
+load net Y0_i__3_n_0 -pin FA7 Y -pin Y0_i__3 O
+netloc Y0_i__3_n_0 1 7 1 4520
+load net HA1|Y -attr @name Y -hierPin HA1 Y -pin HA1|Cout_i I1 -pin HA1|Sum_i I1
+netloc HA1|Y 1 0 1 350
+load net FA2|Cout1 -attr @name Cout1 -pin FA2|Cout0_i I0 -pin FA2|Cout1_i O
+netloc FA2|Cout1 1 1 1 1680
+load net FA4|Sum0 -attr @name Sum0 -pin FA4|Sum0_i O -pin FA4|Sum_i I0
+netloc FA4|Sum0 1 2 1 N
+load net FA5|Cin -attr @name Cin -hierPin FA5 Cin -pin FA5|Cout0_i__0 I1 -pin FA5|Cout1_i__0 I1 -pin FA5|Sum_i I1
+netloc FA5|Cin 1 0 3 3890 150 4110 220 NJ
+load net P[4] -attr @rip(#000000) 4 -port P[4] -pin P[7:0]_OBUF_inst O[4]
+load net FA1|Sum0 -attr @name Sum0 -pin FA1|Sum0_i O -pin FA1|Sum_i I0
+netloc FA1|Sum0 1 2 1 N
+load net HA2|X -attr @name X -hierPin HA2 X -pin HA2|Cout_i I0 -pin HA2|Sum_i I0
+netloc HA2|X 1 0 1 2310
+load net FA8|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA8|Cout0_i__0 O -pin FA8|Cout_i I1
+netloc FA8|Cout0_i__0_n_0 1 2 1 5750
+load net P_OBUF[5] -pin FA7 Sum -pin P[7:0]_OBUF_inst I[5]
+load net FA3|Sum -attr @name Sum -hierPin FA3 Sum -pin FA3|Sum_i O
+netloc FA3|Sum 1 3 1 N
+load net HA2|Y -attr @name Y -hierPin HA2 Y -pin HA2|Cout_i I1 -pin HA2|Sum_i I1
+netloc HA2|Y 1 0 1 2290
+load net FA1_n_0 -pin FA1 Cout -pin FA2 Cin
+netloc FA1_n_0 1 3 1 1280
+load net FA7|Sum0 -attr @name Sum0 -pin FA7|Sum0_i O -pin FA7|Sum_i I0
+netloc FA7|Sum0 1 2 1 N
+load net P_OBUF[2] -pin HA3 Sum -pin P[7:0]_OBUF_inst I[2]
+load net Y0_i__5_n_0 -pin FA1 Y -pin Y0_i__5 O
+netloc Y0_i__5_n_0 1 2 1 620
+load net FA1_n_1 -pin FA1 Sum -pin HA3 X
+netloc FA1_n_1 1 3 1 1300
+load net FA7|Sum -attr @name Sum -hierPin FA7 Sum -pin FA7|Sum_i O
+netloc FA7|Sum 1 3 1 N
+load net X[3] -attr @rip(#000000) X[3] -port X[3] -pin X0_i__1 I0 -pin X0_i__2 I0 -pin Y0_i__4 I0 -pin Y0_i__8 I0
+load net Y[1] -attr @rip(#000000) Y[1] -pin X0_i__2 I1 -port Y[1] -pin Y0_i I1 -pin Y0_i__5 I1 -pin Y0_i__9 I1
+load net FA1|Cin -attr @name Cin -hierPin FA1 Cin -pin FA1|Cout0_i__0 I1 -pin FA1|Cout1_i__0 I1 -pin FA1|Sum_i I1
+netloc FA1|Cin 1 0 3 690 180 910 250 NJ
+load net FA1|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA1|Cout0_i I1 -pin FA1|Cout1_i__0 O
+netloc FA1|Cout1_i__0_n_0 1 1 1 870
+load net FA4|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA4|Cout0_i I1 -pin FA4|Cout1_i__0 O
+netloc FA4|Cout1_i__0_n_0 1 1 1 3290
+load net FA7|Cout0 -attr @name Cout0 -pin FA7|Cout0_i O -pin FA7|Cout_i I0
+netloc FA7|Cout0 1 2 1 N
+load net FA8|Cout0 -attr @name Cout0 -pin FA8|Cout0_i O -pin FA8|Cout_i I0
+netloc FA8|Cout0 1 2 1 N
+load net P[6] -attr @rip(#000000) 6 -port P[6] -pin P[7:0]_OBUF_inst O[6]
+load net Y0_i__7_n_0 -pin FA4 Y -pin Y0_i__7 O
+netloc Y0_i__7_n_0 1 5 1 2940
+load net FA4|Cin -attr @name Cin -hierPin FA4 Cin -pin FA4|Cout0_i__0 I1 -pin FA4|Cout1_i__0 I1 -pin FA4|Sum_i I1
+netloc FA4|Cin 1 0 3 3110 190 3330 260 NJ
+load net FA7|Cout1 -attr @name Cout1 -pin FA7|Cout0_i I0 -pin FA7|Cout1_i O
+netloc FA7|Cout1 1 1 1 4850
+load net FA8|Cout1 -attr @name Cout1 -pin FA8|Cout0_i I0 -pin FA8|Cout1_i O
+netloc FA8|Cout1 1 1 1 5570
+load net FA1|Sum -attr @name Sum -hierPin FA1 Sum -pin FA1|Sum_i O
+netloc FA1|Sum 1 3 1 N
+load net FA5|Sum -attr @name Sum -hierPin FA5 Sum -pin FA5|Sum_i O
+netloc FA5|Sum 1 3 1 N
+load net FA8|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA8|Cout0_i I1 -pin FA8|Cout1_i__0 O
+netloc FA8|Cout1_i__0_n_0 1 1 1 5550
+load net X[0] -attr @rip(#000000) X[0] -pin P0_i I0 -port X[0] -pin Y0_i I0 -pin Y0_i__0 I0 -pin Y0_i__1 I0
+load net FA5|X -attr @name X -hierPin FA5 X -pin FA5|Cout1_i I0 -pin FA5|Cout1_i__0 I0 -pin FA5|Sum0_i I0
+netloc FA5|X 1 0 2 3910 170 NJ
+load net FA7|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA7|Cout0_i I1 -pin FA7|Cout1_i__0 O
+netloc FA7|Cout1_i__0_n_0 1 1 1 4830
+load net FA8|Sum -attr @name Sum -hierPin FA8 Sum -pin FA8|Sum_i O
+netloc FA8|Sum 1 3 1 N
+load net FA1|Cout -attr @name Cout -hierPin FA1 Cout -pin FA1|Cout_i O
+netloc FA1|Cout 1 3 1 N
+load net FA2|Sum0 -attr @name Sum0 -pin FA2|Sum0_i O -pin FA2|Sum_i I0
+netloc FA2|Sum0 1 2 1 N
+load net FA5|Y -attr @name Y -hierPin FA5 Y -pin FA5|Cout0_i__0 I0 -pin FA5|Cout1_i I1 -pin FA5|Sum0_i I1
+netloc FA5|Y 1 0 2 3890 190 4130
+load net P[2] -attr @rip(#000000) 2 -port P[2] -pin P[7:0]_OBUF_inst O[2]
+load net FA2|Cin -attr @name Cin -hierPin FA2 Cin -pin FA2|Cout0_i__0 I1 -pin FA2|Cout1_i__0 I1 -pin FA2|Sum_i I1
+netloc FA2|Cin 1 0 3 1480 410 1700 480 NJ
+load net Y[2] -attr @rip(#000000) Y[2] -port Y[2] -pin Y0_i__0 I1 -pin Y0_i__6 I1 -pin Y0_i__7 I1 -pin Y0_i__8 I1
+load net FA6|X -attr @name X -hierPin FA6 X -pin FA6|Cout1_i I0 -pin FA6|Cout1_i__0 I0 -pin FA6|Sum0_i I0
+netloc FA6|X 1 0 2 3910 450 NJ
+load net FA3|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA3|Cout0_i I1 -pin FA3|Cout1_i__0 O
+netloc FA3|Cout1_i__0_n_0 1 1 1 2470
+load net P[7] -attr @rip(#000000) 7 -port P[7] -pin P[7:0]_OBUF_inst O[7]
+load net FA6|Y -attr @name Y -hierPin FA6 Y -pin FA6|Cout0_i__0 I0 -pin FA6|Cout1_i I1 -pin FA6|Sum0_i I1
+netloc FA6|Y 1 0 2 3890 470 4130
+load net HA3|Sum -attr @name Sum -hierPin HA3 Sum -pin HA3|Sum_i O
+netloc HA3|Sum 1 1 1 N
+load net HA2|Sum -attr @name Sum -hierPin HA2 Sum -pin HA2|Sum_i O
+netloc HA2|Sum 1 1 1 N
+load net FA4|Sum -attr @name Sum -hierPin FA4 Sum -pin FA4|Sum_i O
+netloc FA4|Sum 1 3 1 N
+load net FA5_n_0 -pin FA5 Cout -pin FA8 X
+netloc FA5_n_0 1 7 2 NJ 120 5240
+load net FA1|X -attr @name X -hierPin FA1 X -pin FA1|Cout1_i I0 -pin FA1|Cout1_i__0 I0 -pin FA1|Sum0_i I0
+netloc FA1|X 1 0 2 710 200 NJ
+load net HA3|X -attr @name X -hierPin HA3 X -pin HA3|Cout_i I0 -pin HA3|Sum_i I0
+netloc HA3|X 1 0 1 1500
+load net FA3_n_0 -pin FA3 Cout -pin FA4 Cin
+netloc FA3_n_0 1 5 1 2900
+load net X0_i_n_0 -pin HA1 X -pin X0_i O
+netloc X0_i_n_0 1 1 1 280
+load net FA5_n_1 -pin FA5 Sum -pin FA7 X
+netloc FA5_n_1 1 7 1 4480
+load net FA1|Y -attr @name Y -hierPin FA1 Y -pin FA1|Cout0_i__0 I0 -pin FA1|Cout1_i I1 -pin FA1|Sum0_i I1
+netloc FA1|Y 1 0 2 690 220 930
+load net HA3|Cout -attr @name Cout -hierPin HA3 Cout -pin HA3|Cout_i O
+netloc HA3|Cout 1 1 1 N
+load net HA3|Y -attr @name Y -hierPin HA3 Y -pin HA3|Cout_i I1 -pin HA3|Sum_i I1
+netloc HA3|Y 1 0 1 1480
+load net FA2|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA2|Cout0_i I1 -pin FA2|Cout1_i__0 O
+netloc FA2|Cout1_i__0_n_0 1 1 1 1660
+load net FA7|X -attr @name X -hierPin FA7 X -pin FA7|Cout1_i I0 -pin FA7|Cout1_i__0 I0 -pin FA7|Sum0_i I0
+netloc FA7|X 1 0 2 4670 260 NJ
+load net FA3_n_1 -pin FA3 Sum -pin HA4 X
+netloc FA3_n_1 1 5 1 2900
+load net P_OBUF[7] -pin FA8 Cout -pin P[7:0]_OBUF_inst I[7]
+load net FA2|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA2|Cout0_i__0 O -pin FA2|Cout_i I1
+netloc FA2|Cout0_i__0_n_0 1 2 1 1860
+load net FA7|Y -attr @name Y -hierPin FA7 Y -pin FA7|Cout0_i__0 I0 -pin FA7|Cout1_i I1 -pin FA7|Sum0_i I1
+netloc FA7|Y 1 0 2 4650 280 4890
+load net HA4|X -attr @name X -hierPin HA4 X -pin HA4|Cout_i I0 -pin HA4|Sum_i I0
+netloc HA4|X 1 0 1 3130
+load net FA1|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA1|Cout0_i__0 O -pin FA1|Cout_i I1
+netloc FA1|Cout0_i__0_n_0 1 2 1 1070
+load net FA2|X -attr @name X -hierPin FA2 X -pin FA2|Cout1_i I0 -pin FA2|Cout1_i__0 I0 -pin FA2|Sum0_i I0
+netloc FA2|X 1 0 2 1500 430 NJ
+load net FA6|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA6|Cout0_i__0 O -pin FA6|Cout_i I1
+netloc FA6|Cout0_i__0_n_0 1 2 1 4270
+load net P_OBUF[4] -pin FA6 Sum -pin P[7:0]_OBUF_inst I[4]
+load net HA4|Y -attr @name Y -hierPin HA4 Y -pin HA4|Cout_i I1 -pin HA4|Sum_i I1
+netloc HA4|Y 1 0 1 3110
+load net FA2|Y -attr @name Y -hierPin FA2 Y -pin FA2|Cout0_i__0 I0 -pin FA2|Cout1_i I1 -pin FA2|Sum0_i I1
+netloc FA2|Y 1 0 2 1480 450 1720
+load net FA8|X -attr @name X -hierPin FA8 X -pin FA8|Cout1_i I0 -pin FA8|Cout1_i__0 I0 -pin FA8|Sum0_i I0
+netloc FA8|X 1 0 2 5390 260 N
+load net P[0] -attr @rip(#000000) 0 -port P[0] -pin P[7:0]_OBUF_inst O[0]
+load net FA5|Cout -attr @name Cout -hierPin FA5 Cout -pin FA5|Cout_i O
+netloc FA5|Cout 1 3 1 N
+load net FA8|Y -attr @name Y -hierPin FA8 Y -pin FA8|Cout0_i__0 I0 -pin FA8|Cout1_i I1 -pin FA8|Sum0_i I1
+netloc FA8|Y 1 0 2 5370 280 5610
+load net P_OBUF[1] -pin HA1 Sum -pin P[7:0]_OBUF_inst I[1]
+load net FA6|Sum0 -attr @name Sum0 -pin FA6|Sum0_i O -pin FA6|Sum_i I0
+netloc FA6|Sum0 1 2 1 N
+load net FA3|X -attr @name X -hierPin FA3 X -pin FA3|Cout1_i I0 -pin FA3|Cout1_i__0 I0 -pin FA3|Sum0_i I0
+netloc FA3|X 1 0 2 2310 430 NJ
+load net FA2|Cout -attr @name Cout -hierPin FA2 Cout -pin FA2|Cout_i O
+netloc FA2|Cout 1 3 1 N
+load net Y[0] -attr @rip(#000000) Y[0] -pin P0_i I1 -pin X0_i I1 -pin X0_i__0 I1 -pin X0_i__1 I1 -port Y[0]
+load net Y0 -pin FA2 Y -pin Y0_i__9 O
+netloc Y0 1 3 1 1360
+load net X[2] -attr @rip(#000000) X[2] -port X[2] -pin X0_i__0 I0 -pin Y0_i__3 I0 -pin Y0_i__7 I0 -pin Y0_i__9 I0
+load net FA3|Y -attr @name Y -hierPin FA3 Y -pin FA3|Cout0_i__0 I0 -pin FA3|Cout1_i I1 -pin FA3|Sum0_i I1
+netloc FA3|Y 1 0 2 2290 450 2530
+load net HA4_n_0 -pin FA6 Cin -pin HA4 Cout
+netloc HA4_n_0 1 6 1 3780
+load net P[5] -attr @rip(#000000) 5 -port P[5] -pin P[7:0]_OBUF_inst O[5]
+load net FA4_n_0 -pin FA4 Cout -pin FA5 Cin
+netloc FA4_n_0 1 6 1 3700
+load net HA4|Sum -attr @name Sum -hierPin HA4 Sum -pin HA4|Sum_i O
+netloc HA4|Sum 1 1 1 N
+load net FA4_n_1 -pin FA4 Sum -pin FA6 X
+netloc FA4_n_1 1 6 1 3800
+load net FA2|Sum -attr @name Sum -hierPin FA2 Sum -pin FA2|Sum_i O
+netloc FA2|Sum 1 3 1 N
+load net FA4|X -attr @name X -hierPin FA4 X -pin FA4|Cout1_i I0 -pin FA4|Cout1_i__0 I0 -pin FA4|Sum0_i I0
+netloc FA4|X 1 0 2 3130 210 NJ
+load net Y0_i__0_n_0 -pin HA3 Y -pin Y0_i__0 O
+netloc Y0_i__0_n_0 1 3 1 1320
+load net FA4|Y -attr @name Y -hierPin FA4 Y -pin FA4|Cout0_i__0 I0 -pin FA4|Cout1_i I1 -pin FA4|Sum0_i I1
+netloc FA4|Y 1 0 2 3110 230 3350
+load net FA6|Cout -attr @name Cout -hierPin FA6 Cout -pin FA6|Cout_i O
+netloc FA6|Cout 1 3 1 N
+load net FA3|Sum0 -attr @name Sum0 -pin FA3|Sum0_i O -pin FA3|Sum_i I0
+netloc FA3|Sum0 1 2 1 N
+load net FA7_n_0 -pin FA7 Cout -pin FA8 Cin
+netloc FA7_n_0 1 8 1 N
+load net FA6|Cin -attr @name Cin -hierPin FA6 Cin -pin FA6|Cout0_i__0 I1 -pin FA6|Cout1_i__0 I1 -pin FA6|Sum_i I1
+netloc FA6|Cin 1 0 3 3890 430 4110 500 NJ
+load net FA6|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA6|Cout0_i I1 -pin FA6|Cout1_i__0 O
+netloc FA6|Cout1_i__0_n_0 1 1 1 4070
+load net FA5|Sum0 -attr @name Sum0 -pin FA5|Sum0_i O -pin FA5|Sum_i I0
+netloc FA5|Sum0 1 2 1 N
+load net P[3] -attr @rip(#000000) 3 -port P[3] -pin P[7:0]_OBUF_inst O[3]
+load net Y0_i__8_n_0 -pin FA5 Y -pin Y0_i__8 O
+netloc Y0_i__8_n_0 1 6 1 3700
+load net Y0_i__1_n_0 -pin HA4 Y -pin Y0_i__1 O
+netloc Y0_i__1_n_0 1 5 1 2960
+load net FA3|Cin -attr @name Cin -hierPin FA3 Cin -pin FA3|Cout0_i__0 I1 -pin FA3|Cout1_i__0 I1 -pin FA3|Sum_i I1
+netloc FA3|Cin 1 0 3 2290 410 2510 480 NJ
+load net FA3|Cout -attr @name Cout -hierPin FA3 Cout -pin FA3|Cout_i O
+netloc FA3|Cout 1 3 1 N
+load net FA3|Cout0 -attr @name Cout0 -pin FA3|Cout0_i O -pin FA3|Cout_i I0
+netloc FA3|Cout0 1 2 1 N
+load net FA8|Cout -attr @name Cout -hierPin FA8 Cout -pin FA8|Cout_i O
+netloc FA8|Cout 1 3 1 N
+load net X0_i__1_n_0 -pin FA2 X -pin X0_i__1 O
+netloc X0_i__1_n_0 1 3 1 1340
+load net FA3|Cout1 -attr @name Cout1 -pin FA3|Cout0_i I0 -pin FA3|Cout1_i O
+netloc FA3|Cout1 1 1 1 2490
+load net FA1|Cout0 -attr @name Cout0 -pin FA1|Cout0_i O -pin FA1|Cout_i I0
+netloc FA1|Cout0 1 2 1 N
+load net FA7|Cout -attr @name Cout -hierPin FA7 Cout -pin FA7|Cout_i O
+netloc FA7|Cout 1 3 1 N
+load net Y0_i__6_n_0 -pin FA3 Y -pin Y0_i__6 O
+netloc Y0_i__6_n_0 1 4 1 2150
+load net Y0_i__4_n_0 -pin FA8 Y -pin Y0_i__4 O
+netloc Y0_i__4_n_0 1 8 1 5260
+load net P_OBUF[6] -pin FA8 Sum -pin P[7:0]_OBUF_inst I[6]
+load net FA6|Cout0 -attr @name Cout0 -pin FA6|Cout0_i O -pin FA6|Cout_i I0
+netloc FA6|Cout0 1 2 1 N
+load net FA2_n_0 -pin FA2 Cout -pin HA2 Y
+netloc FA2_n_0 1 4 1 2090
+load net FA3|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA3|Cout0_i__0 O -pin FA3|Cout_i I1
+netloc FA3|Cout0_i__0_n_0 1 2 1 2670
+load net FA1|Cout1 -attr @name Cout1 -pin FA1|Cout0_i I0 -pin FA1|Cout1_i O
+netloc FA1|Cout1 1 1 1 890
+load net FA4|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA4|Cout0_i__0 O -pin FA4|Cout_i I1
+netloc FA4|Cout0_i__0_n_0 1 2 1 3490
+load net FA2_n_1 -pin FA2 Sum -pin FA3 X
+netloc FA2_n_1 1 4 1 2130
+load net FA6|Cout1 -attr @name Cout1 -pin FA6|Cout0_i I0 -pin FA6|Cout1_i O
+netloc FA6|Cout1 1 1 1 4090
+load net FA4|Cout0 -attr @name Cout0 -pin FA4|Cout0_i O -pin FA4|Cout_i I0
+netloc FA4|Cout0 1 2 1 N
+load net HA4|Cout -attr @name Cout -hierPin HA4 Cout -pin HA4|Cout_i O
+netloc HA4|Cout 1 1 1 N
+load net P_OBUF[3] -pin HA4 Sum -pin P[7:0]_OBUF_inst I[3]
+load net X0_i__0_n_0 -pin FA1 X -pin X0_i__0 O
+netloc X0_i__0_n_0 1 2 1 600
+load net FA4|Cout1 -attr @name Cout1 -pin FA4|Cout0_i I0 -pin FA4|Cout1_i O
+netloc FA4|Cout1 1 1 1 3310
+load net FA5|Cout0 -attr @name Cout0 -pin FA5|Cout0_i O -pin FA5|Cout_i I0
+netloc FA5|Cout0 1 2 1 N
+load net FA5|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA5|Cout0_i__0 O -pin FA5|Cout_i I1
+netloc FA5|Cout0_i__0_n_0 1 2 1 4270
+load net Y0_i_n_0 -pin HA1 Y -pin Y0_i O
+netloc Y0_i_n_0 1 1 1 280
+load net FA4|Cout -attr @name Cout -hierPin FA4 Cout -pin FA4|Cout_i O
+netloc FA4|Cout 1 3 1 N
+load net FA5|Cout1 -attr @name Cout1 -pin FA5|Cout0_i I0 -pin FA5|Cout1_i O
+netloc FA5|Cout1 1 1 1 4090
+load net P_OBUF[0] -pin P0_i O -pin P[7:0]_OBUF_inst I[0]
+load net X0 -pin HA2 X -pin X0_i__2 O
+netloc X0 1 4 1 2110
+load net X[1] -attr @rip(#000000) X[1] -port X[1] -pin X0_i I0 -pin Y0_i__2 I0 -pin Y0_i__5 I0 -pin Y0_i__6 I0
+load net FA8|Sum0 -attr @name Sum0 -pin FA8|Sum0_i O -pin FA8|Sum_i I0
+netloc FA8|Sum0 1 2 1 N
+load net HA3_n_0 -pin FA3 Cin -pin HA3 Cout
+netloc HA3_n_0 1 4 1 2070
+load net FA6_n_0 -pin FA6 Cout -pin FA7 Cin
+netloc FA6_n_0 1 7 1 4500
+load net P[1] -attr @rip(#000000) 1 -port P[1] -pin P[7:0]_OBUF_inst O[1]
+load net HA1_n_0 -pin FA1 Cin -pin HA1 Cout
+netloc HA1_n_0 1 2 1 560
+load net HA1|Sum -attr @name Sum -hierPin HA1 Sum -pin HA1|Sum_i O
+netloc HA1|Sum 1 1 1 N
+load net FA7|Cout0_i__0_n_0 -attr @name Cout0_i__0_n_0 -pin FA7|Cout0_i__0 O -pin FA7|Cout_i I1
+netloc FA7|Cout0_i__0_n_0 1 2 1 5030
+load net FA8|Cin -attr @name Cin -hierPin FA8 Cin -pin FA8|Cout0_i__0 I1 -pin FA8|Cout1_i__0 I1 -pin FA8|Sum_i I1
+netloc FA8|Cin 1 0 3 5410 240 5590 310 5770
+load net FA5|Cout1_i__0_n_0 -attr @name Cout1_i__0_n_0 -pin FA5|Cout0_i I1 -pin FA5|Cout1_i__0 O
+netloc FA5|Cout1_i__0_n_0 1 1 1 4070
+load netBundle @X 4 X[3] X[2] X[1] X[0] -autobundled
+netbloc @X 1 0 9 110 90 260 290 600 490 1320 590 2170 590 2980 590 3740 630 4540 440 NJ
+load netBundle @Y 4 Y[3] Y[2] Y[1] Y[0] -autobundled
+netbloc @Y 1 0 9 90 170 240 370 560 570 1280 670 2190 670 3000 670 3720 650 4560 520 NJ
+load netBundle @P 8 P[7] P[6] P[5] P[4] P[3] P[2] P[1] P[0] -autobundled
+netbloc @P 1 10 1 NJ
+load netBundle @P_OBUF 8 P_OBUF[7] P_OBUF[6] P_OBUF[5] P_OBUF[4] P_OBUF[3] P_OBUF[2] P_OBUF[1] P_OBUF[0] -autobundled
+netbloc @P_OBUF 1 2 8 NJ 60 NJ 60 2130 290 NJ 370 3760 610 4480 420 5240 420 5960
+levelinfo -pg 1 70 150 320 660 1450 2260 3080 3860 4620 5340 5990 6130
+levelinfo -hier FA1 670 770 970 1130 1220
+levelinfo -hier FA2 1460 1560 1760 1920 2010
+levelinfo -hier FA3 2270 2370 2570 2730 2820
+levelinfo -hier FA4 3090 3190 3390 3550 3640
+levelinfo -hier FA5 3870 3970 4170 4330 4420
+levelinfo -hier FA6 3870 3970 4170 4330 4420
+levelinfo -hier FA7 4630 4730 4930 5090 5180
+levelinfo -hier FA8 5350 5450 5650 5810 5900
+levelinfo -hier HA1 330 410 500
+levelinfo -hier HA2 2270 2350 2440
+levelinfo -hier HA3 1460 1540 1630
+levelinfo -hier HA4 3090 3170 3260
+show
+zoom 0.832186
+scrollpos 266 -90
+#
+# initialize ictrl to current module Array_Mult work:Array_Mult:NOFILE
+ictrl init topinfo |
+ictrl layer glayer install
+ictrl layer glayer config ibundle 1
+ictrl layer glayer config nbundle 0
+ictrl layer glayer config pbundle 0
+ictrl layer glayer config cache 1

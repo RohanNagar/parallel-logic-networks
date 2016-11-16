@@ -7,6 +7,8 @@ def main(n, outfile):
     sequences = [''.join(seq) for seq in product('01', repeat=n)]
 
     with open(outfile, 'w') as f:
+        f.write('set sim_time [time {run -all}]') 
+        f.write(force
         f.write('\n'.join(seq for seq in sequences))
 
 

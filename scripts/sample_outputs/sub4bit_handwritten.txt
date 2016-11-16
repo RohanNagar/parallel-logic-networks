@@ -1,0 +1,24 @@
+Gates
+OBUF -i I -o O
+INV -i I -o O
+RTL_OR0 -i I0 I1 -o O
+RTL_ADD -i I0 I1 -o O
+RTL_INV -i I0 -o O
+RTL_XOR0 -i I0 -o O
+Modules
+Sub_1Bit -i A B Bin -o Bout Diff 
+	Instances:
+		Bout0_i RTL_OR0
+		Bout0_i__0 RTL_AND
+		Bout1_i RTL_AND
+		Bout1_i__0 RTL_AND
+		Bout2_i RTL_INV
+		Bout_i RTL_OR0
+		Diff0_i RTL_XOR0
+		Diff_i RTL_XOR0
+	Nets:        
+		A <- Bout2_i I0
+		A <- Diff0_i I0
+		B <- Bout0_i__0 I0
+		B <- Bout1_i I1
+		B 
