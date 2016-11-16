@@ -149,15 +149,19 @@
     <ClCompile Include="file.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="vertex.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="add_edn.txt" />
+    <ClCompile Include="gate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.h" />
+    <ClInclude Include="gate-type.h" />
     <ClInclude Include="graph.h" />
-    <ClInclude Include="vertex.h" />
+    <ClInclude Include="gate.h" />
+    <ClInclude Include="module.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="add_edn.txt" />
+    <Text Include="array_multiplier_edf.txt" />
+    <Text Include="sub_4bit_edn.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

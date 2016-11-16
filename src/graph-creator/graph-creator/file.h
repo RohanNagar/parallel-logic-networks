@@ -3,10 +3,15 @@
 
 #include <string>
 
-namespace pln {
+#include "graph.h"
+#include "gate.h"
+
+namespace pln
+{
 
 
-class file_parser {
+class file_parser
+{
 
 private:
     std::string m_filename_in;
@@ -15,7 +20,7 @@ private:
 public:
     file_parser(std::string filename_in, std::string filename_out);
 
-    void parse();
+    void parse(graph& g);
 };
 
 

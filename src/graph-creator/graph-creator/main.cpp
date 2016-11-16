@@ -7,7 +7,8 @@
 #include <unordered_map>
 
 #include "file.h"
-#include "vertex.h"
+#include "gate.h"
+#include "graph.h"
 
 using std::cout;
 using std::endl;
@@ -17,29 +18,37 @@ using std::ofstream;
 
 using std::string;
 
-using std::map;
-using std::unordered_map;
+using namespace pln;
 
-using pln::file_parser;
 
-int main(int argc, char* argv[]) {
+const string OUT_FILENAME = "graph.txt";
+
+int main(int argc, char* argv[])
+{
 
     // check arguments
-    if (argc < 2) {
+    if (argc < 2)
+    {
         cout << "Need to pass in an input file." << endl;
         exit(1);
-        exit(2);
     }
 
-    else if (argc > 2) {
+    else if (argc > 2)
+    {
         cout << "Too many arguments." << endl;
+        exit(1);
     }
 
     // open the file for parsing
-    string const filename{ argv[1] };
-    cout << "Filename is " << filename << endl;
-    ifstream file_in;
-    file_in.open(filename);
+    string const in_filename{ argv[1] };
+    string const out_filename{ OUT_FILENAME };
+    cout << "Filename is " << in_filename << endl;
+
+    file_parser fp{ in_filename, out_filename };
+
+    graph g{};
     
-    std::unordered_map<string, string> map;
+    fp.parse(g);
+
 }
+
