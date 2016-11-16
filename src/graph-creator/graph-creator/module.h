@@ -2,6 +2,7 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 
 #include "gate.h"
 
@@ -16,12 +17,16 @@ private:
 
     std::vector<gid_t> m_input_ports;
     std::vector<gid_t> m_output_ports;
+    std::unordered_map<std::string, gid_t> m_gate_list;         // maintain a gate list for each module that is indexed by each gate's name
 
 public:
     module(std::string const & name);
 
-    void add_input_port(gid_t port);
-    void add_output_port(gid_t port);
+    void insert_input_port(gate const & port);
+    void insert_output_port(gate const & port);
+    void insert_gate(gate const & gt);
+
+    gid_t find_gate(std::string const & name);
 };
 
 

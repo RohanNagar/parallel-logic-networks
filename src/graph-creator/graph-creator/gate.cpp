@@ -40,7 +40,7 @@ gate::gate(string const & name) :
 
 
 gate::gate(string const & name, string const & type) :
-    m_id{ gate::m_num_gates },
+    m_id{ (int)gate::m_num_gates },
     m_name{ name },
     m_type_name{ type }
 {

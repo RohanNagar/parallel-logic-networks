@@ -9,7 +9,7 @@
 
 #include "gate-type.h"
 
-using gid_t = uint32_t;             // id type of a gate - just an unsigned int
+using gid_t = int32_t;              // id type of a gate - just an int
 
 namespace pln
 {

@@ -48,13 +48,17 @@ void graph::set_heights(std::vector<gid_t> const & start_vertices)
 
 void graph::print()
 {
-    cout << "ID\t(Name)\t(Type)\t\tAdjacent Gates(ID)" << endl;
+    const char separator = '\t';
+    const uint8_t width_id = 3;
+    const uint8_t width_name = 10;
+    const uint8_t width_type = 6;
+    cout << "ID\t(Name)\t\t(Type)\t\tAdjacent Gates(ID)" << endl;
     for (uint32_t i = 0; i < m_graph.size(); ++i)
     {
         gate cur_gate = m_gate_list[i];
         vector<gid_t> adj_gates = m_graph[i];
         cout << cur_gate.get_id() << '\t' <<
-            '(' << cur_gate.get_name() << ')' << '\t' <<
+            '(' << cur_gate.get_name() << ')' << "\t\t" <<
             '(' << cur_gate.get_type() << ')' << "\t\t";
         if (adj_gates.size() == 2)
         {
