@@ -1,3 +1,23 @@
+// graph functions and variables
+
+private:
+  uint32_t m_max_height;
+  uint32_t m_max_width;
+public:
+  vector<vector<gid_t>>& get_graph();
+  void get_max_height();
+  void get_max_width();
+  vector<gid_t> &get_input(); 
+  vector<gid_t> *get_output();
+ 
+ 
+// returns a vecotr of the topological order 
+vector<gid_t> topologicalSortGraph(graph &g){
+  
+  
+
+  return 
+}
 
 
 // graph to matrix function 
@@ -11,13 +31,13 @@ void graphToMatrix(graph &g){
    // i contains the index of the current gate value
 
    // grab first gate id input 0 from graph
-   gid_t input0 = gate.get_graph()[i][0];
+   gid_t input0 = g.get_graph()[i][0];
    gid_t input1;
   
    // if gate has second input
-   if(gate.get_graph().size() > 1){
+   if(g.get_graph().size() > 1){
      // grab seccond gate id input 1 from graph
-     input1 =  gate.get_graph()[i][1];
+     input1 =  g.get_graph()[i][1];
    }
    else{
      input1 = 0;
