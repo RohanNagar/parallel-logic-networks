@@ -81,12 +81,12 @@ typedef enum GateType
   PORT_I,
   PORT_O,
   OBUF,
-  RTL_INV,
-  RTL_AND,
-  RTL_OR,
-  RTL_XOR,
-  RTL_NAND,
-  RTL_NOR,
+  INV,
+  AND,
+  OR,
+  XOR,
+  NAND,
+  NOR,
   NUM_GATES,
 }GateType;
 
