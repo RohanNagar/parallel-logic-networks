@@ -31,8 +31,8 @@ file_parser::file_parser(string const & fname_in, string const & fname_out) :
 void file_parser::parse(graph & g)
 {
     ifstream file_in;
-    // file_in.open(m_filename_in);
-    file_in.open("sub_4bit_edn.txt");
+    file_in.open(m_filename_in);
+    // file_in.open("sub_4bit_edn.txt");
 
     if (!file_in.is_open())
     {
