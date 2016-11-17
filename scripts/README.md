@@ -1,4 +1,4 @@
-# `parser.py`
+# parser.py
 
 1. Make sure you are in the `scripts/` directory.
 
@@ -10,7 +10,7 @@ $ python parser.py -f INPUT_FILENAME -o OUTPUT_FILENAME
 
 The input file is designated by the `-f` flag, and the output file is designated by the `-o` flag.
 
-# `generate_sequences.py`
+# generate\_sequences.py
 
 1. Make sure you are in the `scripts/` directory.
 
