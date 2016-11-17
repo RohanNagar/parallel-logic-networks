@@ -6,6 +6,7 @@
 #include <map>
 #include <unordered_map>
 #include <stack>
+#include <algorithm>
 
 #include "file.h"
 #include "gate.h"
@@ -136,13 +137,13 @@ void topologicalSort(graph& g)
         gtid_t id = Stack.top();
         gate& cur_gate = cur_gate_list[id];
 
-        // set its own height if it is PORT_O root
-        if (cur_gate.get_type() == "PORT_O")
-        {
+        // set its own height if it is PORT_O in root  
+        std::vector<gtid_t>& outputs=(g.get_module_list()[g.get_module_list().size()-1]).get_output_ports();
+        if(std::find(outputs.begin(), outputs.end(), id) != outputs.end()) {
             cur_gate.set_gate_level(0);
             cur_gate.set_gate_pos(width[0]);
             width[0]++;
-        }
+        }    
 
         // set its children's height based on its own with comparison
         if (cur_graph[id].size() > 0)
@@ -169,7 +170,7 @@ void topologicalSort(graph& g)
                 if (visited[input0.get_id()])
                 {
                     cout << "visited previously,";
-                    width[input0.get_gate_level()]--;
+//                    width[input0.get_gate_level()]--;
                 }
 
                 // give it its new height and position
@@ -200,7 +201,7 @@ void topologicalSort(graph& g)
                     // remove from previous position allocation;
                     if (visited[input1.get_id()])
                     {
-                        width[input1.get_gate_level()]--;
+//                        width[input1.get_gate_level()]--;
                         cout << "visited previously,";
                     }
 
@@ -216,18 +217,37 @@ void topologicalSort(graph& g)
         Stack.pop();
     }
     // AFTER THIS, GO TO TOP MODULES INPUT AND FORCE IT TO MAX LEVEL
-    Max_Level = width.size() - 1;
-    Max_Width = 2; // fill in with max finder.. hard coding now TODO    
+    g.set_max_level(width.size());
+
+    // Get Top Module
+    std::vector<gtid_t>& inputs =  (g.get_module_list()[g.get_module_list().size() - 1]).get_input_ports();
+
+cout << "\nTop module size" << inputs.size() << "\n";
+    for(int i = 0; i < inputs.size(); i++){
+cout << "Input " << inputs[i] << "\n";    
+      // remove from previous position allocation
+//      width[cur_gate_list[inputs[i]].get_gate_level()]--;
+      
+      cur_gate_list[inputs[i]].set_gate_level(g.get_max_level()-1);
+      cur_gate_list[inputs[i]].set_gate_pos(width[g.get_max_level()-1]);
+      width[g.get_max_level()-1]++;
+cout << "gate level " << cur_gate_list[inputs[i]].get_gate_level() << "gate pos " << cur_gate_list[inputs[i]].get_gate_pos() << "\n";
+    }  
+
+    g.set_max_width(*std::max_element(width.begin(), width.end()));
+
+cout << "width max" << g.get_max_width() << " level max" << g.get_max_level(); 
+cout << "\n";
 }
 
 // graph to matrix function 
 // takes g as input from graph
 void graphToMatrix(graph& g)
 {
-
-    gateMatrix matrix = gateMatrix(/*g.get_max_height(), g.get_max_width(), top.get_input().size(),
-                                   top.get_output().size()*/ 4, 2, 2, 1);
-    cout << "" << g.get_gate_list().size();
+    module& top =  (g.get_module_list()[g.get_module_list().size() - 1]);
+    gateMatrix matrix = gateMatrix(g.get_max_level(), g.get_max_width(), top.get_input_ports().size(),
+                                   top.get_output_ports().size());
+    cout << "" << g.get_gate_list().size() << "\n";
     for (int i = 0; i < g.get_gate_list().size(); i++)
     {
         // i contains the index of the current gate value
@@ -256,9 +276,9 @@ void graphToMatrix(graph& g)
             }
         }
 
-        matrix.addGate(3 - (g.get_gate_list()[i].get_gate_level()), g.get_gate_list()[i].get_gate_pos(),
-            (GateType)g.get_gate_list()[i].get_gate_type(), 3 - (g.get_gate_list()[input0].get_gate_level()),
-            g.get_gate_list()[input0].get_gate_pos(), 3 - (g.get_gate_list()[input1].get_gate_level()),
+        matrix.addGate(g.get_max_level()-1 - (g.get_gate_list()[i].get_gate_level()), g.get_gate_list()[i].get_gate_pos(),
+            (GateType)g.get_gate_list()[i].get_gate_type(), g.get_max_level()-1 - (g.get_gate_list()[input0].get_gate_level()),
+            g.get_gate_list()[input0].get_gate_pos(), g.get_max_level()-1 - (g.get_gate_list()[input1].get_gate_level()),
             g.get_gate_list()[input1].get_gate_pos());
     }
 

@@ -49,6 +49,14 @@ void module::insert_gate(gate const & gt)
     m_gate_list.insert({ gt.get_name(), gt.get_id() });
 }
 
+std::vector<gtid_t>& module::get_input_ports(){
+    return m_input_ports;
+}
+
+std::vector<gtid_t>& module::get_output_ports(){
+    return m_output_ports;
+}
+
 
 gtid_t module::find_gate(string const & name) const
 {

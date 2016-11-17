@@ -43,6 +43,11 @@ public:
 
     std::vector<std::vector<gtid_t>>& get_graph();  // ALVIN ADDED
     std::vector<gate>& get_gate_list();             // ALVIN ADDED
+    std::vector<module>& get_module_list();
+    void set_max_level(uint32_t max_level);
+    void set_max_width(uint32_t max_width);
+    uint32_t get_max_level();
+    uint32_t get_max_width();    
 
     module const & find_module(std::string const & name);
 

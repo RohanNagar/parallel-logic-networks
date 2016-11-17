@@ -31,6 +31,9 @@ public:
     void insert_internal_module(std::string const & name, std::string const & mod_name);
     void insert_gate(gate const & gt);
 
+    std::vector<gtid_t>& get_input_ports();
+    std::vector<gtid_t>& get_output_ports();
+
     gtid_t find_gate(std::string const & name) const;
     std::string const find_internal_module(std::string const & name) const;
 

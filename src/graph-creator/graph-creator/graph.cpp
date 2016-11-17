@@ -81,6 +81,23 @@ std::vector<gate>& graph::get_gate_list()
     return m_gate_list;
 }
 
+std::vector<module>& graph::get_module_list()
+{
+  return m_module_list;
+}
+
+void graph::set_max_level(uint32_t max_level){
+  m_max_level = max_level;
+}
+void graph::set_max_width(uint32_t max_width){
+  m_max_width = max_width;
+}
+uint32_t graph::get_max_level(){
+  return m_max_level;
+}
+uint32_t graph::get_max_width(){
+  return m_max_width;
+}
 
 void graph::print()
 {
