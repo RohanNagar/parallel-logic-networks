@@ -83,6 +83,7 @@ typedef enum GateType
   OBUF,
   INV,
   AND,
+  ADD,
   OR,
   XOR,
   NAND,
