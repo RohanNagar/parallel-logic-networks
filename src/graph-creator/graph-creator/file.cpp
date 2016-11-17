@@ -31,8 +31,8 @@ file_parser::file_parser(string const & fname_in, string const & fname_out) :
 void file_parser::parse(graph & g)
 {
     ifstream file_in;
-    file_in.open(m_filename_in);
-    // file_in.open("array_multiplier_edf.txt");
+    // file_in.open(m_filename_in);
+    file_in.open("sub_4bit_edn.txt");
 
     if (!file_in.is_open())
     {
@@ -97,16 +97,17 @@ void file_parser::parse(graph & g)
             ss >> cur_token;
         }
 
-        ss >> cur_token;            // move to the first output port
-        while (ss)
+        // move to the first output port
+        while (ss >> cur_token)
         {
             gate out_gate{ cur_token, "PORT_O" };
             cout << "Added output port " << cur_token << endl;
             g.insert_gate(out_gate);
             new_module.insert_output_port(out_gate);
-
-            ss >> cur_token;
         }
+
+
+        /* Parse Instances */
 
         // make sure instances is the next keyword
         getline(file_in, cur_line);
@@ -119,8 +120,7 @@ void file_parser::parse(graph & g)
         }
 
         // create all the instances, which could be modules or gates
-        getline(file_in, cur_line);
-        while (file_in)
+        while (getline(file_in, cur_line))
         {
             if (file_in.fail())
             {
@@ -138,15 +138,22 @@ void file_parser::parse(graph & g)
                 break;
             }
             cout << "name: " << name << ", instance: " << instance << endl;
-            gate new_gate{ name, instance };
-            g.insert_gate(new_gate);
-            new_module.insert_gate(new_gate);
-            getline(file_in, cur_line);
+            if (gate::in_gate_lib(instance))
+            {
+                gate new_gate{ name, instance };
+                g.insert_gate(new_gate);
+                new_module.insert_gate(new_gate);
+            }
+            else
+            {
+                cout << "Instance is a module, not a gate." << endl;
+            }
         }
 
-        getline(file_in, cur_line);
+
+        /* Parse Nets */
         // create all the nets
-        while (file_in)
+        while (getline(file_in, cur_line))
         {
             if (cur_line.size() == 0)
             {
@@ -156,16 +163,57 @@ void file_parser::parse(graph & g)
             ss = stringstream{ cur_line };
             string src;
             string dest;
-            ss >> dest >> string{} >> src;
-            cout << "src: " << src << ", dest: " << dest << endl;
-            gid_t gid_src = new_module.find_gate(src);
-            gid_t gid_dest = new_module.find_gate(dest);
-            g.insert_edge(gid_src, gid_dest);
-            getline(file_in, cur_line);
+            string port;
+            gid_t gid_src;
+            gid_t gid_dest;
+            ss >> dest >> string{};
+
+            while (ss >> src)
+            {
+                cout << "src: " << src << ", dest: " << dest << endl;
+
+                // check if dest is a module
+                module const & mod = g.find_module(dest);
+                cout << mod.get_name() << endl;
+                if (&mod != &module::module_err)
+                {   // is a module
+                    cout << "Is a module." << endl;
+                }
+                else
+                {   // just a normal gate
+                    gid_dest = new_module.find_gate(dest);
+                    if (gid_dest == -1)
+                    {
+                        cout << "dest not found." << endl;
+                        return;
+                    }
+                }
+                
+
+                gid_src = new_module.find_gate(src);
+
+                if (gid_src == -1)
+                {
+                    cout << "src not found." << endl;
+                    return;
+                }
+                
+                g.insert_edge(gid_src, gid_dest);
+                if (ss >> port && port[port.length() - 1] == ',')
+                {
+                    // cout << "More than one connection." << endl;
+                }
+                else
+                {
+                    // cout << "Done with line." << endl;
+                }
+            }
         }
 
-        // make sure nets is the next keyword
-        break;
+        // add module to the graph
+        g.insert_module(new_module);
+        g.print();
+        getline(file_in, cur_line);
     }
 
     file_in.close();

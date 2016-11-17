@@ -9,6 +9,7 @@ using std::unordered_map;
 namespace pln
 {
 
+module module::module_err{ "ERR" };
 
 module::module(string const & name) :
     m_name{ name },
@@ -17,6 +18,12 @@ module::module(string const & name) :
     m_gate_list{ unordered_map<string, gid_t>{} }
 {
 
+}
+
+
+string const & module::get_name() const
+{
+    return m_name;
 }
 
 void module::insert_input_port(gate const & port)

@@ -6,6 +6,7 @@
 using std::cout;
 using std::endl;
 
+using std::string;
 using std::vector;
 
 namespace pln
@@ -33,12 +34,34 @@ void graph::insert_gate(gate const & new_gate)
 
 void graph::insert_edge(gid_t src, gid_t dest)
 {
-    if (src > m_graph.size())
+    if (src < 0 || src > m_graph.size())
     {
-        perror("gate does not exist.");
+        cout << "Gate " << src << " does not exist." << endl;
+        exit(1);
+    }
+    if (dest < 0 || dest > m_graph.size())
+    {
+        cout << "Gate " << dest << " does not exist." << endl;
         exit(1);
     }
     m_graph[src].push_back(dest);
+}
+
+void graph::insert_module(module const & mod)
+{
+    m_module_list.push_back(mod);
+}
+
+module const & graph::find_module(string const & name)
+{
+    for (uint32_t i = 0; i < m_module_list.size(); ++i)
+    {
+        if (m_module_list[i].get_name() == name)
+        {
+            return m_module_list[i];
+        }
+    }
+    return module::module_err;
 }
 
 void graph::set_heights(std::vector<gid_t> const & start_vertices)
@@ -48,6 +71,9 @@ void graph::set_heights(std::vector<gid_t> const & start_vertices)
 
 void graph::print()
 {
+    cout << "Graph information:" << endl << endl;
+
+    cout << "Adjacency List:" << endl;
     const char separator = '\t';
     const uint8_t width_id = 3;
     const uint8_t width_name = 10;
@@ -70,6 +96,18 @@ void graph::print()
         }
         cout << endl;
     }
+    cout << endl;
+
+    cout << "Graph modules:" << endl;
+    for (uint32_t i = 0; i < m_module_list.size(); ++i)
+    {
+        cout << m_module_list[i].get_name();
+        if (i != m_module_list.size() - 1)
+        {
+            cout << ", ";
+        }
+    }
+    cout << endl << endl;
 }
 
 

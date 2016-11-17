@@ -2,24 +2,24 @@ OBUF -i I -o O
 
 INV -i I -o O
 
-RTL_OR0 -i I0 I1 -o O
+OR0 -i I0 I1 -o O
 
-RTL_AND -i I0 I1 -o O
+AND -i I0 I1 -o O
 
-RTL_INV -i I0 -o O
+INV -i I0 -o O
 
-RTL_XOR0 -i I0 I1 -o O
+XOR0 -i I0 I1 -o O
 
 Sub_1Bit -i A B Bin -o Bout Diff
 	Instances:
-		Bout0_i RTL_OR0
-		Bout0_i__0 RTL_AND
-		Bout1_i RTL_AND
-		Bout1_i__0 RTL_AND
-		Bout2_i RTL_INV
-		Bout_i RTL_OR0
-		Diff0_i RTL_XOR0
-		Diff_i RTL_XOR0
+		Bout0_i OR0
+		Bout0_i__0 AND
+		Bout1_i AND
+		Bout1_i__0 AND
+		Bout2_i INV
+		Bout_i OR0
+		Diff0_i XOR0
+		Diff_i XOR0
 	Nets:
 		A <- Bout2_i I0, Diff0_i I0
 		B <- Bout0_i__0 I0, Bout1_i I1, Diff0_i I1
@@ -35,14 +35,14 @@ Sub_1Bit -i A B Bin -o Bout Diff
 
 Sub_1Bit_HD7 -i A B Bin -o Bout Diff
 	Instances:
-		Bout0_i RTL_OR0
-		Bout0_i__0 RTL_AND
-		Bout1_i RTL_AND
-		Bout1_i__0 RTL_AND
-		Bout2_i RTL_INV
-		Bout_i RTL_OR0
-		Diff0_i RTL_XOR0
-		Diff_i RTL_XOR0
+		Bout0_i OR0
+		Bout0_i__0 AND
+		Bout1_i AND
+		Bout1_i__0 AND
+		Bout2_i INV
+		Bout_i OR0
+		Diff0_i XOR0
+		Diff_i XOR0
 	Nets:
 		Diff0_i <- Diff_i I0
 		A <- Bout2_i I0, Diff0_i I0
@@ -59,14 +59,14 @@ Sub_1Bit_HD7 -i A B Bin -o Bout Diff
 
 Sub_1Bit_HD8 -i A B Bin -o Bout Diff
 	Instances:
-		Bout0_i RTL_OR0
-		Bout0_i__0 RTL_AND
-		Bout1_i RTL_AND
-		Bout1_i__0 RTL_AND
-		Bout2_i RTL_INV
-		Bout_i RTL_OR0
-		Diff0_i RTL_XOR0
-		Diff_i RTL_XOR0
+		Bout0_i OR0
+		Bout0_i__0 AND
+		Bout1_i AND
+		Bout1_i__0 AND
+		Bout2_i INV
+		Bout_i OR0
+		Diff0_i XOR0
+		Diff_i XOR0
 	Nets:
 		Diff0_i <- Diff_i I0
 		A <- Bout2_i I0, Diff0_i I0
@@ -83,14 +83,14 @@ Sub_1Bit_HD8 -i A B Bin -o Bout Diff
 
 Sub_1Bit_HD9 -i A B Bin -o Bout Diff
 	Instances:
-		Bout0_i RTL_OR0
-		Bout0_i__0 RTL_AND
-		Bout1_i RTL_AND
-		Bout1_i__0 RTL_AND
-		Bout2_i RTL_INV
-		Bout_i RTL_OR0
-		Diff0_i RTL_XOR0
-		Diff_i RTL_XOR0
+		Bout0_i OR0
+		Bout0_i__0 AND
+		Bout1_i AND
+		Bout1_i__0 AND
+		Bout2_i INV
+		Bout_i OR0
+		Diff0_i XOR0
+		Diff_i XOR0
 	Nets:
 		Diff0_i <- Diff_i I0
 		A <- Bout2_i I0, Diff0_i I0

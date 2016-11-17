@@ -19,14 +19,19 @@ private:
     std::vector<gid_t> m_output_ports;
     std::unordered_map<std::string, gid_t> m_gate_list;         // maintain a gate list for each module that is indexed by each gate's name
 
+
 public:
     module(std::string const & name);
+
+    std::string const & get_name() const;
 
     void insert_input_port(gate const & port);
     void insert_output_port(gate const & port);
     void insert_gate(gate const & gt);
 
     gid_t find_gate(std::string const & name);
+
+    static module module_err;                                   // module to return when not found
 };
 
 

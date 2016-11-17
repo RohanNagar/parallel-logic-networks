@@ -37,6 +37,10 @@ public:
 
     void insert_gate(gate const & new_gate);
     void insert_edge(gid_t src, gid_t dest);
+    void insert_module(module const & mod);
+
+    module const & find_module(std::string const & name);
+
     void set_heights(std::vector<gid_t> const & start_vertices);
 
     void print();
