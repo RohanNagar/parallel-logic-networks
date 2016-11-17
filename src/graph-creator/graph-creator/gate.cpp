@@ -83,12 +83,12 @@ gate::gate(string const & name, string const & type) :
         m_type = gate_type::ADD;
     }
 
-    else if (type == "OR")
+    else if (type == "OR0")
     {
         m_type = gate_type::OR;
     }
 
-    else if (type == "XOR")
+    else if (type == "XOR0")
     {
         m_type = gate_type::XOR;
     }
