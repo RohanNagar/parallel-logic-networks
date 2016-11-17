@@ -179,10 +179,12 @@ def main(infile_name, outfile_name):
             if words[0] == 'cell':
                 if current_cell is not None:
                     add_net_to_cell(current_net, current_cell, all_cells)
+                    current_net = None
+                    
                     all_cells.append(current_cell)
                     outfile.write(str(current_cell) + '\n\n')
 
-                current_cell = Cell(words[1])
+                current_cell = Cell(words[1].strip('RTL_'))
 
             # Check for items to add to the cell
             if words[0] == 'port':
@@ -201,9 +203,9 @@ def main(infile_name, outfile_name):
             if words[0] == 'instance':
                 # Renamed instances have different positions
                 if words[1] == 'rename':
-                    current_cell.add_instance(words[2] + ' ' + words[7])
+                    current_cell.add_instance(words[2] + ' ' + words[7].strip('RTL_'))
                 else:
-                    current_cell.add_instance(words[1] + ' ' +  words[5])
+                    current_cell.add_instance(words[1] + ' ' +  words[5].strip('RTL_'))
 
             if words[0] == 'net':
                 add_net_to_cell(current_net, current_cell, all_cells)
