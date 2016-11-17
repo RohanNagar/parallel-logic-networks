@@ -165,41 +165,66 @@ void file_parser::parse(graph & g)
             string src;
             string dest;
             string port;
-            gtid_t gid_src;
-            gtid_t gid_dest;
-            ss >> dest >> string{};
+            gtid_t gtid_src;
+            gtid_t gtid_dest;
+            ss >> dest;
+
+            // check if dest is a module
+            string mod_name = new_module.find_internal_module(dest);
+            if (mod_name != "")
+            {   // is a module
+                cout << mod_name << " is a module." << endl;
+                module const & mod = g.find_module(mod_name);
+                if (&mod == &module::module_err)
+                {
+                    cout << "module not found." << endl;
+                    return;
+                }
+                string mod_port;
+                ss >> mod_port;
+                gtid_dest = mod.find_gate(mod_port);
+            }
+            else
+            {   // just a normal gate
+                gtid_dest = new_module.find_gate(dest);
+                if (gtid_dest == -1)
+                {
+                    cout << "dest not found." << endl;
+                    return;
+                }
+            }
+
+            ss >> string{};         // move the stream past the "<-" token
 
             while (ss >> src)
             {
                 cout << "src: " << src << ", dest: " << dest << endl;
 
-                // check if dest is a module
-                string mod_name = new_module.find_internal_module(dest);
-                cout << mod_name << endl;
+                mod_name = new_module.find_internal_module(src);
                 if (mod_name != "")
                 {   // is a module
-                    cout << "Is a module." << endl;
+                    cout << mod_name << " is a module." << endl;
+                    module const & mod = g.find_module(mod_name);
+                    if (&mod == &module::module_err)
+                    {
+                        cout << "module not found." << endl;
+                        return;
+                    }
+                    string mod_port;
+                    ss >> mod_port;
+                    gtid_src = mod.find_gate(mod_port);
                 }
                 else
-                {   // just a normal gate
-                    gid_dest = new_module.find_gate(dest);
-                    if (gid_dest == -1)
+                {
+                    gtid_src = new_module.find_gate(src);
+                    if (gtid_src == -1)
                     {
-                        cout << "dest not found." << endl;
+                        cout << "src not found." << endl;
                         return;
                     }
                 }
                 
-
-                gid_src = new_module.find_gate(src);
-
-                if (gid_src == -1)
-                {
-                    cout << "src not found." << endl;
-                    return;
-                }
-                
-                g.insert_edge(gid_src, gid_dest);
+                g.insert_edge(gtid_src, gtid_dest);
                 if (ss >> port && port[port.length() - 1] == ',')
                 {
                     // cout << "More than one connection." << endl;
