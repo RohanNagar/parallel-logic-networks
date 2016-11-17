@@ -1,0 +1,10 @@
+This test iterates through all possible inputs (2^9 = 512)
+ModelSim, used a do file to force the iterations. Used simstats to get the actual simulation time.
+PLD, used built in CUDA api to get time.
+
+Test |  ModelSim  |  PLD Sim  (ms)
+  1  |    81.052  |   27.617
+  2  |    74.866  |   27.808
+  3  |    74.176  |   27.992
+  4  |    71.386  |   27.840
+  5  |   1100.00  |   27.822 
