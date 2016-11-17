@@ -66,13 +66,13 @@ int main(int argc, char* argv[])
     std::vector<gtid_t>& inputs=(g.get_module_list()[g.get_module_list().size()-1]).get_input_ports();
  
     cout << "Ouput Bit Position (Left to Right)\n";
-    for(int i = 0; i < outputs.size(); i++){
+    for(uint32_t i = 0; i < outputs.size(); i++){
       gate cur_gate = g.get_gate_list()[outputs[i]];
       cout << "" << cur_gate.get_name() << " " << cur_gate.get_gate_pos() << "\n";
     }
     
     cout << "Input Bit Position (Left to Right)\n";
-    for(int i = 0; i < inputs.size(); i++){
+    for(uint32_t i = 0; i < inputs.size(); i++){
       gate cur_gate = g.get_gate_list()[inputs[i]];
       cout << "" << cur_gate.get_name() << " " << cur_gate.get_gate_pos() << "\n";
     }
@@ -89,7 +89,7 @@ void topologicalSortUtil(graph& g, int v, bool visited[],
     // Recur for all the vertices adjacent to this vertex
     if (g.get_graph()[v].size() > 0)
     {
-        for (int i = 0; i < (g.get_graph()[v]).size(); ++i)
+        for (uint32_t i = 0; i < (g.get_graph()[v]).size(); ++i)
         {
             if (!visited[g.get_graph()[v][i]])
             {
@@ -110,14 +110,14 @@ void topologicalSort(graph& g)
 
     // Mark all the vertices as not visited
     bool *visited = new bool[g.get_gate_list().size()];
-    for (int i = 0; i < g.get_gate_list().size(); i++)
+    for (uint32_t i = 0; i < g.get_gate_list().size(); i++)
     {
         visited[i] = false;
     }
 
     // Call the recursive helper function to store Topological
     // Sort starting from all vertices one by one
-    for (int i = 0; i < g.get_gate_list().size(); i++)
+    for (uint32_t i = 0; i < g.get_gate_list().size(); i++)
     {
         if (visited[i] == false)
         {
@@ -128,9 +128,7 @@ void topologicalSort(graph& g)
 
     // CREATE FUNCTION FOR THIS: sets heights 
     // Print contents and set heights of stack
-    uint32_t Max_Level = 0; // add this value to graph
-    uint32_t Max_Width = 0; // add this value to graph
-    vector<uint32_t> width; width.push_back(0);
+   vector<uint32_t> width; width.push_back(0);
 
     // Creating levels and width
     vector<gate>& cur_gate_list = g.get_gate_list();
@@ -140,7 +138,7 @@ void topologicalSort(graph& g)
     // Mark all the vertices as not visited
     delete visited;
     visited = new bool[g.get_gate_list().size()];
-    for (int i = 0; i < g.get_gate_list().size(); i++)
+    for (uint32_t i = 0; i < g.get_gate_list().size(); i++)
     {
         visited[i] = false;
     }
@@ -238,18 +236,17 @@ void topologicalSort(graph& g)
     std::vector<gtid_t>& inputs =  (g.get_module_list()[g.get_module_list().size() - 1]).get_input_ports();
 
 cout << "\nTop module size" << inputs.size() << "\n";
-    for(int i = 0; i < inputs.size(); i++){
+    for(uint32_t i = 0; i < inputs.size(); i++){
 cout << "Input " << inputs[i] << "\n";    
       // remove from previous position allocation
 //      width[cur_gate_list[inputs[i]].get_gate_level()]--;
       
       cur_gate_list[inputs[i]].set_gate_level(g.get_max_level()-1);
-      cur_gate_list[inputs[i]].set_gate_pos(width[g.get_max_level()-1]);
-      width[g.get_max_level()-1]++;
+      cur_gate_list[inputs[i]].set_gate_pos(i);
 cout << "gate level " << cur_gate_list[inputs[i]].get_gate_level() << "gate pos " << cur_gate_list[inputs[i]].get_gate_pos() << "\n";
     }  
-
-    g.set_max_width(*std::max_element(width.begin(), width.end()));
+    width[g.get_max_level()-1] = inputs.size();
+    g.set_max_width(*std::max_element(width.begin(), width.end()) - 1);
 
 cout << "width max" << g.get_max_width() << " level max" << g.get_max_level(); 
 cout << "\n";
@@ -263,7 +260,7 @@ void graphToMatrix(graph& g, char* outHeader)
     gateMatrix matrix = gateMatrix(g.get_max_level(), g.get_max_width(), top.get_input_ports().size(),
                                    top.get_output_ports().size());
     cout << "" << g.get_gate_list().size() << "\n";
-    for (int i = 0; i < g.get_gate_list().size(); i++)
+    for (uint32_t i = 0; i < g.get_gate_list().size(); i++)
     {
         // i contains the index of the current gate value
 

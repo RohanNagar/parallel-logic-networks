@@ -80,8 +80,8 @@ using namespace std;
   
   void gateMatrix::printMatrix(void){
     uint64_t value;
-    for(int i = num_row - 1; i >= 0; i--){
-      for(int j = 0; j < num_col; j++){
+    for(int i = num_row - 1; (int)i >= 0; i--){
+      for(uint32_t j = 0; j < num_col; j++){
         value = matrix[i * num_col + j];
         cout << "" << LogicNames[getOUT(value)] <<  " " << GateNames[getGATE(value)] << "[" \
              << std::setw(2) << std::setfill('0') << getI0R(value) << "][" \
@@ -102,8 +102,8 @@ using namespace std;
     outFile << "#define CUDA_MATRIX_INP " << num_inp << "\n";
     outFile << "#define CUDA_MATRIX_OUT " << num_out << "\n\n";
     outFile << "uint64_t const CUDA_MATRIX[" << num_row << "]["<<num_col  << "] = { "; 
-    for(int i = 0; i < num_row; i++){
-      for(int j = 0; j < num_col; j++){
+    for(uint32_t i = 0; i < num_row; i++){
+      for(uint32_t j = 0; j < num_col; j++){
         outFile << "" << matrix[i * num_col + j] << ", ";
       }
       outFile << " \n"; 
