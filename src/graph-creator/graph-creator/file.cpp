@@ -193,8 +193,9 @@ void file_parser::parse(graph & g)
                     return;
                 }
             }
-
-            ss >> string{};         // move the stream past the "<-" token
+            
+            string empty_token;
+            ss >> empty_token;          // move the stream past the "<-" token
 
             while (ss >> src)
             {
