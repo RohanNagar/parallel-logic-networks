@@ -161,7 +161,7 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
         case OBUF:
           gateOut = gateInp0; 
           break;
-        case RTL_INV: // TODO for all gates
+        case INV: // TODO for all gates
           switch(gateInp0){
             case O:
               gateOut = I;
@@ -177,19 +177,19 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
               break;
           }
           break;
-        case RTL_AND:
+        case AND:
           gateOut = gateInp0 & gateInp1;
           break;
-        case RTL_OR:
+        case OR:
           gateOut = gateInp0 | gateInp1;
           break;
-        case RTL_XOR: // only works for 0 and 1
+        case XOR: // only works for 0 and 1
           gateOut = gateInp0 ^ gateInp1;
           break;
-        case RTL_NAND:
+        case NAND:
           gateOut = !(gateInp0 & gateInp1);
           break;
-        case RTL_NOR:
+        case NOR:
           gateOut = !(gateInp0 | gateInp1);
           break;
         default:

@@ -18,7 +18,8 @@ using namespace std;
 
   // Construtor 
   gateMatrix::gateMatrix(uint32_t num_row, uint32_t num_col, uint32_t num_inp, uint32_t num_out){
-    matrix = new uint64_t[num_row * num_col]();
+    matrix = new uint64_t[num_row * num_col];
+    *matrix = {};
     this->num_row = num_row;
     this->num_col = num_col;
     this->num_inp = num_inp;

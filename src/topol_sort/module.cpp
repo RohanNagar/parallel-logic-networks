@@ -12,9 +12,9 @@ namespace pln
 
 module::module(string const & name) :
     m_name{ name },
-    m_input_ports{ vector<gid_t>{} },
-    m_output_ports{ vector<gid_t>{} },
-    m_gate_list{ unordered_map<string, gid_t>{} }
+    m_input_ports{ vector<gtid_t>{} },
+    m_output_ports{ vector<gtid_t>{} },
+    m_gate_list{ unordered_map<string, gtid_t>{} }
 {
 
 }
@@ -38,7 +38,7 @@ void module::insert_gate(gate const & gt)
 }
 
 
-gid_t module::find_gate(string const & name)
+gtid_t module::find_gate(string const & name)
 {
     auto it = m_gate_list.find(name);
     if (it == m_gate_list.end())

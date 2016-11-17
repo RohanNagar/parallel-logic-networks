@@ -28,16 +28,20 @@ class graph
 {
 
 private:
-    std::vector<std::vector<gid_t>> m_graph;        // adjacencly list structure
+    std::vector<std::vector<gtid_t>> m_graph;        // adjacencly list structure
     std::vector<gate> m_gate_list;                  // list of all gates; index is the gate id
     std::vector<module> m_module_list;              // list of all modules; the last module will be the overall module
+    uint32_t m_max_level;
+    uint32_t m_max_width;
 
 public:
     graph();
 
+    std::vector<std::vector<gtid_t>>& get_graph();  // ALVIN ADDED
+    std::vector<gate>& get_gate_list();             // ALVIN ADDED
     void insert_gate(gate const & new_gate);
-    void insert_edge(gid_t src, gid_t dest);
-    void set_heights(std::vector<gid_t> const & start_vertices);
+    void insert_edge(gtid_t src, gtid_t dest);
+    void set_heights(std::vector<gtid_t> const & start_vertices);
 
     void print();
 
