@@ -50,7 +50,7 @@ void module::insert_gate(gate const & gt)
 }
 
 
-gtid_t module::find_gate(string const & name)
+gtid_t module::find_gate(string const & name) const
 {
     auto it = m_gate_list.find(name);
     if (it == m_gate_list.end())
@@ -60,7 +60,7 @@ gtid_t module::find_gate(string const & name)
     return it->second;
 }
 
-string const module::find_internal_module(string const & name)
+string const module::find_internal_module(string const & name) const
 {
     auto it = m_module_list.find(name);
     if (it == m_module_list.end())

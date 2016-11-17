@@ -54,7 +54,6 @@ void graph::insert_module(module const & mod)
 
 module const & graph::find_module(string const & name)
 {
-    cout << "searching for module " << name << endl;
     for (uint32_t i = 0; i < m_module_list.size(); ++i)
     {
         if (m_module_list[i].get_name() == name)

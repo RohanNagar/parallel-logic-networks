@@ -31,8 +31,8 @@ public:
     void insert_internal_module(std::string const & name, std::string const & mod_name);
     void insert_gate(gate const & gt);
 
-    gtid_t find_gate(std::string const & name);
-    std::string const find_internal_module(std::string const & name);
+    gtid_t find_gate(std::string const & name) const;
+    std::string const find_internal_module(std::string const & name) const;
 
     static module module_err;                                   // module to return when not found
 };
