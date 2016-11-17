@@ -176,7 +176,7 @@ cout << " level " << input1.get_gate_level() << " pos " << input1.get_gate_pos()
        }   
        Stack.pop();
     }
-    // AFTER THIS, GO TO TOP MODULES INPUT AND FORCE IT TO MAX LEVEL
+    // AFTER THIS, GO TO TOP MODULES INPUT AND FORCE IT TO MAX LEVEL TODO
     Max_Level = width.size() - 1;
     Max_Width = 2; // fill in with max finder.. hard coding now TODO    
 }
@@ -218,6 +218,7 @@ cout << "" << g.get_gate_list().size();
   }
 
   matrix.printMatrix();
+  matrix.outputMatrixHeader((char*)"TestTop.h");
 }
  
 // Driver program to test above functions
