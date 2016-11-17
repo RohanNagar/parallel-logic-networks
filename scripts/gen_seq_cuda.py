@@ -4,11 +4,12 @@ from itertools import product
 
 
 def main(n, outfile):
-    sequences = [''.join(seq) for seq in product('01', repeat=n)]
-
+    final = 2**n
     with open(outfile, 'w') as f:
-        f.write(str(2**n) + '\n')
-        f.write('\n'.join(seq for seq in sequences))
+        f.write(str(final) + '\n');  
+        for i in range(0,final):
+            f.write(format(i, '08b') + '\n')    
+      
 
 
 if __name__ == '__main__':
