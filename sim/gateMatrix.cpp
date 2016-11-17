@@ -99,7 +99,8 @@ using namespace std;
     outFile << "#define CUDA_MATRIX_COL " << num_col << "\n";
     outFile << "#define CUDA_MATRIX_INP " << num_inp << "\n";
     outFile << "#define CUDA_MATRIX_OUT " << num_out << "\n\n";
-    outFile << "uint64_t const CUDA_MATRIX[" << num_row << "][" << num_col  << "] = { "; 
+    outFile << "uint64_t const CUDA_MATRIX[" << std::setw(2) << std::setfill('0') << num_row << "]["
+<< std::setw(2) << std::setfill('0') << num_col  << "] = { "; 
     for(int i = 0; i < num_row; i++){
       for(int j = 0; j < num_col; j++){
         outFile << "" << matrix[i * num_col + j] << ", ";
