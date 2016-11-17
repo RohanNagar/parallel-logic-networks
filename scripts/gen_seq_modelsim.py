@@ -8,7 +8,8 @@ def main(n, outfile):
 
     with open(outfile, 'w') as f:
         f.write('set sim_time [time {run -all}]') 
-        f.write(force
+        for seq in sequences         
+
         f.write('\n'.join(seq for seq in sequences))
 
 
