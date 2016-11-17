@@ -91,8 +91,7 @@ typedef enum GateType
   NUM_GATES,
 }GateType;
 
-string const GateNames[NUM_GATES] = {"___", " PI", " PO", "BUF", "INV", "AND", " OR", \
-                                     "XOR", "NND", "NOR"};
+string const GateNames[NUM_GATES] = {"___", " PI", " PO", "BUF", "INV", "AND", "ADD", " OR", "XOR", "NND", "NOR"};
 
 // Class to create gate matrix
 class gateMatrix{
