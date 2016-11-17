@@ -2,21 +2,21 @@ OBUF -i I -o O
 
 INV -i I -o O
 
-RTL_OR0 -i I0 I1 -o O
+OR0 -i I0 I1 -o O
 
-RTL_AND -i I0 I1 -o O
+AND -i I0 I1 -o O
 
-RTL_XOR0 -i I0 I1 -o O
+XOR0 -i I0 I1 -o O
 
 FullAdder -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
@@ -31,15 +31,14 @@ FullAdder -i Cin X Y -o Cout Sum
 
 FullAdder_HD7 -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
 		Cout0_i <- Cout_i I0
@@ -53,15 +52,14 @@ FullAdder_HD7 -i Cin X Y -o Cout Sum
 
 FullAdder_HD8 -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
 		Cout0_i <- Cout_i I0
@@ -75,15 +73,14 @@ FullAdder_HD8 -i Cin X Y -o Cout Sum
 
 FullAdder_HD9 -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
 		Cout0_i <- Cout_i I0
@@ -97,15 +94,14 @@ FullAdder_HD9 -i Cin X Y -o Cout Sum
 
 FullAdder_HD10 -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
 		Cout0_i <- Cout_i I0
@@ -119,15 +115,14 @@ FullAdder_HD10 -i Cin X Y -o Cout Sum
 
 FullAdder_HD11 -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
 		Cout0_i <- Cout_i I0
@@ -141,15 +136,14 @@ FullAdder_HD11 -i Cin X Y -o Cout Sum
 
 FullAdder_HD12 -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
 		Cout0_i <- Cout_i I0
@@ -163,15 +157,14 @@ FullAdder_HD12 -i Cin X Y -o Cout Sum
 
 FullAdder_HD13 -i Cin X Y -o Cout Sum
 	Instances:
-		Cout0_i RTL_OR0
-		Cout0_i__0 RTL_AND
-		Cout1_i RTL_AND
-		Cout1_i__0 RTL_AND
-		Cout_i RTL_OR0
-		Sum0_i RTL_XOR0
-		Sum_i RTL_XOR0
+		Cout0_i OR0
+		Cout0_i__0 AND
+		Cout1_i AND
+		Cout1_i__0 AND
+		Cout_i OR0
+		Sum0_i XOR0
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cin <- Cout0_i__0 I1, Cout1_i__0 I1, Sum_i I1
 		Cout_i <- Cout
 		Cout0_i <- Cout_i I0
@@ -185,10 +178,9 @@ FullAdder_HD13 -i Cin X Y -o Cout Sum
 
 HalfAdder -i X Y -o Cout Sum
 	Instances:
-		Cout_i RTL_AND
-		Sum_i RTL_XOR0
+		Cout_i AND
+		Sum_i XOR0
 	Nets:
-		Y <- Cout0_i__0 I0, Cout1_i I1, Sum0_i I1
 		Cout_i <- Cout
 		Sum_i <- Sum
 		X <- Cout_i I0, Sum_i I0
@@ -196,10 +188,9 @@ HalfAdder -i X Y -o Cout Sum
 
 HalfAdder_HD14 -i X Y -o Cout Sum
 	Instances:
-		Cout_i RTL_AND
-		Sum_i RTL_XOR0
+		Cout_i AND
+		Sum_i XOR0
 	Nets:
-		Y <- Cout_i I1, Sum_i I1
 		Cout_i <- Cout
 		Sum_i <- Sum
 		X <- Cout_i I0, Sum_i I0
@@ -207,10 +198,9 @@ HalfAdder_HD14 -i X Y -o Cout Sum
 
 HalfAdder_HD15 -i X Y -o Cout Sum
 	Instances:
-		Cout_i RTL_AND
-		Sum_i RTL_XOR0
+		Cout_i AND
+		Sum_i XOR0
 	Nets:
-		Y <- Cout_i I1, Sum_i I1
 		Cout_i <- Cout
 		Sum_i <- Sum
 		X <- Cout_i I0, Sum_i I0
@@ -218,10 +208,9 @@ HalfAdder_HD15 -i X Y -o Cout Sum
 
 HalfAdder_HD16 -i X Y -o Cout Sum
 	Instances:
-		Cout_i RTL_AND
-		Sum_i RTL_XOR0
+		Cout_i AND
+		Sum_i XOR0
 	Nets:
-		Y <- Cout_i I1, Sum_i I1
 		Cout_i <- Cout
 		Sum_i <- Sum
 		X <- Cout_i I0, Sum_i I0
@@ -241,7 +230,7 @@ Array_Mult -i X3 X2 X1 X0 Y3 Y2 Y1 Y0 -o P7 P6 P5 P4 P3 P2 P1 P0
 		HA2 HalfAdder_HD14
 		HA3 HalfAdder_HD15
 		HA4 HalfAdder_HD16
-		P0_i RTL_AND
+		P0_i AND
 		P_0__OBUF_inst OBUF
 		P_1__OBUF_inst OBUF
 		P_2__OBUF_inst OBUF
@@ -250,23 +239,22 @@ Array_Mult -i X3 X2 X1 X0 Y3 Y2 Y1 Y0 -o P7 P6 P5 P4 P3 P2 P1 P0
 		P_5__OBUF_inst OBUF
 		P_6__OBUF_inst OBUF
 		P_7__OBUF_inst OBUF
-		X0_i RTL_AND
-		X0_i__0 RTL_AND
-		X0_i__1 RTL_AND
-		X0_i__2 RTL_AND
-		Y0_i RTL_AND
-		Y0_i__0 RTL_AND
-		Y0_i__1 RTL_AND
-		Y0_i__2 RTL_AND
-		Y0_i__3 RTL_AND
-		Y0_i__4 RTL_AND
-		Y0_i__5 RTL_AND
-		Y0_i__6 RTL_AND
-		Y0_i__7 RTL_AND
-		Y0_i__8 RTL_AND
-		Y0_i__9 RTL_AND
+		X0_i AND
+		X0_i__0 AND
+		X0_i__1 AND
+		X0_i__2 AND
+		Y0_i AND
+		Y0_i__0 AND
+		Y0_i__1 AND
+		Y0_i__2 AND
+		Y0_i__3 AND
+		Y0_i__4 AND
+		Y0_i__5 AND
+		Y0_i__6 AND
+		Y0_i__7 AND
+		Y0_i__8 AND
+		Y0_i__9 AND
 	Nets:
-		Y <- Cout_i I1, Sum_i I1
 		FA1 Cout <- FA2 Cin
 		FA1 Sum <- HA3 X
 		FA2 Cout <- HA2 Y
