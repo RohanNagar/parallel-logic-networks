@@ -156,10 +156,10 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
           gateOut = 0;
           break;
         case PORT_I:
-          gateOut = input0;
+          gateOut = gateInp0;
           break;
         case PORT_O:
-          gateOut = input0;
+          gateOut = gateInp0;
           break;
         case OBUF:
           gateOut = gateInp0; 
