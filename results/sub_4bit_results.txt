@@ -3,8 +3,8 @@ ModelSim, used a do file to force the iterations. Used simstats to get the actua
 PLD, used built in CUDA api to get time.
 
 Test |  ModelSim  |  PLD Sim  (ms)
-  1  |    81.052  |   27.617
-  2  |    74.866  |   27.808
-  3  |    74.176  |   27.992
-  4  |    71.386  |   27.840
-  5  |   1100.00  |   27.822 
+  1  |    81.052  |    27.62
+  2  |    74.866  |    27.81
+  3  |     78.00  |    27.99
+  4  |    970.00  |    27.84
+  5  |   1100.00  |    27.82 
