@@ -42,7 +42,9 @@ gate::gate(string const & name) :
 gate::gate(string const & name, string const & type) :
     m_id{ (int)gate::m_num_gates },
     m_name{ name },
-    m_type_name{ type }
+    m_type_name{ type },
+    m_gate_level{ 0 }, // ALVIN ADDED
+    m_gate_pos{ 0 }   // ALVIND ADDED
 {
     ++gate::m_num_gates;            // increment total gate count
 
@@ -136,6 +138,32 @@ bool gate::in_gate_lib(string const & type)
 {
     auto it = gate::m_gate_lib.find(type);
     return it != gate::m_gate_lib.end();
+}
+
+gate_type gate::get_gate_type()
+{
+    return m_type;
+}
+
+// ALVIN ADDED
+void gate::set_gate_level(uint32_t level)
+{
+    m_gate_level = level;
+}
+
+void gate::set_gate_pos(uint32_t pos)
+{
+    m_gate_pos = pos;
+}
+
+uint32_t gate::get_gate_level()
+{
+    return m_gate_level;
+}
+
+uint32_t gate::get_gate_pos()
+{
+    return m_gate_pos;
 }
 
 

@@ -69,6 +69,19 @@ void graph::set_heights(std::vector<gtid_t> const & start_vertices)
 
 }
 
+// ALVIN ADDED
+std::vector<std::vector<gtid_t>>& graph::get_graph()
+{
+    return m_graph;
+}
+
+// ALVIN ADDED
+std::vector<gate>& graph::get_gate_list()
+{
+    return m_gate_list;
+}
+
+
 void graph::print()
 {
     cout << "Graph information:" << endl << endl;
