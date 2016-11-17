@@ -8,7 +8,8 @@ def main(n, outfile):
     with open(outfile, 'w') as f:
         f.write(str(final) + '\n');  
         for i in range(0,final):
-            f.write(format(i, '0' + str(n) +  'b') + '\n')    
+            num = " ".join(format(i, '0' + str(n) + 'b'))
+            f.write(num + '\n')    
       
 
 
