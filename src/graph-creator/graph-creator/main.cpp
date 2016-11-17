@@ -28,19 +28,19 @@ using namespace pln;
 const string OUT_FILENAME = "graph.txt";
 
 void topologicalSort(graph& g);
-void graphToMatrix(graph& g);
+void graphToMatrix(graph& g, char* outHeader);
 
 int main(int argc, char* argv[])
 {
 
     // check arguments
-    if (argc < 2)
+    if (argc < 3)
     {
-        cout << "Need to pass in an input file." << endl;
+        cout << "Need to pass in an input file and output file." << endl;
         exit(1);
     }
 
-    else if (argc > 2)
+    else if (argc > 3)
     {
         cout << "Too many arguments." << endl;
         exit(1);
@@ -58,10 +58,25 @@ int main(int argc, char* argv[])
     fp.parse(g);
 
     topologicalSort(g);
-    graphToMatrix(g);
+    graphToMatrix(g, argv[2]);
 
     g.print();
 
+    std::vector<gtid_t>& outputs=(g.get_module_list()[g.get_module_list().size()-1]).get_output_ports();
+    std::vector<gtid_t>& inputs=(g.get_module_list()[g.get_module_list().size()-1]).get_input_ports();
+ 
+    cout << "Ouput Bit Position (Left to Right)\n";
+    for(int i = 0; i < outputs.size(); i++){
+      gate cur_gate = g.get_gate_list()[outputs[i]];
+      cout << "" << cur_gate.get_name() << " " << cur_gate.get_gate_pos() << "\n";
+    }
+    
+    cout << "Input Bit Position (Left to Right)\n";
+    for(int i = 0; i < inputs.size(); i++){
+      gate cur_gate = g.get_gate_list()[inputs[i]];
+      cout << "" << cur_gate.get_name() << " " << cur_gate.get_gate_pos() << "\n";
+    }
+ 
 }
 
 // A recursive function used by topologicalSort
@@ -242,7 +257,7 @@ cout << "\n";
 
 // graph to matrix function 
 // takes g as input from graph
-void graphToMatrix(graph& g)
+void graphToMatrix(graph& g, char* outHeader)
 {
     module& top =  (g.get_module_list()[g.get_module_list().size() - 1]);
     gateMatrix matrix = gateMatrix(g.get_max_level(), g.get_max_width(), top.get_input_ports().size(),
@@ -283,5 +298,6 @@ void graphToMatrix(graph& g)
     }
 
     matrix.printMatrix();
+    matrix.outputMatrixHeader(outHeader);
 }
 
