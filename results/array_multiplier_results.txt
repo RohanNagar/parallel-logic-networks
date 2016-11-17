@@ -5,10 +5,10 @@ This test iterates through all possible inputs (2^8 = 256)
 -PLD, used built in CUDA api to get time using timing events.
 
 Test |  ModelSim  |  PLD Sim  (ms)
-  1  |    500.00  |    XX.XX
-  2  |    503.00  |    XX.XX
-  3  |    360.00  |    XX.XX
-  4  |    580.00  |    XX.XX
-  5  |    420.00  |    XX.XX
+  1  |    500.00  |    24.34
+  2  |    503.00  |    24.92
+  3  |    360.00  |    24.52
+  4  |    580.00  |    54.88
+  5  |    420.00  |    24.83
 _____________________________ 
- avg |    472.6   |    XX.XX  (ms) 
+ avg |    472.6   |    30.70  (ms) 

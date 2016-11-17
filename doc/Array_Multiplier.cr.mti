@@ -1,0 +1,10 @@
+{C:/Users/alvin/Documents/UT Austin/Senior/EE382C/Project/sample_inputs/array_multiplier.v} {1 {vlog -work work -stats=none {C:/Users/alvin/Documents/UT Austin/Senior/EE382C/Project/sample_inputs/array_multiplier.v}
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module Array_Mult
+-- Compiling module FullAdder
+-- Compiling module HalfAdder
+
+Top level modules:
+	Array_Mult
+
+} {} {}}
