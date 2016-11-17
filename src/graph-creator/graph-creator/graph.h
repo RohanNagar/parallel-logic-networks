@@ -31,6 +31,8 @@ private:
     std::vector<std::vector<gtid_t>> m_graph;        // adjacencly list structure
     std::vector<gate> m_gate_list;                  // list of all gates; index is the gate id
     std::vector<module> m_module_list;              // list of all modules; the last module will be the overall module
+    uint32_t m_max_level;
+    uint32_t m_max_width;
 
 public:
     graph();
@@ -38,6 +40,9 @@ public:
     void insert_gate(gate const & new_gate);
     void insert_edge(gtid_t src, gtid_t dest);
     void insert_module(module const & mod);
+
+    std::vector<std::vector<gtid_t>>& get_graph();  // ALVIN ADDED
+    std::vector<gate>& get_gate_list();             // ALVIN ADDED
 
     module const & find_module(std::string const & name);
 

@@ -147,14 +147,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="file.cpp" />
+    <ClCompile Include="gateMatrix.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="gate.cpp" />
+    <ClCompile Include="Makefile">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file.h" />
     <ClInclude Include="gate-type.h" />
+    <ClInclude Include="gateMatrix.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="gate.h" />
     <ClInclude Include="module.h" />
