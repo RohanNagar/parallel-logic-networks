@@ -2,12 +2,12 @@ OBUF -i I -o O
 
 INV -i I -o O
 
-RTL_ADD -i I0 I1 -o O
+ADD -i I0 I1 -o O
 
 Combinational -i iA iB -o oD
 	Instances:
 		oD_OBUF_inst OBUF
-		oD_i RTL_ADD
+		oD_i ADD
 	Nets:
 		iA <- oD_i I0
 		iB <- oD_i I1
