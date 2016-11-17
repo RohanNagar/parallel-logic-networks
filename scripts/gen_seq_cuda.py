@@ -7,7 +7,7 @@ def main(n, outfile):
     sequences = [''.join(seq) for seq in product('01', repeat=n)]
 
     with open(outfile, 'w') as f:
-        f.write(str(n) + '\n')
+        f.write(str(2**n) + '\n')
         f.write('\n'.join(seq for seq in sequences))
 
 
