@@ -1,0 +1,14 @@
+ARRAY MULTIPLIER (8 inputs)
+This test iterates through all possible inputs (2^8 = 256)
+-ModelSim, used a do file to force the inputs and run for each iterations. 
+ Used simstats to get the actual simulation time.
+-PLD, used built in CUDA api to get time using timing events.
+
+Test |  ModelSim  |  PLD Sim  (ms)
+  1  |    500.00  |    27.62
+  2  |    503.00  |    27.81
+  3  |    360.00  |    27.99
+  4  |    580.00  |    27.84
+  5  |    420.00  |    27.82
+_____________________________ 
+ avg |    472.6   |    27.82  (ms) 
