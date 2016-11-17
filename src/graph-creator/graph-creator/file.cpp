@@ -147,6 +147,7 @@ void file_parser::parse(graph & g)
             else
             {
                 cout << "Instance is a module, not a gate." << endl;
+                new_module.insert_internal_module(name, instance);
             }
         }
 
@@ -164,8 +165,8 @@ void file_parser::parse(graph & g)
             string src;
             string dest;
             string port;
-            gid_t gid_src;
-            gid_t gid_dest;
+            gtid_t gid_src;
+            gtid_t gid_dest;
             ss >> dest >> string{};
 
             while (ss >> src)
@@ -173,9 +174,9 @@ void file_parser::parse(graph & g)
                 cout << "src: " << src << ", dest: " << dest << endl;
 
                 // check if dest is a module
-                module const & mod = g.find_module(dest);
-                cout << mod.get_name() << endl;
-                if (&mod != &module::module_err)
+                string mod_name = new_module.find_internal_module(dest);
+                cout << mod_name << endl;
+                if (mod_name != "")
                 {   // is a module
                     cout << "Is a module." << endl;
                 }
@@ -212,7 +213,7 @@ void file_parser::parse(graph & g)
 
         // add module to the graph
         g.insert_module(new_module);
-        g.print();
+        // g.print();
         getline(file_in, cur_line);
     }
 

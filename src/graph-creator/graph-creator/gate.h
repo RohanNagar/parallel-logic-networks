@@ -9,7 +9,7 @@
 
 #include "gate-type.h"
 
-using gid_t = int32_t;              // id type of a gate - just an int
+using gtid_t = int32_t;              // id type of a gate - just an int
 
 namespace pln
 {
@@ -22,7 +22,7 @@ class gate
 {
 
 private:
-    gid_t m_id;                         // gate id (just a uint32_t)
+    gtid_t m_id;                         // gate id (just a uint32_t)
     std::string const m_name;           // unique name of the gate
     gate_type m_type;                   // gate type (enum)
     std::string const m_type_name;      // gate type (string)
@@ -35,7 +35,7 @@ public:
     gate(std::string const & name);
     gate(std::string const & name, std::string const & type);
 
-    gid_t get_id() const;
+    gtid_t get_id() const;
     std::string const & get_name() const;
     std::string const & get_type() const;
 
