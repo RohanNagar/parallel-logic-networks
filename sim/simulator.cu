@@ -137,10 +137,10 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
 
   for(int pass = 0; pass < num_passes; pass++){ 
    
-    // enter input values (0) 
+    // enter input values
     if(tid < num_inp){
       sMatrix[tid] &= (~OUT_MASK);
-      sMatrix[tid] |= setOUT(input[tid + pass * num_inp]); // TODO will need to fix based on location of input..
+      sMatrix[tid] |= setOUT(input[tid + pass * num_inp]); 
       __syncthreads();
     } 
 
@@ -164,7 +164,7 @@ __global__ void Simulate(uint64_t* matrix, uint32_t num_row, uint32_t num_col,
         case OBUF:
           gateOut = gateInp0; 
           break;
-        case INV: // TODO for all gates
+        case INV: 
           switch(gateInp0){
             case O:
               gateOut = I;
